@@ -16,6 +16,7 @@ export default function AboutPage() {
         eyebrow="About Promise Place"
         title="A welcoming place to start."
         lede="We are a community-based outpatient mental health facility serving families throughout Indiana — working with both adults and children to address gaps in mental health care."
+        tone="grape"
       />
       <About hideHead />
       <WhoWeServe />

@@ -23,6 +23,9 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="container">
+        <div className="accent-bar footer__accent" aria-hidden="true">
+          <span /><span /><span /><span /><span />
+        </div>
         <div className="footer__grid footer__grid--4">
           <div>
             {/* LOGO PLACEHOLDER — see README.md → "Adding the real logo". */}

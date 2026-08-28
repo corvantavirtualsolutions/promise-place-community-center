@@ -32,7 +32,7 @@ const CARD_TONE = { teal: "teal", coral: "sun", sun: "sky", grape: "grape" };
 
 export default function WhoWeServe({ hideHead = false }) {
   return (
-    <section className="section section--warm" id="who-we-serve">
+    <section className="section section--blush" id="who-we-serve">
       <div className="container">
         {!hideHead && (
         <Reveal className="section-head section-head--center">

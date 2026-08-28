@@ -15,6 +15,7 @@ export default function ServicesPage() {
         eyebrow="Our Services"
         title="Many kinds of support, one welcoming place."
         lede="Whether you're looking for therapy, an assessment, help with behavior at home or at school, or simply somewhere to start — there is likely a service here that fits."
+        tone="teal"
       />
       <Services hideHead />
       <CTABand

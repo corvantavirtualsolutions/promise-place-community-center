@@ -25,7 +25,7 @@ const OPTIONS = [
 
 export default function Insurance({ hideHead = false }) {
   return (
-    <section className="section" id="insurance">
+    <section className="section section--cream" id="insurance">
       <span className="blob blob--sky" style={{ width: 280, height: 280, bottom: "-90px", left: "-90px", opacity: .45 }} aria-hidden="true" />
 
       <div className="container" style={{ position: "relative", zIndex: 2 }}>
@@ -47,7 +47,7 @@ export default function Insurance({ hideHead = false }) {
             const Icon = o.icon;
             return (
               <Reveal key={o.title} delay={i * 100}>
-                <article className="pay-card" style={{ height: "100%" }}>
+                <article className={`pay-card pay-card--${o.tone}`} style={{ height: "100%" }}>
                   <span className={`chip chip--${o.tone}`}><Icon /></span>
                   <h3>{o.title}</h3>
                   <p>{o.body}</p>

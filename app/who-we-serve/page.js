@@ -15,7 +15,7 @@ export default function WhoWeServePage() {
         eyebrow="Who We Serve"
         title="Support for every member of the family."
         lede="Mental health looks different at every age. Promise Place works with children, adults, families, and schools across Indiana."
-        tone="coral"
+        tone="sun"
       />
       <WhoWeServe hideHead />
       <CTABand

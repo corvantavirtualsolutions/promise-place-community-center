@@ -50,7 +50,7 @@ export default function FAQ({ hideHead = false }) {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="section section--sky" id="faq">
+    <section className="section section--cream" id="faq">
       <div className="container">
         {!hideHead && (
           <div className="section-head section-head--center">

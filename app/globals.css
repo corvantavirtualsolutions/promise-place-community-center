@@ -1177,3 +1177,110 @@ ul { margin: 0; padding: 0; }
    the gap before the first content section. */
 .page-hero h1 { max-width: 20ch; }
 .page-hero + .section { padding-top: clamp(46px, 5.5vw, 78px); }
+
+/* ==========================================================================
+   COLOUR PASS — brighter, friendlier, still coordinated.
+   Sections rotate through an assigned tone rather than picking at random.
+   ========================================================================== */
+
+:root {
+  /* Visible section washes (the old ones were nearly white) */
+  --wash-mint:  #E7F8F4;
+  --wash-sky:   #EAF5FF;
+  --wash-cream: #FFF7E9;
+  --wash-blush: #FFF1F0;
+  --wash-lilac: #F4F1FF;
+}
+
+.section--mint  { background: var(--wash-mint); }
+.section--sky   { background: var(--wash-sky); }
+.section--cream { background: var(--wash-cream); }
+.section--blush { background: var(--wash-blush); }
+.section--lilac { background: var(--wash-lilac); }
+
+/* Existing modifiers get more colour too */
+.section--soft { background: var(--wash-mint); }
+.section--warm { background: var(--wash-cream); }
+
+/* Punchier icon chips */
+.chip--teal  { background: var(--teal-200);  color: var(--teal-800); }
+.chip--sky   { background: var(--sky-200);   color: var(--sky-700); }
+.chip--sun   { background: var(--sun-200);   color: var(--sun-700); }
+.chip--coral { background: var(--coral-200); color: var(--coral-700); }
+.chip--grape { background: var(--grape-200); color: var(--grape-700); }
+
+/* Multicolour accent bar — a small friendly signature */
+.accent-bar {
+  display: flex;
+  height: 6px;
+  border-radius: var(--r-full);
+  overflow: hidden;
+}
+.accent-bar span { flex: 1; }
+.accent-bar span:nth-child(1) { background: var(--teal-500); }
+.accent-bar span:nth-child(2) { background: var(--sky-500); }
+.accent-bar span:nth-child(3) { background: var(--sun-500); }
+.accent-bar span:nth-child(4) { background: var(--coral-500); }
+.accent-bar span:nth-child(5) { background: var(--grape-500); }
+
+/* Softer, warmer footer — deep teal instead of near-black */
+.footer { background: #0B2E33; }
+.footer__accent { margin-bottom: 42px; }
+
+/* Bigger, friendlier decorative shapes */
+.blob { opacity: .72; filter: blur(1px); }
+
+/* Value + serve cards: colour the top edge as well as the fill */
+.serve-card { border-top: 5px solid transparent; }
+.serve-card--teal  { background: var(--teal-50);  border-color: var(--teal-200);  border-top-color: var(--teal-500); }
+.serve-card--sky   { background: var(--sky-50);   border-color: var(--sky-200);   border-top-color: var(--sky-500); }
+.serve-card--sun   { background: var(--sun-50);   border-color: var(--sun-200);   border-top-color: var(--sun-500); }
+.serve-card--grape { background: var(--grape-50); border-color: var(--grape-200); border-top-color: var(--grape-500); }
+
+/* Process steps get their own colour, not just a numbered badge */
+.step { border-top: 5px solid transparent; }
+.step--1 { background: var(--teal-50);  border-color: var(--teal-200);  border-top-color: var(--teal-500); }
+.step--2 { background: var(--sky-50);   border-color: var(--sky-200);   border-top-color: var(--sky-500); }
+.step--3 { background: var(--sun-50);   border-color: var(--sun-200);   border-top-color: var(--sun-500); }
+
+/* Insurance cards get tinted per option */
+.pay-card { border-top: 5px solid transparent; }
+.pay-card--teal { background: var(--teal-50); border-color: var(--teal-200); border-top-color: var(--teal-500); }
+.pay-card--sky  { background: var(--sky-50);  border-color: var(--sky-200);  border-top-color: var(--sky-500); }
+.pay-card--sun  { background: var(--sun-50);  border-color: var(--sun-200);  border-top-color: var(--sun-500); }
+
+/* Value cards on About pick up a colour edge from their chip */
+.card--tint-coral { border-top: 5px solid var(--coral-500); background: var(--coral-50); }
+.card--tint-teal  { border-top: 5px solid var(--teal-500);  background: var(--teal-50); }
+.card--tint-sky   { border-top: 5px solid var(--sky-500);   background: var(--sky-50); }
+.card--tint-grape { border-top: 5px solid var(--grape-500); background: var(--grape-50); }
+.card--tint-coral .chip, .card--tint-teal .chip,
+.card--tint-sky .chip, .card--tint-grape .chip { background: #fff; }
+
+/* Interior page heroes take the page's own colour */
+.page-hero--teal  { background: radial-gradient(900px 420px at 84% -30%, var(--teal-100) 0%, transparent 62%), var(--wash-mint); }
+.page-hero--sky   { background: radial-gradient(900px 420px at 84% -30%, var(--sky-200) 0%, transparent 62%), var(--wash-sky); }
+.page-hero--sun   { background: radial-gradient(900px 420px at 84% -30%, var(--sun-200) 0%, transparent 62%), var(--wash-cream); }
+.page-hero--coral { background: radial-gradient(900px 420px at 84% -30%, var(--coral-200) 0%, transparent 62%), var(--wash-blush); }
+.page-hero--grape { background: radial-gradient(900px 420px at 84% -30%, var(--grape-200) 0%, transparent 62%), var(--wash-lilac); }
+
+/* Slightly softer geometry reads friendlier */
+:root { --r-lg: 26px; --r-xl: 38px; }
+
+/* Primary button gets a subtle gradient lift */
+.btn-primary {
+  background: linear-gradient(135deg, var(--teal-700), var(--teal-800));
+}
+.btn-primary:hover { background: linear-gradient(135deg, var(--teal-800), #0C4F5C); }
+
+/* Service group headings get a coloured rule so the categories read faster */
+.svc-group__head {
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--line);
+}
+
+/* Icon chips: darker glyph colour so every chip clears WCAG AA (4.5:1)
+   against its brighter background, not just the 3:1 graphics minimum. */
+.chip--sun   { color: #7A4A06; }
+.chip--coral { color: #9C0F31; }
+.chip--sky   { color: #02547E; }

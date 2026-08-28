@@ -31,7 +31,7 @@ const VALUES = [
 
 export default function About({ hideHead = false, moreLink = false }) {
   return (
-    <section className="section section--soft" id="about">
+    <section className="section section--mint" id="about">
       <div className="container about__grid">
         <Reveal className="about__aside">
           {!hideHead && (
@@ -67,7 +67,7 @@ export default function About({ hideHead = false, moreLink = false }) {
               const Icon = v.icon;
               return (
                 <Reveal key={v.title} delay={i * 90}>
-                  <article className="card card--hover" style={{ height: "100%" }}>
+                  <article className={`card card--hover card--tint-${v.tone}`} style={{ height: "100%" }}>
                     <span className={`chip chip--${v.tone}`}><Icon /></span>
                     <h3>{v.title}</h3>
                     <p>{v.body}</p>

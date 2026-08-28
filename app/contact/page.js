@@ -14,6 +14,7 @@ export default function ContactPage() {
         eyebrow="Contact Us"
         title="We're glad you reached out."
         lede="Send us a question or a request for services and our team will follow up with information about how we can help."
+        tone="teal"
       />
       <Contact hideHead />
     </>

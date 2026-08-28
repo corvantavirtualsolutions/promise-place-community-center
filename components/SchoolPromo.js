@@ -10,7 +10,7 @@ const POINTS = [
 
 export default function SchoolPromo() {
   return (
-    <section className="section section--soft">
+    <section className="section section--lilac">
       <div className="container">
         <Reveal className="promo">
           <div>

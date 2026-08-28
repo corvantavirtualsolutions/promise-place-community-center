@@ -22,7 +22,7 @@ const STEPS = [
 
 export default function Process({ hideHead = false }) {
   return (
-    <section className="section section--soft" id="get-started">
+    <section className="section section--sky" id="get-started">
       <div className="container">
         {!hideHead && (
         <Reveal className="section-head section-head--center">
