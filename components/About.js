@@ -33,7 +33,7 @@ export default function About({ hideHead = false, moreLink = false }) {
   return (
     <section className="section section--mint" id="about">
       <div className="container about__grid">
-        <Reveal className="about__aside">
+        <Reveal className="about__aside" dir="left">
           {!hideHead && (
             <>
               <span className="eyebrow">About Promise Place</span>

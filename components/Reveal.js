@@ -2,9 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/* Fades sections in on scroll. Respects prefers-reduced-motion, and always
-   renders content even if IntersectionObserver is unavailable. */
-export default function Reveal({ children, delay = 0, as: Tag = "div", className = "" }) {
+/* Scroll-reveal wrapper.
+   dir: "up" | "left" | "right" | "scale" | "fade"
+   Always renders content, and honours prefers-reduced-motion. */
+export default function Reveal({
+  children,
+  delay = 0,
+  dir = "up",
+  as: Tag = "div",
+  className = "",
+  style,
+}) {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
 
@@ -30,7 +38,7 @@ export default function Reveal({ children, delay = 0, as: Tag = "div", className
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
     );
 
     observer.observe(node);
@@ -40,8 +48,8 @@ export default function Reveal({ children, delay = 0, as: Tag = "div", className
   return (
     <Tag
       ref={ref}
-      className={`reveal ${visible ? "is-visible" : ""} ${className}`.trim()}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      className={`reveal reveal--${dir} ${visible ? "is-visible" : ""} ${className}`.trim()}
+      style={delay ? { ...style, transitionDelay: `${delay}ms` } : style}
     >
       {children}
     </Tag>

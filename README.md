@@ -64,6 +64,30 @@ because `PageHero` already supplies the page's single `<h1>`; the home page
 omits it so each section keeps its own `<h2>`.
 ```
 
+## Motion & animation
+
+Everything is CSS-driven with a JavaScript observer for scroll reveals — no
+animation library.
+
+| Piece | File |
+|---|---|
+| Scroll reveals (`up` / `left` / `right` / `scale` / `fade`) | `components/Reveal.js` |
+| Route fade-and-lift on navigation | `components/PageTransition.js` |
+| Gradient scroll-progress bar | `components/ScrollProgress.js` |
+| Back-to-top button | `components/BackToTop.js` |
+| Curved section dividers | `components/Divider.js` |
+| Keyframes, hovers, sheens | the MOTION LAYER block in `app/globals.css` |
+
+Two guarantees, both tested:
+
+- **`prefers-reduced-motion: reduce`** disables every animation and transition.
+  The override block is the last thing in `globals.css` and must stay there.
+- **No JavaScript** — a `<noscript>` block in `app/layout.js` forces all
+  revealed content visible, so the site renders fully without JS.
+
+If you add a new animation, add it above that final reduced-motion block, and
+add the selector to the override list if it moves or fades anything.
+
 ---
 
 ## Common edits

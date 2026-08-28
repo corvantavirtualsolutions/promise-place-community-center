@@ -20,7 +20,7 @@ export default function SchoolBased({ hideHead = false }) {
         <span className="blob" style={{ width: 320, height: 320, background: "#14B8A6", opacity: .13, top: "6%", left: "-110px" }} aria-hidden="true" />
 
         <div className="container school__grid">
-          <Reveal>
+          <Reveal dir="left">
             {!hideHead && (
               <>
                 <span className="eyebrow">School-Based Services</span>
@@ -39,7 +39,7 @@ export default function SchoolBased({ hideHead = false }) {
             </ul>
           </Reveal>
 
-          <Reveal delay={140}>
+          <Reveal dir="right" delay={140}>
             <div className="program-card">
               <span className="tag">Featured Program</span>
               <h3 style={{ display: "flex", alignItems: "center", gap: 12 }}>

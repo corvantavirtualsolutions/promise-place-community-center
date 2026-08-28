@@ -6,6 +6,7 @@ import SchoolPromo from "@/components/SchoolPromo";
 import Insurance from "@/components/Insurance";
 import Process from "@/components/Process";
 import CTABand from "@/components/CTABand";
+import Divider from "@/components/Divider";
 import { SITE } from "@/components/site";
 
 /* Structured data uses only details the organization has provided.
@@ -38,8 +39,10 @@ export default function Page() {
       <About moreLink />
       <ServicesTeaser />
       <WhoWeServe />
+      <Divider from="var(--wash-blush)" to="#F4F1FF" />
       <SchoolPromo />
       <Insurance />
+      <Divider from="var(--wash-cream)" to="#EAF5FF" />
       <Process />
       <CTABand />
     </>

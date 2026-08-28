@@ -1284,3 +1284,275 @@ ul { margin: 0; padding: 0; }
 .chip--sun   { color: #7A4A06; }
 .chip--coral { color: #9C0F31; }
 .chip--sky   { color: #02547E; }
+
+/* ==========================================================================
+   MOTION LAYER
+   Everything here is disabled wholesale under prefers-reduced-motion
+   (see the block at the very end of this file).
+   ========================================================================== */
+
+/* --- Scroll reveal, now directional --- */
+.reveal {
+  opacity: 0;
+  transition:
+    opacity .68s var(--ease),
+    transform .68s var(--ease);
+  will-change: opacity, transform;
+}
+.reveal--up     { transform: translateY(26px); }
+.reveal--left   { transform: translateX(-30px); }
+.reveal--right  { transform: translateX(30px); }
+.reveal--scale  { transform: scale(.94); }
+.reveal--fade   { transform: none; }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* --- Route transition --- */
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+.page-transition { animation: pageIn .5s var(--ease) both; }
+
+/* --- Scroll progress bar --- */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  z-index: 120;
+  pointer-events: none;
+  background: transparent;
+}
+.scroll-progress span {
+  display: block;
+  height: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(90deg,
+    var(--teal-500), var(--sky-500), var(--sun-500), var(--coral-500), var(--grape-500));
+}
+
+/* --- Back to top --- */
+.back-to-top {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 110;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--teal-700);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: var(--sh-teal);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px) scale(.9);
+  transition: opacity .3s var(--ease), transform .3s var(--ease), visibility 0s linear .3s, background-color .2s var(--ease);
+}
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity .3s var(--ease), transform .3s var(--ease), visibility 0s, background-color .2s var(--ease);
+}
+.back-to-top:hover { background: var(--teal-800); transform: translateY(-3px); }
+
+/* --- Section dividers --- */
+.divider { line-height: 0; }
+.divider__svg { display: block; width: 100%; height: clamp(38px, 4.5vw, 70px); }
+
+/* --- Drifting decorative blobs --- */
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33%      { transform: translate(14px, -18px) rotate(6deg); }
+  66%      { transform: translate(-12px, 12px) rotate(-5deg); }
+}
+.blob {
+  animation: drift 22s ease-in-out infinite;
+  border-radius: 46% 54% 62% 38% / 47% 40% 60% 53%;
+}
+.blob:nth-of-type(2) { animation-duration: 28s; animation-delay: -6s; }
+.blob:nth-of-type(3) { animation-duration: 34s; animation-delay: -13s; }
+
+/* --- Hero illustration life --- */
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+@keyframes twinkle {
+  0%, 100% { opacity: .35; transform: scale(.85); }
+  50%      { opacity: 1;   transform: scale(1.1); }
+}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  45%      { transform: scale(1.07); }
+}
+.art-rays  { transform-origin: 396px 74px; animation: spin-slow 46s linear infinite; }
+.art-dot   { animation: twinkle 4.5s ease-in-out infinite; transform-origin: center; }
+.art-dot:nth-of-type(2) { animation-delay: -1.1s; }
+.art-dot:nth-of-type(3) { animation-delay: -2.2s; }
+.art-dot:nth-of-type(4) { animation-delay: -3.3s; }
+.art-dot:nth-of-type(5) { animation-delay: -0.6s; }
+.art-heart { transform-origin: 240px 140px; animation: heartbeat 3.6s ease-in-out infinite; }
+
+/* --- Card and button micro-interactions --- */
+.card, .svc-card, .serve-card, .pay-card, .step, .teaser-card {
+  transition:
+    transform .28s var(--ease),
+    box-shadow .28s var(--ease),
+    border-color .28s var(--ease);
+}
+.card--hover:hover, .svc-card:hover, .serve-card:hover,
+.pay-card:hover, .teaser-card:hover {
+  transform: translateY(-6px);
+}
+.svc-card:hover  { box-shadow: 0 16px 34px rgba(13, 148, 136, .16); }
+.serve-card:hover { box-shadow: 0 16px 34px rgba(21, 36, 46, .12); }
+.pay-card:hover  { box-shadow: 0 16px 34px rgba(2, 132, 199, .15); }
+.teaser-card:hover { box-shadow: 0 20px 42px rgba(13, 148, 136, .18); }
+
+/* Chips tilt very slightly on card hover */
+.chip { transition: transform .32s var(--ease); }
+.card--hover:hover .chip,
+.svc-card:hover .chip,
+.serve-card:hover .chip,
+.teaser-card:hover .chip,
+.pay-card:hover .chip { transform: rotate(-6deg) scale(1.06); }
+
+/* Sheen sweep across primary buttons */
+.btn-primary, .btn-sun { position: relative; overflow: hidden; isolation: isolate; }
+.btn-primary::after, .btn-sun::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -60%;
+  width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .3), transparent);
+  transform: skewX(-18deg);
+  transition: left .55s var(--ease);
+  z-index: -1;
+}
+.btn-primary:hover::after, .btn-sun:hover::after { left: 115%; }
+
+/* Arrow nudges forward */
+.btn svg { transition: transform .24s var(--ease); }
+.btn:hover svg:last-child { transform: translateX(3px); }
+
+/* Animated nav underline */
+.nav a { position: relative; }
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 13px; right: 13px; bottom: 4px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--teal-600);
+  transform: scaleX(0);
+  transform-origin: 50%;
+  transition: transform .26s var(--ease);
+}
+.nav a:hover::after { transform: scaleX(1); }
+.nav a.is-active::after { transform: scaleX(1); background: var(--teal-700); }
+
+/* Links in prose get an animated underline too */
+.info-card a, .footer a { transition: color .2s var(--ease); }
+
+/* FAQ rows lift a touch when open */
+.faq__item { transition: border-color .25s var(--ease), box-shadow .25s var(--ease), transform .25s var(--ease); }
+.faq__item.is-open { transform: translateY(-2px); }
+
+/* Form fields ease into focus */
+.field input, .field select, .field textarea {
+  transition: border-color .2s var(--ease), background-color .2s var(--ease), box-shadow .2s var(--ease);
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  box-shadow: 0 0 0 4px rgba(20, 184, 166, .16);
+}
+.radio-pill { transition: all .2s var(--ease); }
+.radio-pill:hover { border-color: var(--teal-300); }
+
+/* ==========================================================================
+   READING COMFORT
+   ========================================================================== */
+
+:root {
+  /* A hint off pure white — less glare over long reads, and white cards
+     still read as white against it. */
+  --bg: #FCFDFD;
+}
+
+body { line-height: 1.72; }
+
+p { text-wrap: pretty; }
+
+/* Long-form paragraphs stay in a comfortable measure */
+.section-head p,
+.page-hero__lede,
+.hero__lede { max-width: 62ch; }
+.section-head--center p { margin-inline: auto; }
+
+/* Headings breathe a little more at large sizes */
+h1 { line-height: 1.1; }
+h2 { line-height: 1.16; margin-bottom: .45em; }
+
+/* Friendlier selection colour */
+::selection { background: var(--teal-200); color: var(--teal-800); }
+
+/* Softer, more layered shadows */
+:root {
+  --sh-sm: 0 1px 2px rgba(21, 36, 46, .04), 0 3px 10px rgba(21, 36, 46, .04);
+  --sh:    0 2px 6px rgba(21, 36, 46, .05), 0 10px 28px rgba(21, 36, 46, .07);
+  --sh-lg: 0 4px 12px rgba(21, 36, 46, .05), 0 22px 52px rgba(21, 36, 46, .10);
+}
+
+/* Slimmer, quieter scrollbar on supporting browsers */
+@supports (scrollbar-width: thin) {
+  html { scrollbar-width: thin; scrollbar-color: var(--teal-300) transparent; }
+}
+
+/* ==========================================================================
+   REDUCED MOTION — final say. Must stay at the end of this file.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: .001ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .reveal, .reveal--up, .reveal--left, .reveal--right, .reveal--scale {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .page-transition { animation: none !important; }
+  .blob, .art-rays, .art-dot, .art-heart, .floaty { animation: none !important; }
+
+  .btn:hover, .btn:hover svg,
+  .card--hover:hover, .svc-card:hover, .serve-card:hover,
+  .pay-card:hover, .teaser-card:hover,
+  .faq__item.is-open, .back-to-top:hover { transform: none !important; }
+
+  .card--hover:hover .chip, .svc-card:hover .chip, .serve-card:hover .chip,
+  .teaser-card:hover .chip, .pay-card:hover .chip { transform: none !important; }
+
+  .btn-primary::after, .btn-sun::after { display: none; }
+  .nav a::after { transition: none; }
+}
+
+/* CTA band reads as a rounded slab, so it sits well on any section colour
+   above it without needing a matching divider. */
+.cta-band {
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+  margin-top: clamp(20px, 3vw, 40px);
+}
+
+/* Coral variant so every Who We Serve card can match its own chip colour */
+.serve-card--coral {
+  background: var(--coral-50);
+  border-color: var(--coral-200);
+  border-top-color: var(--coral-500);
+}

@@ -28,7 +28,8 @@ const GROUPS = [
   },
 ];
 
-const CARD_TONE = { teal: "teal", coral: "sun", sun: "sky", grape: "grape" };
+/* Card fill matches its own chip colour — one tone per card. */
+const CARD_TONE = { teal: "teal", coral: "coral", sun: "sun", grape: "grape" };
 
 export default function WhoWeServe({ hideHead = false }) {
   return (
@@ -49,7 +50,7 @@ export default function WhoWeServe({ hideHead = false }) {
           {GROUPS.map((g, i) => {
             const Icon = g.icon;
             return (
-              <Reveal key={g.title} delay={i * 90}>
+              <Reveal key={g.title} dir="scale" delay={i * 90}>
                 <article className={`serve-card serve-card--${CARD_TONE[g.tone]}`} style={{ height: "100%" }}>
                   <span className={`chip chip--${g.tone}`}><Icon /></span>
                   <h3>{g.title}</h3>

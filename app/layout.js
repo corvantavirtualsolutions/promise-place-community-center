@@ -1,5 +1,8 @@
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import Header from "@/components/Header";
+import ScrollProgress from "@/components/ScrollProgress";
+import PageTransition from "@/components/PageTransition";
+import BackToTop from "@/components/BackToTop";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
@@ -59,10 +62,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${heading.variable} ${body.variable}`}>
       <body>
+        {/* Scroll reveals rely on JavaScript. Without it, show everything. */}
+        <noscript>
+          <style>{`.reveal { opacity: 1 !important; transform: none !important; }`}</style>
+        </noscript>
         <a className="skip-link" href="#main">Skip to main content</a>
+        <ScrollProgress />
         <Header />
-        <main id="main">{children}</main>
+        <main id="main">
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer />
+        <BackToTop />
       </body>
     </html>
   );

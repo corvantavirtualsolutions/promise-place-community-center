@@ -17,7 +17,7 @@ export default function Hero() {
       <span className="blob blob--grape" style={{ width: 130, height: 130, top: "24%", left: "44%", opacity: .35 }} aria-hidden="true" />
 
       <div className="container hero__grid">
-        <Reveal>
+        <Reveal dir="left">
           <span className="eyebrow">Serving families throughout Indiana</span>
           <h1>
             Support for{" "}
@@ -51,7 +51,7 @@ export default function Hero() {
           </ul>
         </Reveal>
 
-        <Reveal className="hero__art" delay={120}>
+        <Reveal className="hero__art" dir="right" delay={120}>
           <div className="hero__stat hero__stat--a floaty">
             <span className="chip chip--sky" style={{ width: 38, height: 38, borderRadius: 12, marginBottom: 0 }}>
               <Video style={{ width: 19, height: 19 }} />
@@ -83,7 +83,7 @@ export default function Hero() {
 
               {/* sun */}
               <circle cx="396" cy="74" r="38" fill="#FCD34D" />
-              <g stroke="#FBBF24" strokeWidth="7" strokeLinecap="round">
+              <g className="art-rays" stroke="#FBBF24" strokeWidth="7" strokeLinecap="round">
                 <path d="M396 14v-2M396 138v2M456 74h2M334 74h-2M440 30l2-2M350 120l-2 2M440 118l2 2M350 28l-2-2" />
               </g>
 
@@ -114,16 +114,17 @@ export default function Hero() {
 
               {/* connecting heart */}
               <path
+                className="art-heart"
                 d="M240 108c-14-15-38-5-38 14 0 16 22 29 38 41 16-12 38-25 38-41 0-19-24-29-38-14z"
                 fill="#8B5CF6" opacity=".9"
               />
 
               {/* floating dots */}
-              <circle cx="58" cy="92" r="9" fill="#7DD3FC" />
-              <circle cx="150" cy="58" r="6" fill="#FDA4AF" />
-              <circle cx="292" cy="52" r="7" fill="#5EE0C9" />
-              <circle cx="432" cy="216" r="8" fill="#C4B5FD" />
-              <circle cx="36" cy="228" r="6" fill="#FCD34D" />
+              <circle className="art-dot" cx="58" cy="92" r="9" fill="#7DD3FC" />
+              <circle className="art-dot" cx="150" cy="58" r="6" fill="#FDA4AF" />
+              <circle className="art-dot" cx="292" cy="52" r="7" fill="#5EE0C9" />
+              <circle className="art-dot" cx="432" cy="216" r="8" fill="#C4B5FD" />
+              <circle className="art-dot" cx="36" cy="228" r="6" fill="#FCD34D" />
             </svg>
           </div>
         </Reveal>

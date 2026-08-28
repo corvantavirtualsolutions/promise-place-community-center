@@ -76,7 +76,7 @@ export default function Services({ hideHead = false }) {
           const GroupIcon = group.icon;
           return (
             <div className="svc-group" key={group.title}>
-              <Reveal className="svc-group__head">
+              <Reveal className="svc-group__head" dir="left">
                 <span className="svc-group__dot" style={DOT_BG[group.tone]}><GroupIcon /></span>
                 <h3>{group.title}</h3>
               </Reveal>

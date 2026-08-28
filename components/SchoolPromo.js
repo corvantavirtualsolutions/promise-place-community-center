@@ -12,7 +12,7 @@ export default function SchoolPromo() {
   return (
     <section className="section section--lilac">
       <div className="container">
-        <Reveal className="promo">
+        <Reveal className="promo" dir="scale">
           <div>
             <span className="eyebrow">School-Based Services</span>
             <h2>Support doesn&rsquo;t stop at the office.</h2>

@@ -12,7 +12,7 @@ export default function CTABand({
   return (
     <section className="cta-band">
       <div className="container">
-        <Reveal className="cta-band__inner">
+        <Reveal className="cta-band__inner" dir="scale">
           <div>
             <h2>{title}</h2>
             <p>{body}</p>
