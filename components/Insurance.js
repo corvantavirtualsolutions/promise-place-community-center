@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Reveal from "./Reveal";
 import { Shield, Handshake, Heart, Info, ArrowRight } from "./Icons";
 
@@ -22,22 +23,24 @@ const OPTIONS = [
   },
 ];
 
-export default function Insurance() {
+export default function Insurance({ hideHead = false }) {
   return (
     <section className="section" id="insurance">
       <span className="blob blob--sky" style={{ width: 280, height: 280, bottom: "-90px", left: "-90px", opacity: .45 }} aria-hidden="true" />
 
       <div className="container" style={{ position: "relative", zIndex: 2 }}>
+        {!hideHead && (
         <Reveal className="section-head section-head--center">
-          <span className="eyebrow eyebrow--sky">Insurance &amp; Payment</span>
-          <h2>Care that works with your needs.</h2>
-          <p>
-            We believe getting mental health support should be as accessible as
-            possible. Promise Place Community Center accepts Medicaid and commercial
-            insurance, and offers sliding-scale services to help make care more
-            accessible.
-          </p>
-        </Reveal>
+            <span className="eyebrow eyebrow--sky">Insurance &amp; Payment</span>
+            <h2>Care that works with your needs.</h2>
+            <p>
+              We believe getting mental health support should be as accessible as
+              possible. Promise Place Community Center accepts Medicaid and commercial
+              insurance, and offers sliding-scale services to help make care more
+              accessible.
+            </p>
+          </Reveal>
+        )}
 
         <div className="grid grid-3">
           {OPTIONS.map((o, i) => {
@@ -66,7 +69,7 @@ export default function Insurance() {
 
         <Reveal>
           <div style={{ textAlign: "center", marginTop: 34 }}>
-            <a className="btn btn-primary" href="#contact">Talk With Our Team <ArrowRight /></a>
+            <Link className="btn btn-primary" href="/contact">Talk With Our Team <ArrowRight /></Link>
           </div>
         </Reveal>
       </div>

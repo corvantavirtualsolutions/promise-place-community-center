@@ -1,13 +1,20 @@
+import Link from "next/link";
 import { SITE } from "./site";
 import { Heart, Mail, MapPin } from "./Icons";
 
-const NAV = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#services", label: "Services" },
-  { href: "#school-based", label: "School-Based Services" },
-  { href: "#get-started", label: "How to Get Started" },
-  { href: "#contact", label: "Contact" },
+const EXPLORE = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/who-we-serve", label: "Who We Serve" },
+];
+
+const MORE = [
+  { href: "/school-based-services", label: "School-Based Services" },
+  { href: "/insurance", label: "Insurance & Payment" },
+  { href: "/get-started", label: "How to Get Started" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Footer() {
@@ -16,26 +23,33 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="container">
-        <div className="footer__grid">
+        <div className="footer__grid footer__grid--4">
           <div>
             {/* LOGO PLACEHOLDER — see README.md → "Adding the real logo". */}
-            <a className="logo" href="#home" aria-label={`${SITE.name} — back to top`}>
+            <Link className="logo" href="/" aria-label={`${SITE.name} — home`}>
               <span className="logo__mark"><Heart /></span>
               <span className="logo__text">
                 <span className="logo__name">{SITE.shortName}</span>
                 <span className="logo__sub">Community Center</span>
               </span>
-            </a>
-            <p>
-              {SITE.tagline} for children, adults, and families throughout Indiana.
-            </p>
+            </Link>
+            <p>{SITE.tagline} for children, adults, and families throughout Indiana.</p>
           </div>
 
           <nav aria-label="Footer navigation">
             <h4>Explore</h4>
             <ul>
-              {NAV.map((n) => (
-                <li key={n.href}><a href={n.href}>{n.label}</a></li>
+              {EXPLORE.map((n) => (
+                <li key={n.href}><Link href={n.href}>{n.label}</Link></li>
+              ))}
+            </ul>
+          </nav>
+
+          <nav aria-label="More pages">
+            <h4>Services &amp; Support</h4>
+            <ul>
+              {MORE.map((n) => (
+                <li key={n.href}><Link href={n.href}>{n.label}</Link></li>
               ))}
             </ul>
           </nav>
@@ -66,8 +80,8 @@ export default function Footer() {
           <p style={{ margin: 0 }}>&copy; {year} {SITE.name}. All rights reserved.</p>
           <div className="footer__legal">
             {/* PLACEHOLDER links — real policy copy has not been provided. */}
-            <a href="#contact">Privacy Policy</a>
-            <a href="#contact">Terms of Use</a>
+            <Link href="/contact">Privacy Policy</Link>
+            <Link href="/contact">Terms of Use</Link>
           </div>
         </div>
       </div>

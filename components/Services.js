@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Reveal from "./Reveal";
 import { Chat, Video, Leaf, Flame, Clipboard, Compass, Sparkle, Blocks, Shield, School, Sun, ArrowRight } from "./Icons";
 
@@ -53,21 +54,23 @@ const DOT_BG = {
   grape: { background: "var(--grape-100)", color: "var(--grape-700)" },
 };
 
-export default function Services() {
+export default function Services({ hideHead = false }) {
   return (
     <section className="section" id="services">
       <span className="blob blob--teal" style={{ width: 300, height: 300, top: "8%", right: "-120px", opacity: .4 }} aria-hidden="true" />
 
       <div className="container" style={{ position: "relative", zIndex: 2 }}>
+        {!hideHead && (
         <Reveal className="section-head section-head--center">
-          <span className="eyebrow">Our Services</span>
-          <h2>Many kinds of support, one welcoming place.</h2>
-          <p>
-            Whether you&rsquo;re looking for therapy, an assessment, help with
-            behavior at home or at school, or simply somewhere to start &mdash; there
-            is likely a service here that fits.
-          </p>
-        </Reveal>
+            <span className="eyebrow">Our Services</span>
+            <h2>Many kinds of support, one welcoming place.</h2>
+            <p>
+              Whether you&rsquo;re looking for therapy, an assessment, help with
+              behavior at home or at school, or simply somewhere to start &mdash; there
+              is likely a service here that fits.
+            </p>
+          </Reveal>
+        )}
 
         {GROUPS.map((group, gi) => {
           const GroupIcon = group.icon;
@@ -104,7 +107,7 @@ export default function Services() {
         <Reveal>
           <div className="svc-note">
             <p>Not sure which service is the right fit? That&rsquo;s okay &mdash; we can help you figure it out.</p>
-            <a className="btn btn-primary" href="#contact">Ask a Question <ArrowRight /></a>
+            <Link className="btn btn-primary" href="/contact">Ask a Question <ArrowRight /></Link>
           </div>
         </Reveal>
       </div>

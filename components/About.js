@@ -1,5 +1,6 @@
+import Link from "next/link";
 import Reveal from "./Reveal";
-import { Heart, Users, Handshake, Home } from "./Icons";
+import { Heart, Users, Handshake, Home, ArrowRight } from "./Icons";
 
 const VALUES = [
   {
@@ -28,13 +29,17 @@ const VALUES = [
   },
 ];
 
-export default function About() {
+export default function About({ hideHead = false, moreLink = false }) {
   return (
     <section className="section section--soft" id="about">
       <div className="container about__grid">
         <Reveal className="about__aside">
-          <span className="eyebrow">About Promise Place</span>
-          <h2>A welcoming place to start.</h2>
+          {!hideHead && (
+            <>
+              <span className="eyebrow">About Promise Place</span>
+              <h2>A welcoming place to start.</h2>
+            </>
+          )}
           <p>
             Promise Place Community Center is a community-based outpatient mental
             health facility serving families throughout Indiana. We work with both
@@ -42,6 +47,11 @@ export default function About() {
             care and providing quality, innovative, and accessible services to
             families in need.
           </p>
+          {moreLink && (
+            <Link className="btn btn-secondary" href="/about" style={{ marginTop: 4 }}>
+              More About Promise Place <ArrowRight />
+            </Link>
+          )}
           <div className="about__quote" style={{ marginTop: 30 }}>
             <p>&ldquo;Addressing your mental health doesn&rsquo;t have to be difficult, intimidating, or overwhelming.&rdquo;</p>
             <p className="about__quote-sub">

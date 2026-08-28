@@ -1,14 +1,11 @@
-import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Services from "@/components/Services";
+import ServicesTeaser from "@/components/ServicesTeaser";
 import WhoWeServe from "@/components/WhoWeServe";
-import SchoolBased from "@/components/SchoolBased";
+import SchoolPromo from "@/components/SchoolPromo";
 import Insurance from "@/components/Insurance";
 import Process from "@/components/Process";
-import FAQ from "@/components/FAQ";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+import CTABand from "@/components/CTABand";
 import { SITE } from "@/components/site";
 
 /* Structured data uses only details the organization has provided.
@@ -37,19 +34,14 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Header />
-      <main id="main">
-        <Hero />
-        <About />
-        <Services />
-        <WhoWeServe />
-        <SchoolBased />
-        <Insurance />
-        <Process />
-        <FAQ />
-        <Contact />
-      </main>
-      <Footer />
+      <Hero />
+      <About moreLink />
+      <ServicesTeaser />
+      <WhoWeServe />
+      <SchoolPromo />
+      <Insurance />
+      <Process />
+      <CTABand />
     </>
   );
 }

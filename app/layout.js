@@ -1,4 +1,6 @@
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 const heading = Plus_Jakarta_Sans({
@@ -19,7 +21,10 @@ const DESCRIPTION =
   "Promise Place Community Center provides community-based outpatient mental health services for children, adults, and families throughout Indiana, including therapy, telehealth, case management, school-based services, assessments, and more.";
 
 export const metadata = {
-  title: "Promise Place Community Center | Mental Health Services in Indiana",
+  title: {
+    default: "Promise Place Community Center | Mental Health Services in Indiana",
+    template: "%s | Promise Place Community Center",
+  },
   description: DESCRIPTION,
   keywords: [
     "mental health services Indiana",
@@ -55,7 +60,9 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${heading.variable} ${body.variable}`}>
       <body>
         <a className="skip-link" href="#main">Skip to main content</a>
-        {children}
+        <Header />
+        <main id="main">{children}</main>
+        <Footer />
       </body>
     </html>
   );

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Reveal from "./Reveal";
 import { ArrowRight, Chat } from "./Icons";
 
@@ -19,15 +20,17 @@ const STEPS = [
   },
 ];
 
-export default function Process() {
+export default function Process({ hideHead = false }) {
   return (
     <section className="section section--soft" id="get-started">
       <div className="container">
+        {!hideHead && (
         <Reveal className="section-head section-head--center">
-          <span className="eyebrow eyebrow--sun">How to Get Started</span>
-          <h2>Getting started is easy.</h2>
-          <p>Three simple steps. No complicated paperwork to begin the conversation.</p>
-        </Reveal>
+            <span className="eyebrow eyebrow--sun">How to Get Started</span>
+            <h2>Getting started is easy.</h2>
+            <p>Three simple steps. No complicated paperwork to begin the conversation.</p>
+          </Reveal>
+        )}
 
         <div className="grid grid-3">
           {STEPS.map((s, i) => (
@@ -43,8 +46,8 @@ export default function Process() {
 
         <Reveal>
           <div className="steps-cta">
-            <a className="btn btn-primary" href="#contact">Contact Promise Place <ArrowRight /></a>
-            <a className="btn btn-secondary" href="#contact"><Chat style={{ width: 19, height: 19 }} /> Ask a Question</a>
+            <Link className="btn btn-primary" href="/contact">Contact Promise Place <ArrowRight /></Link>
+            <Link className="btn btn-secondary" href="/contact"><Chat style={{ width: 19, height: 19 }} /> Ask a Question</Link>
           </div>
         </Reveal>
       </div>

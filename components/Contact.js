@@ -30,7 +30,7 @@ const TOPICS = [
   "Not sure yet",
 ];
 
-export default function Contact() {
+export default function Contact({ hideHead = false }) {
   const [sent, setSent] = useState(false);
 
   /* No backend is connected yet, so the form opens the visitor's email app with
@@ -64,7 +64,8 @@ export default function Contact() {
       <span className="blob blob--teal" style={{ width: 260, height: 260, top: "12%", right: "-100px", opacity: .4 }} aria-hidden="true" />
 
       <div className="container" style={{ position: "relative", zIndex: 2 }}>
-        <div className="section-head section-head--center">
+        {!hideHead && (
+          <div className="section-head section-head--center">
           <span className="eyebrow">Contact Us</span>
           <h2>We&rsquo;re glad you reached out.</h2>
           <p>
@@ -72,6 +73,7 @@ export default function Contact() {
             with information about how we can help.
           </p>
         </div>
+        )}
 
         <div className="contact__grid">
           <div>

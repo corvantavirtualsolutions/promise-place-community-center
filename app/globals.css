@@ -1028,3 +1028,152 @@ ul { margin: 0; padding: 0; }
 /* Header goes solid while the mobile menu is open, so page content
    never shows through the panel. */
 .header:has(.mobile-nav.is-open) { background: #fff; box-shadow: var(--sh); }
+
+/* ==========================================================================
+   MULTI-PAGE: interior page hero, CTA band, breadcrumb-free page rhythm
+   ========================================================================== */
+
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(900px 420px at 82% -30%, var(--sky-50) 0%, transparent 62%),
+    radial-gradient(700px 380px at 2% 0%, var(--teal-50) 0%, transparent 58%),
+    var(--bg-warm);
+  padding-block: clamp(46px, 6vw, 78px) clamp(40px, 5vw, 66px);
+  border-bottom: 1px solid var(--line);
+}
+.page-hero .container { position: relative; z-index: 2; }
+.page-hero h1 {
+  font-size: clamp(2rem, 4.4vw, 3.15rem);
+  max-width: 16ch;
+  margin-bottom: 16px;
+}
+.page-hero__lede {
+  font-size: clamp(1.03rem, 1.35vw, 1.15rem);
+  color: var(--ink-2);
+  max-width: 60ch;
+  margin: 0;
+}
+
+/* Closing CTA band */
+.cta-band {
+  background: linear-gradient(140deg, var(--teal-700) 0%, var(--teal-800) 60%, #0C4F5C 100%);
+  color: var(--teal-100);
+  padding-block: clamp(48px, 6vw, 76px);
+}
+.cta-band__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(24px, 4vw, 52px);
+  flex-wrap: wrap;
+}
+.cta-band h2 { color: #fff; margin-bottom: 10px; font-size: clamp(1.6rem, 3vw, 2.2rem); }
+.cta-band p { margin: 0; max-width: 52ch; font-size: 1.02rem; }
+.cta-band__actions { display: flex; flex-wrap: wrap; gap: 13px; }
+
+.btn-ghost {
+  background: rgba(255, 255, 255, .1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, .3);
+}
+.btn-ghost:hover { background: rgba(255, 255, 255, .18); color: #fff; }
+
+/* Active nav state */
+.nav a.is-active {
+  background: var(--teal-50);
+  color: var(--teal-800);
+  font-weight: 700;
+}
+.mobile-nav a.is-active { color: var(--teal-700); }
+
+/* Teaser cards on the home page */
+.teaser-card {
+  display: block;
+  text-decoration: none;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 28px 26px;
+  box-shadow: var(--sh-sm);
+  height: 100%;
+  transition: transform .22s var(--ease), box-shadow .22s var(--ease);
+}
+.teaser-card:hover { transform: translateY(-5px); box-shadow: var(--sh-lg); }
+.teaser-card h3 { margin-bottom: 8px; }
+.teaser-card p { font-size: .95rem; color: var(--ink-2); margin-bottom: 14px; }
+.teaser-card ul {
+  list-style: none;
+  display: grid;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+.teaser-card li {
+  font-size: .89rem;
+  color: var(--ink-3);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.teaser-card li::before {
+  content: "";
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--teal-500);
+  flex: none;
+}
+.teaser-card__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-heading), sans-serif;
+  font-weight: 750;
+  font-size: .93rem;
+  color: var(--teal-700);
+}
+.teaser-card__more svg { width: 17px; height: 17px; transition: transform .2s var(--ease); }
+.teaser-card:hover .teaser-card__more svg { transform: translateX(4px); }
+
+/* Split promo (school-based teaser on home) */
+.promo {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: clamp(28px, 4vw, 54px);
+  align-items: center;
+  background: linear-gradient(150deg, #0E5F6E, var(--teal-800));
+  border-radius: var(--r-xl);
+  padding: clamp(30px, 4vw, 52px);
+  color: var(--teal-100);
+  overflow: hidden;
+  position: relative;
+}
+.promo h2, .promo h3 { color: #fff; }
+.promo p { font-size: 1.02rem; }
+.promo .eyebrow {
+  color: #fff;
+  background: rgba(255, 255, 255, .14);
+  border-color: rgba(255, 255, 255, .24);
+}
+
+/* 404 */
+.notfound { text-align: center; padding-block: clamp(70px, 10vw, 130px); }
+.notfound h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); }
+
+@media (max-width: 1040px) {
+  .promo { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .cta-band__actions { width: 100%; }
+  .cta-band__actions .btn { width: 100%; }
+}
+
+/* Four-column footer for the multi-page site */
+.footer__grid--4 { grid-template-columns: 1.4fr 1fr 1.15fr 1.25fr; }
+@media (max-width: 1040px) { .footer__grid--4 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 620px)  { .footer__grid--4 { grid-template-columns: 1fr; } }
+
+/* Interior page hero: let the headline use more of the column, and tighten
+   the gap before the first content section. */
+.page-hero h1 { max-width: 20ch; }
+.page-hero + .section { padding-top: clamp(46px, 5.5vw, 78px); }

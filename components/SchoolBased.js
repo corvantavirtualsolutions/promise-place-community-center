@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Reveal from "./Reveal";
 import { Check, ArrowRight, School } from "./Icons";
 
@@ -8,7 +9,7 @@ const POINTS = [
   "Collaboration around student behavioral and emotional needs",
 ];
 
-export default function SchoolBased() {
+export default function SchoolBased({ hideHead = false }) {
   return (
     <>
       <svg className="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" style={{ height: 70, background: "var(--bg-warm)" }}>
@@ -20,8 +21,12 @@ export default function SchoolBased() {
 
         <div className="container school__grid">
           <Reveal>
-            <span className="eyebrow">School-Based Services</span>
-            <h2>Support doesn&rsquo;t stop at the office.</h2>
+            {!hideHead && (
+              <>
+                <span className="eyebrow">School-Based Services</span>
+                <h2>Support doesn&rsquo;t stop at the office.</h2>
+              </>
+            )}
             <p style={{ fontSize: "1.08rem" }}>
               Promise Place Community Center also provides school-based services
               focused on mental health and behavior, delivered within school
@@ -49,9 +54,9 @@ export default function SchoolBased() {
               <p style={{ color: "#fff", fontWeight: 650 }}>
                 Interested in bringing this program to your school?
               </p>
-              <a className="btn btn-sun" href="#contact">
+              <Link className="btn btn-sun" href="/contact">
                 Contact Us to Learn More <ArrowRight />
-              </a>
+              </Link>
             </div>
           </Reveal>
         </div>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Reveal from "./Reveal";
 import { ArrowRight, Check, Video, Shield } from "./Icons";
 
@@ -39,8 +40,8 @@ export default function Hero() {
           </p>
 
           <div className="hero__actions">
-            <a className="btn btn-primary" href="#get-started">Get Started <ArrowRight /></a>
-            <a className="btn btn-secondary" href="#services">Explore Our Services</a>
+            <Link className="btn btn-primary" href="/get-started">Get Started <ArrowRight /></Link>
+            <Link className="btn btn-secondary" href="/services">Explore Our Services</Link>
           </div>
 
           <ul className="hero__points">

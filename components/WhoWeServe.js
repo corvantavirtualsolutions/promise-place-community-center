@@ -30,18 +30,20 @@ const GROUPS = [
 
 const CARD_TONE = { teal: "teal", coral: "sun", sun: "sky", grape: "grape" };
 
-export default function WhoWeServe() {
+export default function WhoWeServe({ hideHead = false }) {
   return (
     <section className="section section--warm" id="who-we-serve">
       <div className="container">
+        {!hideHead && (
         <Reveal className="section-head section-head--center">
-          <span className="eyebrow eyebrow--coral">Who We Serve</span>
-          <h2>Support for every member of the family.</h2>
-          <p>
-            Mental health looks different at every age. Promise Place works with
-            children, adults, families, and schools across Indiana.
-          </p>
-        </Reveal>
+            <span className="eyebrow eyebrow--coral">Who We Serve</span>
+            <h2>Support for every member of the family.</h2>
+            <p>
+              Mental health looks different at every age. Promise Place works with
+              children, adults, families, and schools across Indiana.
+            </p>
+          </Reveal>
+        )}
 
         <div className="grid grid-4">
           {GROUPS.map((g, i) => {
