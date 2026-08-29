@@ -1,7 +1,7 @@
 import Reveal from "./Reveal";
 
 /* Banner at the top of every interior page. Carries the page's single h1. */
-export default function PageHero({ eyebrow, title, lede, tone = "teal" }) {
+export default function PageHero({ eyebrow, title, lede, tone = "teal", art = null }) {
   return (
     <section className={`page-hero page-hero--${tone}`}>
       <span className="blob blob--sun"   style={{ width: 210, height: 210, top: "-80px", right: "12%" }} aria-hidden="true" />
@@ -12,6 +12,7 @@ export default function PageHero({ eyebrow, title, lede, tone = "teal" }) {
           {eyebrow && <span className={`eyebrow eyebrow--${tone}`}>{eyebrow}</span>}
           <h1>{title}</h1>
           {lede && <p className="page-hero__lede">{lede}</p>}
+          {art && <div className="page-hero__art">{art}</div>}
         </Reveal>
       </div>
     </section>

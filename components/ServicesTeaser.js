@@ -35,11 +35,11 @@ const CATEGORIES = [
 
 export default function ServicesTeaser() {
   return (
-    <section className="section">
+    <section className="section section--white">
       <span className="blob blob--teal" style={{ width: 280, height: 280, top: "10%", right: "-110px", opacity: .4 }} aria-hidden="true" />
 
       <div className="container" style={{ position: "relative", zIndex: 2 }}>
-        <Reveal className="section-head section-head--center">
+        <Reveal className="section-head">
           <span className="eyebrow">Our Services</span>
           <h2>Many kinds of support, one welcoming place.</h2>
           <p>
@@ -52,8 +52,8 @@ export default function ServicesTeaser() {
           {CATEGORIES.map((c, i) => {
             const Icon = c.icon;
             return (
-              <Reveal key={c.title} delay={i * 90}>
-                <Link className="teaser-card" href="/services">
+              <Reveal key={c.title} dir="up" delay={i * 110}>
+                <Link className={`teaser-card teaser-card--${c.tone}`} href="/services">
                   <span className={`chip chip--${c.tone}`}><Icon /></span>
                   <h3>{c.title}</h3>
                   <p>{c.body}</p>

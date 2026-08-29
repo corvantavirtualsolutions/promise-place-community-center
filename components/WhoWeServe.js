@@ -1,42 +1,23 @@
 import Reveal from "./Reveal";
-import { Smile, Users, Heart, School } from "./Icons";
+import { ChildArt, AdultArt, FamilyArt, SchoolCardArt } from "./Illustrations";
 
 const GROUPS = [
-  {
-    icon: Smile,
-    tone: "teal",
-    title: "Children",
-    body: "Mental health and behavioral support designed to help children navigate challenges.",
-  },
-  {
-    icon: Heart,
-    tone: "coral",
-    title: "Adults",
-    body: "Mental health and supportive services for adults.",
-  },
-  {
-    icon: Users,
-    tone: "sun",
-    title: "Families",
-    body: "Services designed to support family well-being and address challenges together.",
-  },
-  {
-    icon: School,
-    tone: "grape",
-    title: "Schools",
-    body: "School-based mental health and behavioral support.",
-  },
+  { art: ChildArt,      tone: "teal",  title: "Children",
+    body: "Mental health and behavioral support designed to help children navigate challenges." },
+  { art: AdultArt,      tone: "coral", title: "Adults",
+    body: "Mental health and supportive services for adults." },
+  { art: FamilyArt,     tone: "sun",   title: "Families",
+    body: "Services designed to support family well-being and address challenges together." },
+  { art: SchoolCardArt, tone: "grape", title: "Schools",
+    body: "School-based mental health and behavioral support." },
 ];
-
-/* Card fill matches its own chip colour — one tone per card. */
-const CARD_TONE = { teal: "teal", coral: "coral", sun: "sun", grape: "grape" };
 
 export default function WhoWeServe({ hideHead = false }) {
   return (
     <section className="section section--blush" id="who-we-serve">
       <div className="container">
         {!hideHead && (
-        <Reveal className="section-head section-head--center">
+          <Reveal className="section-head">
             <span className="eyebrow eyebrow--coral">Who We Serve</span>
             <h2>Support for every member of the family.</h2>
             <p>
@@ -48,11 +29,11 @@ export default function WhoWeServe({ hideHead = false }) {
 
         <div className="grid grid-4">
           {GROUPS.map((g, i) => {
-            const Icon = g.icon;
+            const Art = g.art;
             return (
-              <Reveal key={g.title} dir="scale" delay={i * 90}>
-                <article className={`serve-card serve-card--${CARD_TONE[g.tone]}`} style={{ height: "100%" }}>
-                  <span className={`chip chip--${g.tone}`}><Icon /></span>
+              <Reveal key={g.title} dir="scale" delay={i * 100}>
+                <article className={`card card--hover card--center serve-card card--${g.tone}`}>
+                  <div className="serve-card__art"><Art /></div>
                   <h3>{g.title}</h3>
                   <p>{g.body}</p>
                 </article>

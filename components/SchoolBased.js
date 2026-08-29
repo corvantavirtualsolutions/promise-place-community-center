@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Reveal from "./Reveal";
-import { Check, ArrowRight, School } from "./Icons";
+import { Check, ArrowRight } from "./Icons";
+import { SchoolArt } from "./Illustrations";
 
 const POINTS = [
   "Mental health needs",
@@ -42,10 +43,10 @@ export default function SchoolBased({ hideHead = false }) {
           <Reveal dir="right" delay={140}>
             <div className="program-card">
               <span className="tag">Featured Program</span>
-              <h3 style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <School style={{ width: 26, height: 26, color: "#FCD34D", flex: "none" }} />
-                Alternative to Explosion
-              </h3>
+              <div className="program-card__art">
+                <SchoolArt title="An illustration of a school building with two students outside" />
+              </div>
+              <h3>Alternative to Explosion</h3>
               <p>
                 Promise Place Community Center offers an Alternative to Explosion
                 Program for schools &mdash; a specialized school-based program for

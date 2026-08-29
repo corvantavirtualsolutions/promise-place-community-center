@@ -64,6 +64,40 @@ because `PageHero` already supplies the page's single `<h1>`; the home page
 omits it so each section keeps its own `<h2>`.
 ```
 
+## Colour rule
+
+Saturated colour lives in **small** areas only — chips, card top rules, buttons,
+illustrations. Large areas (page and section backgrounds) stay near-white. That
+is what keeps the site colourful without being tiring to read.
+
+Section washes rotate: mint → white → blush → lilac → cream → sky. All of them
+are within a few percent of white; if you make one darker, re-check contrast.
+
+Every text and icon pair on the site clears WCAG AA (4.5:1). Body text sits at
+7.0:1 or better on every background.
+
+## Illustrations
+
+`components/Illustrations.js` holds hand-drawn flat SVG scenes — `AboutArt`,
+`ChildArt`, `AdultArt`, `FamilyArt`, `SchoolCardArt`, `SchoolArt`,
+`InsuranceArt`, `StepsArt`, `ContactArt`, `NotFoundArt`. They are drawn in-house
+so there are no stock-photo licences, they scale losslessly, and they use the
+brand palette from the `P` object at the top of the file.
+
+Pass a `title` to make one meaningful to screen readers; leave it off and the
+SVG is marked decorative. Illustrations live in the section components, never
+in the page hero, so no page shows the same drawing twice.
+
+**If you want real photography instead**, supply licensed images and swap the
+`<XxxArt />` calls for `next/image` components.
+
+## Navigation
+
+The header carries only About, Services, Who We Serve and the Contact Us button.
+Everything else — school-based services, insurance, how to get started, FAQ — is
+reachable from the footer and from the "More" group in the mobile menu. Edit
+`PRIMARY` and `SECONDARY` at the top of `components/Header.js`.
+
 ## Motion & animation
 
 Everything is CSS-driven with a JavaScript observer for scroll reveals — no

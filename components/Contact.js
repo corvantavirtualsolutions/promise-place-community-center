@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Mail, MapPin, Alert, Lock, CheckCircle, ArrowRight } from "./Icons";
+import { ContactArt } from "./Illustrations";
 
 import { SITE } from "./site";
 
@@ -60,12 +61,12 @@ export default function Contact({ hideHead = false }) {
   }
 
   return (
-    <section className="section" id="contact">
+    <section className="section section--white" id="contact">
       <span className="blob blob--teal" style={{ width: 260, height: 260, top: "12%", right: "-100px", opacity: .4 }} aria-hidden="true" />
 
       <div className="container" style={{ position: "relative", zIndex: 2 }}>
         {!hideHead && (
-          <div className="section-head section-head--center">
+          <div className="section-head">
           <span className="eyebrow">Contact Us</span>
           <h2>We&rsquo;re glad you reached out.</h2>
           <p>
@@ -77,6 +78,9 @@ export default function Contact({ hideHead = false }) {
 
         <div className="contact__grid">
           <div>
+            <div style={{ maxWidth: 320, margin: "0 auto 22px" }}>
+              <ContactArt title="An illustration of an envelope with a message bubble above it" />
+            </div>
             <div className="info-card">
               <div className="info-card__row">
                 <span className="chip chip--teal"><MapPin /></span>

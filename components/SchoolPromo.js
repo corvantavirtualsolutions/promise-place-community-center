@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Reveal from "./Reveal";
-import { Check, ArrowRight, School } from "./Icons";
+import { SchoolArt } from "./Illustrations";
+import { Check, ArrowRight } from "./Icons";
 
 const POINTS = [
   "Mental health needs",
@@ -21,7 +22,7 @@ export default function SchoolPromo() {
               delivered within school environments &mdash; including our Alternative
               to Explosion Program for schools.
             </p>
-            <ul className="school__list" style={{ marginTop: 22 }}>
+            <ul className="school__list">
               {POINTS.map((p) => (
                 <li key={p}><Check /> <span>{p}</span></li>
               ))}
@@ -29,19 +30,11 @@ export default function SchoolPromo() {
           </div>
 
           <div style={{ textAlign: "center" }}>
-            <span
-              className="chip"
-              style={{
-                width: 76, height: 76, borderRadius: 24, marginInline: "auto",
-                background: "rgba(255,255,255,.14)", color: "#FCD34D",
-              }}
-            >
-              <School style={{ width: 38, height: 38 }} />
-            </span>
-            <h3 style={{ marginBottom: 10 }}>Alternative to Explosion</h3>
-            <p style={{ marginBottom: 22 }}>
-              A specialized program offered to schools.
-            </p>
+            <div className="promo__art">
+              <SchoolArt title="An illustration of a school building with two students outside" />
+            </div>
+            <h3 style={{ marginBottom: 8 }}>Alternative to Explosion</h3>
+            <p style={{ marginBottom: 20 }}>A specialized program offered to schools.</p>
             <Link className="btn btn-sun" href="/school-based-services">
               Learn About School Services <ArrowRight />
             </Link>

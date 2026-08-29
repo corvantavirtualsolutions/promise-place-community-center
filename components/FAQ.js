@@ -50,10 +50,10 @@ export default function FAQ({ hideHead = false }) {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="section section--cream" id="faq">
+    <section className="section section--lilac" id="faq">
       <div className="container">
         {!hideHead && (
-          <div className="section-head section-head--center">
+          <div className="section-head">
           <span className="eyebrow eyebrow--grape">Common Questions</span>
           <h2>Questions? We have answers.</h2>
           <p>If you don&rsquo;t see your question here, just ask &mdash; we&rsquo;re glad to help.</p>
