@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SITE } from "./site";
-import { Heart, Mail, MapPin } from "./Icons";
+import { Mail, MapPin } from "./Icons";
+import LogoMark from "./LogoMark";
 
 const EXPLORE = [
   { href: "/", label: "Home" },
@@ -28,9 +29,8 @@ export default function Footer() {
         </div>
         <div className="footer__grid footer__grid--4">
           <div>
-            {/* LOGO PLACEHOLDER — see README.md → "Adding the real logo". */}
             <Link className="logo" href="/" aria-label={`${SITE.name} — home`}>
-              <span className="logo__mark"><Heart /></span>
+              <span className="logo__mark"><LogoMark size={44} tone="white" /></span>
               <span className="logo__text">
                 <span className="logo__name">{SITE.shortName}</span>
                 <span className="logo__sub">Community Center</span>

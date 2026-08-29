@@ -130,25 +130,45 @@ add the selector to the override list if it moves or fades anything.
 Edit **`components/site.js`** only. Header, contact section, footer and
 structured data all read from it.
 
-### Adding the real logo
-The current logo is a **placeholder** — a gradient rounded square with a heart.
-It is marked with a comment in `components/Header.js` and `components/Footer.js`.
+## Logo
 
-To swap it in:
+The mark is **two figures whose bodies together form a heart** — people,
+together, cared for. It ties to the name (a *place* where you're welcome) and to
+the site's promise that getting support doesn't have to be hard.
 
-1. Drop the file in `public/` (e.g. `public/logo.svg` or `public/logo.png`).
-2. In `Header.js`, replace:
-   ```jsx
-   <span className="logo__mark"><Heart /></span>
-   ```
-   with:
-   ```jsx
-   <img src="/logo.svg" alt="Promise Place Community Center" width={42} height={42} />
-   ```
-3. Do the same in `Footer.js` (the footer sits on a dark background, so use a
-   light version of the mark there if you have one).
-4. If the real brand colors differ, update the palette at the top of
-   `app/globals.css` — every component reads from those variables.
+- Left figure: teal `#3ECFB6 → #0C7267`
+- Right figure: sky `#6CC5F5 → #1B82C9`
+- Type: Plus Jakarta Sans ExtraBold (name), Bold (COMMUNITY CENTER)
+
+### On the site
+`components/LogoMark.js` renders the mark inline as SVG. It takes `size` and
+`tone` (`"color"` | `"white"` | `"ink"`) and generates unique gradient ids per
+instance, so header and footer can both use it safely. The wordmark beside it is
+real HTML text in the site font — crisp, selectable, and readable to screen
+readers.
+
+`app/icon.svg` is the browser favicon (Next.js picks it up automatically).
+
+### Files for the client
+`public/brand/` holds every version as SVG: horizontal and stacked lockups, the
+mark alone, white versions for dark backgrounds, one-colour versions for print,
+and the app icon. All text is converted to outlines, so no font is needed to
+open them. `brand-assets.zip` (git-ignored) additionally contains PNG exports at
+every common size, a brand sheet, and a usage README.
+
+Minimum sizes: lockup 120px wide, mark alone 20px. Keep clear space around the
+logo of at least the height of the mark's head.
+
+> This is a **new** mark. The original brief mentioned the organisation has an
+> existing logo they wanted brightened — none was ever supplied. If that logo
+> turns up, swap `LogoMark.js` and `app/icon.svg` for it; nothing here claims to
+> be their existing brand.
+
+### Replacing the logo
+To use a different mark, replace the paths inside `components/LogoMark.js` and
+`app/icon.svg`, and drop new files into `public/brand/`. If the brand colours
+change, update the palette at the top of `app/globals.css` — every component
+reads from those variables.
 
 ### Wiring the contact form to a real inbox
 The form currently opens the visitor's email client with the inquiry prefilled

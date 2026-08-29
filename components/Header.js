@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SITE } from "./site";
-import { Heart, ArrowRight } from "./Icons";
+import { ArrowRight } from "./Icons";
+import LogoMark from "./LogoMark";
 
 /* Header keeps only the four primary destinations. Everything else is
    reachable from the footer and from the "More" group in the mobile menu. */
@@ -50,9 +51,8 @@ export default function Header() {
   return (
     <header className={`header ${stuck ? "is-stuck" : ""}`}>
       <div className="container header__inner">
-        {/* LOGO PLACEHOLDER — see README.md → "Adding the real logo". */}
         <Link className="logo" href="/" aria-label={`${SITE.name} — home`}>
-          <span className="logo__mark"><Heart /></span>
+          <span className="logo__mark"><LogoMark size={44} /></span>
           <span className="logo__text">
             <span className="logo__name">{SITE.shortName}</span>
             <span className="logo__sub">Community Center</span>
