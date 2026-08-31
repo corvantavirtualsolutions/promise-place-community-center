@@ -118,3 +118,20 @@ export const Building = (p) => (
 export const Handshake = (p) => (
   <svg {...base} {...p}><path d="M11 6.5 8.6 8.9a2 2 0 0 0 0 2.8l.2.2a2 2 0 0 0 2.8 0L13 10.3" /><path d="m13 10.3 3.4 3.4a1.8 1.8 0 0 1-2.6 2.6l-.6-.6" /><path d="M2.5 8.5 6 5h4l3 3" /><path d="M21.5 8.5 18 5h-3l-2 2" /><path d="m13.2 15.7-1.9 1.9a1.8 1.8 0 0 1-2.6-2.6" /></svg>
 );
+
+/* Facebook — brand glyph, so it is a solid fill rather than a stroke */
+export const Facebook = (p) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+       fill="currentColor" aria-hidden="true" focusable="false" {...p}>
+    <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.45 2.91h-2.33V22c4.78-.76 8.44-4.92 8.44-9.94z" />
+  </svg>
+);
+
+export const Gamepad = (p) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none"
+       stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
+       aria-hidden="true" focusable="false" {...p}>
+    <path d="M7.5 7h9a5.5 5.5 0 0 1 5.4 6.5l-.7 3.7A2.6 2.6 0 0 1 16.4 18l-1.6-2H9.2l-1.6 2a2.6 2.6 0 0 1-4.8-.8l-.7-3.7A5.5 5.5 0 0 1 7.5 7z" />
+    <path d="M7 11v2.5M5.75 12.25h2.5M15.6 11.4h.01M17.8 13.2h.01" />
+  </svg>
+);

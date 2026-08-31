@@ -7,4 +7,5 @@ export const SITE = {
   email: "admin@promiseplacecc.com",
   address1: "1800 N Meridian, Suite 400 B",
   address2: "Indiana, USA",
+  facebook: "https://web.facebook.com/profile.php?id=61593636346327",
 };

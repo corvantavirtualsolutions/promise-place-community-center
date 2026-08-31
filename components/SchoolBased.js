@@ -13,8 +13,12 @@ const POINTS = [
 export default function SchoolBased({ hideHead = false }) {
   return (
     <>
-      <svg className="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" style={{ height: 70, background: "var(--bg-warm)" }}>
-        <path d="M0 80V34c180-34 360 24 540 24s360-58 540-38c120 22 240 34 360 24v36z" fill="#0E5F6E" />
+      {/* Wave strips are TRANSPARENT so whatever section sits above shows
+          through the concave part. The fill must be the exact colour of the
+          section's gradient at that edge — see .school in globals.css, which
+          uses a vertical gradient precisely so these edges are flat colours. */}
+      <svg className="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 80V34c180-34 360 24 540 24s360-58 540-38c120 22 240 34 360 24v36z" fill="#0C6A72" />
       </svg>
 
       <section className="section school" id="school-based" style={{ paddingTop: "clamp(30px, 4vw, 50px)" }}>
@@ -63,8 +67,8 @@ export default function SchoolBased({ hideHead = false }) {
         </div>
       </section>
 
-      <svg className="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" style={{ height: 70, background: "var(--bg)" }}>
-        <path d="M0 0v40c180 34 360-22 540-22s360 56 540 36c120-20 240-32 360-22V0z" fill="#0C4F5C" />
+      <svg className="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 0v40c180 34 360-22 540-22s360 56 540 36c120-20 240-32 360-22V0z" fill="#084249" />
       </svg>
     </>
   );

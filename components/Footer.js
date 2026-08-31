@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SITE } from "./site";
-import { Mail, MapPin } from "./Icons";
+import { Mail, MapPin, Facebook } from "./Icons";
 import LogoMark from "./LogoMark";
 
 const EXPLORE = [
@@ -15,6 +15,7 @@ const MORE = [
   { href: "/insurance", label: "Insurance & Payment" },
   { href: "/get-started", label: "How to Get Started" },
   { href: "/faq", label: "FAQ" },
+  { href: "/mini-games", label: "Mini Games" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -37,6 +38,17 @@ export default function Footer() {
               </span>
             </Link>
             <p>{SITE.tagline} for children, adults, and families throughout Indiana.</p>
+
+            <div className="footer__social">
+              <a
+                href={SITE.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Promise Place Community Center on Facebook (opens in a new tab)"
+              >
+                <Facebook />
+              </a>
+            </div>
           </div>
 
           <nav aria-label="Footer navigation">
@@ -82,9 +94,8 @@ export default function Footer() {
         <div className="footer__bottom">
           <p style={{ margin: 0 }}>&copy; {year} {SITE.name}. All rights reserved.</p>
           <div className="footer__legal">
-            {/* PLACEHOLDER links — real policy copy has not been provided. */}
-            <Link href="/contact">Privacy Policy</Link>
-            <Link href="/contact">Terms of Use</Link>
+            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href="/terms-of-service">Terms of Service</Link>
           </div>
         </div>
       </div>

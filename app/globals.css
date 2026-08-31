@@ -923,6 +923,175 @@ a:hover { color: var(--teal-800); }
    12. REDUCED MOTION — must remain the last block in this file
    -------------------------------------------------------------------------- */
 
+
+
+/* The logo mark is now a real mark, not a tile — drop the gradient box. */
+.logo__mark {
+  width: 44px; height: 44px;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  display: grid; place-items: center;
+}
+.logo__mark svg { width: 44px; height: 44px; }
+.logo:hover .logo__mark { transform: scale(1.06); }
+@media (max-width: 400px) { .logo__mark, .logo__mark svg { width: 38px; height: 38px; } }
+
+/* ==========================================================================
+   FIXES & ADDITIONS
+   ========================================================================== */
+
+/* School band: a VERTICAL gradient, so the top and bottom edges are flat
+   colours the wave dividers can match exactly. A diagonal gradient cannot be
+   matched by a flat wave fill — that mismatch is what produced the straight
+   line and the double colouring. */
+.school {
+  background: linear-gradient(180deg, #0C6A72 0%, var(--teal-800) 55%, #084249 100%);
+}
+.wave { display: block; width: 100%; height: clamp(38px, 4.4vw, 70px); background: transparent; }
+
+/* CTA band: square edges, everything centred. */
+.cta-band {
+  border-radius: 0;
+  margin-top: 0;
+}
+.cta-band__inner {
+  flex-direction: column;
+  text-align: center;
+  gap: clamp(20px, 3vw, 30px);
+}
+.cta-band p { margin-inline: auto; }
+.cta-band__actions { justify-content: center; }
+
+/* Footer social */
+.footer__social { display: flex; gap: 10px; margin-top: 20px; }
+.footer__social a {
+  width: 42px; height: 42px; flex: none;
+  display: grid; place-items: center;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .14);
+  color: #fff;
+  transition: background-color .22s var(--ease), transform .22s var(--ease-out), border-color .22s var(--ease);
+}
+.footer__social a:hover {
+  background: #1877F2;             /* Facebook blue, only on hover */
+  border-color: #1877F2;
+  transform: translateY(-3px);
+  padding-left: 0;                 /* cancel the generic footer link hover */
+}
+.footer__social svg { width: 20px; height: 20px; }
+
+/* Long-form legal pages */
+.prose { max-width: 760px; margin-inline: auto; }
+.prose h2 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); margin-top: 2em; }
+.prose h2::after { display: none; }
+.prose h3 { margin-top: 1.6em; font-size: 1.08rem; }
+.prose p, .prose li { color: var(--ink-2); }
+.prose ul { list-style: none; display: grid; gap: 10px; margin: 0 0 1.1em; }
+.prose li { position: relative; padding-left: 22px; }
+.prose li::before {
+  content: ""; position: absolute; left: 4px; top: .68em;
+  width: 6px; height: 6px; border-radius: 50%; background: var(--teal-400);
+}
+.prose__meta {
+  font-size: .9rem; color: var(--ink-3);
+  padding-bottom: 20px; margin-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+.prose__note {
+  background: var(--sun-50); border: 1px solid var(--sun-100);
+  border-radius: var(--r); padding: 20px 22px; margin: 28px 0;
+  display: flex; gap: 13px; align-items: flex-start;
+}
+.prose__note svg { width: 20px; height: 20px; color: var(--sun-700); flex: none; margin-top: 3px; }
+.prose__note p { margin: 0; font-size: .93rem; color: #6B4E09; }
+
+/* Empty-state page (Mini Games) */
+.soon { text-align: center; max-width: 620px; margin-inline: auto; }
+.soon__art { max-width: 260px; margin: 0 auto 26px; }
+.soon .chip { margin-inline: auto; }
+
+/* --------------------------------------------------------------------------
+   SERVICE CARD HOVER — layered so it feels alive without being distracting
+   -------------------------------------------------------------------------- */
+
+.svc-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* 1. the card lifts and the coloured top rule thickens */
+.svc-card { border-top-width: 4px; }
+.svc-card:hover { transform: translateY(-8px); border-top-width: 6px; }
+
+/* 2. a soft wash of the card's own colour blooms up from the bottom */
+.svc-card::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 100%;
+  background: linear-gradient(to top, currentColor, transparent 70%);
+  opacity: 0;
+  transform: translateY(30%);
+  transition: opacity .4s var(--ease), transform .5s var(--ease-out);
+  z-index: -1;
+}
+.svc-card:hover::after { opacity: .07; transform: translateY(0); }
+
+/* 3. the chip pops and rotates */
+.svc-card .chip { transition: transform .38s var(--ease-out), background-color .3s var(--ease); }
+.svc-card:hover .chip { transform: translateY(-4px) rotate(-8deg) scale(1.12); }
+
+/* 4. the title slides a touch and takes the card's colour */
+.svc-card h4 { transition: transform .32s var(--ease-out), color .28s var(--ease); }
+.svc-card:hover h4 { transform: translateX(4px); }
+.svc-card--teal:hover  h4 { color: var(--teal-800); }
+.svc-card--sky:hover   h4 { color: var(--sky-700); }
+.svc-card--sun:hover   h4 { color: var(--sun-700); }
+.svc-card--grape:hover h4 { color: var(--grape-700); }
+
+/* 5. a thin underline sweeps out beneath the title */
+.svc-card h4::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 0;
+  margin-top: 5px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: .5;
+  transition: width .42s var(--ease-out);
+}
+.svc-card:hover h4::after { width: 34px; }
+
+/* 6. the body copy lifts out of grey */
+.svc-card p { transition: color .28s var(--ease); }
+.svc-card:hover p { color: var(--ink); }
+
+/* Keyboard users get the same treatment */
+.svc-card:focus-within { transform: translateY(-8px); box-shadow: var(--sh-lg); }
+.svc-card:focus-within .chip { transform: translateY(-4px) rotate(-8deg) scale(1.12); }
+
+@media (hover: none) {
+  /* No hover on touch — don't leave cards stuck in a hover state */
+  .svc-card:hover { transform: none; border-top-width: 4px; }
+  .svc-card:hover::after { opacity: 0; }
+  .svc-card:hover .chip { transform: none; }
+  .svc-card:hover h4 { transform: none; }
+  .svc-card:hover h4::after { width: 0; }
+}
+
+/* Wave strips are transparent by default, which shows the page background and
+   leaves a pale band. Colour each strip to match whatever it sits against so
+   the transition is one continuous colour with no second tone and no hard line.
+   DOM order on /school-based-services is:
+   .page-hero > .wave > .school > .wave > .cta-band */
+.page-hero:has(+ .wave) { border-bottom: 0; }
+.page-hero + .wave { background: var(--wash-cream); }
+.school + .wave { background: var(--teal-700); }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 
@@ -950,19 +1119,11 @@ a:hover { color: var(--teal-800); }
   .card--hover:hover .step__num, .card--hover:hover .illus,
   .teaser-card:hover .illus { transform: none !important; }
 
-  .btn-primary::after, .btn-sun::after, .svc-card::before { display: none; }
+  .btn-primary::after, .btn-sun::after, .svc-card::before,
+  .svc-card::after, .svc-card h4::after { display: none; }
+  .svc-card:hover, .svc-card:focus-within { transform: none !important; border-top-width: 4px; }
+  .svc-card:hover h4, .svc-card:hover .chip,
+  .svc-card:focus-within .chip { transform: none !important; }
   .nav a::after, .footer a:hover { transition: none; }
   .mobile-nav.is-open { animation: none !important; }
 }
-
-/* The logo mark is now a real mark, not a tile — drop the gradient box. */
-.logo__mark {
-  width: 44px; height: 44px;
-  background: none;
-  box-shadow: none;
-  border-radius: 0;
-  display: grid; place-items: center;
-}
-.logo__mark svg { width: 44px; height: 44px; }
-.logo:hover .logo__mark { transform: scale(1.06); }
-@media (max-width: 400px) { .logo__mark, .logo__mark svg { width: 38px; height: 38px; } }
