@@ -946,7 +946,9 @@ a:hover { color: var(--teal-800); }
    matched by a flat wave fill — that mismatch is what produced the straight
    line and the double colouring. */
 .school {
-  background: linear-gradient(180deg, #0C6A72 0%, var(--teal-800) 55%, #084249 100%);
+  /* ends on the CTA band's opening colour so the two teal blocks
+     meet as one continuous field — no visible step, no second tone. */
+  background: linear-gradient(180deg, #0C6A72 0%, var(--teal-800) 60%, var(--teal-700) 100%);
 }
 .wave { display: block; width: 100%; height: clamp(38px, 4.4vw, 70px); background: transparent; }
 
@@ -1090,7 +1092,7 @@ a:hover { color: var(--teal-800); }
    .page-hero > .wave > .school > .wave > .cta-band */
 .page-hero:has(+ .wave) { border-bottom: 0; }
 .page-hero + .wave { background: var(--wash-cream); }
-.school + .wave { background: var(--teal-700); }
+/* (the school section's bottom wave was removed — it split two teals) */
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

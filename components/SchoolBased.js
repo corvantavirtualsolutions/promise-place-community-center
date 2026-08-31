@@ -67,9 +67,6 @@ export default function SchoolBased({ hideHead = false }) {
         </div>
       </section>
 
-      <svg className="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0 0v40c180 34 360-22 540-22s360 56 540 36c120-20 240-32 360-22V0z" fill="#084249" />
-      </svg>
     </>
   );
 }

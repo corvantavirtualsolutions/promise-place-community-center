@@ -39,10 +39,10 @@ export default function Page() {
       <About moreLink />
       <ServicesTeaser />
       <WhoWeServe />
-      <Divider from="var(--wash-blush)" to="#F4F1FF" />
+      <Divider from="var(--wash-blush)" to="var(--wash-lilac)" />
       <SchoolPromo />
       <Insurance />
-      <Divider from="var(--wash-cream)" to="#EAF5FF" />
+      <Divider from="var(--wash-cream)" to="var(--wash-sky)" />
       <Process />
       <CTABand />
     </>
