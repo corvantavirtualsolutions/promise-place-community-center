@@ -15,7 +15,7 @@ const MORE = [
   { href: "/insurance", label: "Insurance & Payment" },
   { href: "/get-started", label: "How to Get Started" },
   { href: "/faq", label: "FAQ" },
-  { href: "/wellness-games", label: "Wellness Games" },
+  { href: "/mini-games", label: "Mini Games" },
   { href: "/contact", label: "Contact" },
 ];
 

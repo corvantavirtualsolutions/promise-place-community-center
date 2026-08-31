@@ -4,12 +4,12 @@ import Reveal from "@/components/Reveal";
 import CTABand from "@/components/CTABand";
 import { GAMES } from "@/components/games/gamesData";
 import { Balloon, Notes, Stones, Mandala, Heart } from "@/components/games/GameIcons";
-import { Info, ArrowRight } from "@/components/Icons";
+import { Info, ArrowRight, Sparkle } from "@/components/Icons";
 
 export const metadata = {
-  title: "Wellness Games",
+  title: "Mini Games",
   description:
-    "Five calming activities from Promise Place Community Center — breathing, music, sand, drawing and a gentle catching game. Free, no sign-up, playable in your browser.",
+    "Five calming mini activities from Promise Place Community Center — a breathing exercise, music, sand, drawing and one gentle game. Free, no sign-up, playable in your browser.",
 };
 
 const ART = {
@@ -20,13 +20,13 @@ const ART = {
   "calm-catch": Heart,
 };
 
-export default function WellnessGamesPage() {
+export default function MiniGamesPage() {
   return (
     <>
       <PageHero
-        eyebrow="Wellness Games"
-        title="Wellness Games"
-        lede="Take a moment for yourself. Play, breathe, create, and relax."
+        eyebrow="Mini Games"
+        title="Mini Games"
+        lede="A few small things to do when you need a pause. Only one of them is really a game — the rest are for breathing, making music, or making something of your own."
         tone="grape"
       />
 
@@ -39,16 +39,33 @@ export default function WellnessGamesPage() {
                 <Reveal key={g.slug} dir="up" delay={i * 90}>
                   <article className={`gcard gcard--${g.tone}`}>
                     <div className="gcard__art"><Art /></div>
+                    <span className="gcard__kind">{g.kind}</span>
                     <h3>{g.name}</h3>
                     <p>{g.blurb}</p>
-                    <Link className="btn btn-primary" href={`/wellness-games/${g.slug}`}>
-                      Play Game <ArrowRight />
+                    <Link className="btn btn-primary" href={`/mini-games/${g.slug}`}>
+                      {g.cta} <ArrowRight />
                     </Link>
                   </article>
                 </Reveal>
               );
             })}
           </div>
+
+          <Reveal dir="fade">
+            <div className="more-games">
+              <Sparkle />
+              <h3>More mini games are on the way</h3>
+              <p>
+                We&rsquo;re adding new ones for you to enjoy and unwind with, so check back
+                whenever you need a few quiet minutes.
+              </p>
+              <p className="more-games__offer">
+                We can also create mini games for your kids or your students.
+                If you have an idea, we&rsquo;d love to hear it &mdash;{" "}
+                <Link href="/contact">get in touch with our team</Link>.
+              </p>
+            </div>
+          </Reveal>
 
           <Reveal dir="fade">
             <div className="games-note">
@@ -65,7 +82,7 @@ export default function WellnessGamesPage() {
 
       <CTABand
         title="Looking for real support?"
-        body="Games are a nice pause, but if something heavier is going on, our team is here to talk."
+        body="These are a nice pause, but if something heavier is going on, our team is here to talk."
         primary={{ href: "/contact", label: "Contact Promise Place" }}
         secondary={{ href: "/services", label: "See Our Services" }}
       />

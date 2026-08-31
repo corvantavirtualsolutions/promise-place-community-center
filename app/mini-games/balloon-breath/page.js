@@ -9,6 +9,7 @@ export const metadata = {
 export default function Page() {
   return (
     <GameShell
+      eyebrow="Breathing exercise"
       title="Balloon Breath"
       blurb="Hold to fill the balloon. Let go, and it floats away with your breath."
       tone="teal"

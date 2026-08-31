@@ -1,8 +1,15 @@
-/* One entry per game. The hub page, the route folders and the page metadata
-   all read from here, so adding or renaming a game starts in this file. */
+/* One entry per activity. The hub page, the route folders and the page metadata
+   all read from here, so adding or renaming one starts in this file.
+
+   `kind` and `cta` exist because only one of these five is actually a game.
+   Labelling a breathing exercise "Play Game" sets the wrong expectation before
+   someone has even clicked, so each card says what it really is and its button
+   names the thing you will be doing. */
 export const GAMES = [
   {
     slug: "balloon-breath",
+    kind: "Breathing exercise",
+    cta: "Take a Breath",
     name: "Balloon Breath",
     tone: "teal",
     blurb: "Hold to fill the balloon. Let go, and it floats away with your breath.",
@@ -10,6 +17,8 @@ export const GAMES = [
   },
   {
     slug: "sound-garden",
+    kind: "Music activity",
+    cta: "Make Some Music",
     name: "Sound Garden",
     tone: "sky",
     blurb: "Tap squares to plant notes. They loop back as a tune that cannot sound wrong.",
@@ -17,6 +26,8 @@ export const GAMES = [
   },
   {
     slug: "zen-sand-garden",
+    kind: "Quiet activity",
+    cta: "Rake the Sand",
     name: "Zen Sand Garden",
     tone: "sun",
     blurb: "Rake patterns into the sand with your finger and set stones wherever you like.",
@@ -24,6 +35,8 @@ export const GAMES = [
   },
   {
     slug: "mandala-maker",
+    kind: "Creative activity",
+    cta: "Be Creative",
     name: "Mandala Maker",
     tone: "grape",
     blurb: "Draw one line and it mirrors eight ways. Every scribble comes out beautiful.",
@@ -31,6 +44,8 @@ export const GAMES = [
   },
   {
     slug: "calm-catch",
+    kind: "Game",
+    cta: "Play the Game",
     name: "Calm Catch",
     tone: "coral",
     blurb: "Move a basket to gather kindness, hope and joy as they drift down.",

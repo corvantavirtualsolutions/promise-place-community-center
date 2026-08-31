@@ -9,6 +9,7 @@ export const metadata = {
 export default function Page() {
   return (
     <GameShell
+      eyebrow="Quiet activity"
       title="Zen Sand Garden"
       blurb="Rake patterns into the sand with your finger and set stones wherever you like."
       tone="sun"

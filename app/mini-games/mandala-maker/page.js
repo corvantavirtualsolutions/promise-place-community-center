@@ -9,6 +9,7 @@ export const metadata = {
 export default function Page() {
   return (
     <GameShell
+      eyebrow="Creative activity"
       title="Mandala Maker"
       blurb="Draw one line and it mirrors eight ways. Every scribble comes out beautiful."
       tone="grape"

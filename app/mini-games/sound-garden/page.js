@@ -9,6 +9,7 @@ export const metadata = {
 export default function Page() {
   return (
     <GameShell
+      eyebrow="Music activity"
       title="Sound Garden"
       blurb="Tap squares to plant notes. They loop back as a tune that cannot sound wrong."
       tone="sky"

@@ -16,18 +16,20 @@ outpatient mental health facility serving families throughout Indiana.
 | `/get-started` | How to Get Started |
 | `/faq` | Frequently Asked Questions |
 | `/contact` | Contact + inquiry form |
-| `/wellness-games` | Hub linking the five games |
-| `/wellness-games/balloon-breath` | Hold-to-inflate breathing |
-| `/wellness-games/sound-garden` | Tap-to-plant note grid |
-| `/wellness-games/zen-sand-garden` | Rake sand, set stones |
-| `/wellness-games/mandala-maker` | Mirrored symmetry drawing |
-| `/wellness-games/calm-catch` | 60-second gentle catching game |
+| `/mini-games` | Hub linking the five activities |
+| `/mini-games/balloon-breath` | Hold-to-inflate breathing exercise |
+| `/mini-games/sound-garden` | Tap-to-plant note grid |
+| `/mini-games/zen-sand-garden` | Rake sand, set stones |
+| `/mini-games/mandala-maker` | Mirrored symmetry drawing |
+| `/mini-games/calm-catch` | 60-second gentle catching game — the only actual game |
 | `/privacy-policy` | Privacy Policy |
 | `/terms-of-service` | Terms of Service |
 
-`/mini-games` redirects to `/wellness-games`, and the four original game slugs
-(`breathe-and-grow`, `memory-match`, `pop-the-worries`, `color-your-mood`)
-redirect to the games that replaced them. See `next.config.js`.
+The section was called Wellness Games for a while, so `/wellness-games` and
+`/wellness-games/:slug` redirect here, as do the four original slugs
+(`breathe-and-grow`, `memory-match`, `pop-the-worries`, `color-your-mood`).
+See `next.config.js` — and note nothing in there may point AT `/wellness-games`,
+which would make a redirect loop.
 
 Every page has its own `<title>` and meta description. A custom 404 lives at
 `app/not-found.js`.
@@ -60,7 +62,7 @@ app/
   about/ services/ who-we-serve/ school-based-services/
   insurance/ get-started/ faq/ contact/      one page.js each
   privacy-policy/ terms-of-service/          one page.js each
-  wellness-games/
+  mini-games/
     layout.js       imports games.css so it loads only on these routes
     games.css       every game style, scoped to this route group
     page.js         hub + wellness disclaimer
@@ -91,10 +93,19 @@ because `PageHero` already supplies the page's single `<h1>`; the home page
 omits it so each section keeps its own `<h2>`.
 ```
 
-## Wellness Games
+## Mini Games
 
-Five browser games at `/wellness-games`. They are calming activities, not
-treatment, and the hub and every game page carry that disclaimer.
+Five small activities at `/mini-games`. They are calming things to do, not
+treatment, and the hub and every page carry that disclaimer.
+
+**Only Calm Catch is actually a game.** Each entry in `gamesData.js` carries a
+`kind` ("Breathing exercise", "Music activity", "Quiet activity", "Creative
+activity", "Game") and its own `cta` ("Take a Breath", "Be Creative", …). The
+hub shows the kind as a chip on the card, each activity page shows it as the
+eyebrow above the title, and the button names the thing you will be doing.
+Do not collapse these back to a generic "Play Game" — telling someone they are
+about to play a game when they are about to do a breathing exercise sets the
+wrong expectation before they have clicked.
 
 **Hard constraints — do not add any of these:** no backend, no accounts, no
 database, no external API, no login, no analytics, no personal information
@@ -122,7 +133,7 @@ game is added, hold it to that test before anything else.
 
 ### Things that will break if you change them carelessly
 
-- **`games.css` is imported by `app/wellness-games/layout.js`**, not by
+- **`games.css` is imported by `app/mini-games/layout.js`**, not by
   `globals.css`. That keeps game styles off the other 11 pages. Add game styles
   there, not to `globals.css`.
 - **The reduced-motion block at the bottom of `games.css`** must stay last, the

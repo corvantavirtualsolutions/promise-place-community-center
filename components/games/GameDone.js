@@ -13,8 +13,8 @@ export default function GameDone({ art, heading, message, onReplay, replayLabel 
         <button className="btn btn-primary" type="button" onClick={onReplay}>
           {replayLabel}
         </button>
-        <Link className="btn btn-secondary" href="/wellness-games">
-          Back to Wellness Games
+        <Link className="btn btn-secondary" href="/mini-games">
+          Back to Mini Games
         </Link>
       </div>
     </div>

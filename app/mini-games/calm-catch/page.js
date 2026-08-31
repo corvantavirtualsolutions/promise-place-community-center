@@ -9,6 +9,7 @@ export const metadata = {
 export default function Page() {
   return (
     <GameShell
+      eyebrow="Game"
       title="Calm Catch"
       blurb="Move the basket and gather the good things as they drift down. One minute, no pressure."
       tone="coral"

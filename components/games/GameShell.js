@@ -5,7 +5,7 @@ import { ArrowRight } from "@/components/Icons";
 /* Shared frame for every game: page banner, the game panel, instructions and
    the two buttons every game needs. Keeps the five games visually identical. */
 export default function GameShell({
-  eyebrow = "Wellness Games",
+  eyebrow = "Mini Games",
   title,
   blurb,
   tone = "teal",
@@ -26,8 +26,8 @@ export default function GameShell({
           )}
 
           <div className="gactions">
-            <Link className="btn btn-secondary" href="/wellness-games">
-              Back to Wellness Games
+            <Link className="btn btn-secondary" href="/mini-games">
+              Back to Mini Games
             </Link>
             <Link className="btn btn-primary" href="/contact">
               Talk With Our Team <ArrowRight />

@@ -3,13 +3,15 @@ const nextConfig = {
   reactStrictMode: true,
   async redirects() {
     return [
-      // The games page was briefly published as /mini-games — keep that URL working.
-      { source: "/mini-games", destination: "/wellness-games", permanent: true },
+      // The section was briefly called Wellness Games; keep those URLs working.
+      // NOTE: nothing here may point AT /wellness-games — that would loop.
+      { source: "/wellness-games", destination: "/mini-games", permanent: true },
+      { source: "/wellness-games/:slug", destination: "/mini-games/:slug", permanent: true },
       // The first four games were replaced with clearer ones; keep old links alive.
-      { source: "/wellness-games/breathe-and-grow", destination: "/wellness-games/balloon-breath", permanent: true },
-      { source: "/wellness-games/memory-match", destination: "/wellness-games/sound-garden", permanent: true },
-      { source: "/wellness-games/pop-the-worries", destination: "/wellness-games/zen-sand-garden", permanent: true },
-      { source: "/wellness-games/color-your-mood", destination: "/wellness-games/mandala-maker", permanent: true },
+      { source: "/mini-games/breathe-and-grow", destination: "/mini-games/balloon-breath", permanent: true },
+      { source: "/mini-games/memory-match", destination: "/mini-games/sound-garden", permanent: true },
+      { source: "/mini-games/pop-the-worries", destination: "/mini-games/zen-sand-garden", permanent: true },
+      { source: "/mini-games/color-your-mood", destination: "/mini-games/mandala-maker", permanent: true },
     ];
   },
 };

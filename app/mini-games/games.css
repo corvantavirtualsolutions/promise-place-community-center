@@ -1,6 +1,6 @@
 /* ==========================================================================
-   WELLNESS GAMES
-   Scoped to the /wellness-games route tree. Uses the site's existing tokens
+   MINI GAMES
+   Scoped to the /mini-games route tree. Uses the site's existing tokens
    from globals.css — no new colour system.
    ========================================================================== */
 
@@ -23,12 +23,59 @@
 .gcard--coral { border-top-color: var(--coral-300); }
 .gcard--grape { border-top-color: var(--grape-300); }
 .gcard:hover { transform: translateY(-6px); box-shadow: var(--sh-lg); }
-.gcard__art { width: 96px; height: 96px; margin-bottom: 16px; }
+.gcard__art { width: 96px; height: 96px; margin-bottom: 14px; }
+
+/* Says what the card actually is. Only Calm Catch is a game; the others are a
+   breathing exercise and three make-something activities, and calling them all
+   "games" sets the wrong expectation before anyone has clicked. */
+.gcard__kind {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 4px 12px;
+  border-radius: var(--r-full);
+  font-family: var(--font-heading), sans-serif;
+  font-weight: 700; font-size: .72rem; letter-spacing: .04em; text-transform: uppercase;
+  background: var(--teal-50); color: var(--teal-800);
+}
+.gcard--sky   .gcard__kind { background: var(--sky-50);   color: var(--sky-700); }
+.gcard--sun   .gcard__kind { background: var(--sun-50);   color: var(--sun-700); }
+.gcard--coral .gcard__kind { background: var(--coral-50); color: var(--coral-700); }
+.gcard--grape .gcard__kind { background: var(--grape-50); color: var(--grape-700); }
 .gcard h3 { margin-bottom: 8px; }
 .gcard p { font-size: .95rem; margin-bottom: 20px; }
 .gcard .btn { margin-top: auto; }
 .gcard:hover .gcard__art { transform: translateY(-3px) scale(1.05); }
 .gcard__art { transition: transform .35s var(--ease-out); }
+
+/* "more coming" panel + the offer to build games for a family or a classroom */
+.more-games {
+  max-width: 720px; margin: clamp(36px, 4vw, 52px) auto 0;
+  text-align: center;
+  background: linear-gradient(180deg, var(--wash-lilac), #fff);
+  border: 1px solid var(--grape-100);
+  border-radius: var(--r-lg);
+  padding: clamp(26px, 3.4vw, 38px) clamp(22px, 3vw, 40px);
+}
+.more-games > svg {
+  width: 30px; height: 30px;
+  color: var(--grape-500);
+  /* globals.css sets `svg { display: block }`, so text-align on the panel
+     cannot centre this — it needs auto side margins of its own */
+  margin: 0 auto 10px;
+}
+.more-games h3 { font-size: clamp(1.1rem, 2.1vw, 1.35rem); margin-bottom: 10px; }
+.more-games p { margin: 0 auto; max-width: 48ch; font-size: .95rem; }
+.more-games__offer {
+  margin-top: 16px !important;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-2);
+}
+.more-games__offer a {
+  color: var(--teal-800); font-weight: 700;
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.more-games__offer a:hover { color: var(--teal-600); }
 
 .games-note {
   max-width: 720px; margin: clamp(36px, 4vw, 52px) auto 0;
