@@ -16,6 +16,16 @@ outpatient mental health facility serving families throughout Indiana.
 | `/get-started` | How to Get Started |
 | `/faq` | Frequently Asked Questions |
 | `/contact` | Contact + inquiry form |
+| `/wellness-games` | Hub linking the five games |
+| `/wellness-games/breathe-and-grow` | Paced-breathing game |
+| `/wellness-games/memory-match` | Untimed memory pairs |
+| `/wellness-games/pop-the-worries` | Tap-to-release bubbles |
+| `/wellness-games/color-your-mood` | Colouring pages |
+| `/wellness-games/calm-catch` | 60-second gentle catching game |
+| `/privacy-policy` | Privacy Policy |
+| `/terms-of-service` | Terms of Service |
+
+`/mini-games` permanently redirects to `/wellness-games` (see `next.config.js`).
 
 Every page has its own `<title>` and meta description. A custom 404 lives at
 `app/not-found.js`.
@@ -47,6 +57,12 @@ app/
   not-found.js      Custom 404
   about/ services/ who-we-serve/ school-based-services/
   insurance/ get-started/ faq/ contact/      one page.js each
+  privacy-policy/ terms-of-service/          one page.js each
+  wellness-games/
+    layout.js       imports games.css so it loads only on these routes
+    games.css       every game style, scoped to this route group
+    page.js         hub + wellness disclaimer
+    <slug>/page.js  one thin wrapper per game
 components/
   site.js           Name, email, address — SINGLE SOURCE OF TRUTH
   Icons.js          Inline SVG icon set
@@ -58,11 +74,56 @@ components/
   SchoolBased.js  SchoolPromo.js  Insurance.js  Process.js
   FAQ.js  Contact.js  Footer.js
   Reveal.js         Scroll fade-in wrapper
+  BackToTop.js      Floating scroll-to-top, hides over the footer
+  games/
+    gamesData.js    Titles, blurbs, slugs, accent colours for all five games
+    GameShell.js    Shared page frame: hero, instructions, disclaimer, back link
+    GameDone.js     Shared completion card + replay button
+    GameIcons.js    Inline SVG art used by the games
+    BreatheAndGrow.js  MemoryMatch.js  PopTheWorries.js
+    ColorYourMood.js   CalmCatch.js
 
 Section components take a `hideHead` prop. Interior pages pass `hideHead`
 because `PageHero` already supplies the page's single `<h1>`; the home page
 omits it so each section keeps its own `<h2>`.
 ```
+
+## Wellness Games
+
+Five browser games at `/wellness-games`. They are calming activities, not
+treatment, and the hub and every game page carry that disclaimer.
+
+**Hard constraints — do not add any of these:** no backend, no accounts, no
+database, no external API, no login, no analytics, no personal information
+collected, nothing about anyone's mental health stored, no gambling mechanics,
+no purchases, no ads, no game engine, no extra dependencies. Every game is
+plain React state plus CSS. Nothing leaves the browser and nothing is saved
+between visits.
+
+| Game | How it works |
+|---|---|
+| Breathe & Grow | Four-second in / hold / out phases; a flower gains petals with each of five breaths |
+| Memory Match | Eight pairs, Fisher–Yates shuffled; no timer, no score; mismatches flip back after 850ms |
+| Pop the Worries | Ten drifting bubbles; tap to release; a 340ms pop plays before the count updates |
+| Color Your Mood | Five line drawings, eight colours; click or keyboard to fill; downloads as PNG via canvas |
+| Calm Catch | 60 seconds, `requestAnimationFrame` loop; basket follows pointer, touch, or arrow keys |
+
+### Things that will break if you change them carelessly
+
+- **Bubble positions in `PopTheWorries.js`** are fractions of the *free* space
+  (container minus the bubble's own size), not percentages of the container.
+  A plain percentage ignores the bubble's width and pushes the right-hand
+  bubbles off the edge on a phone. The grid is also responsive — five columns
+  wide, three columns under 620px — because five columns leave ~60px per bubble
+  on a 375px screen, too small to read a word or tap reliably.
+- **`games.css` is imported by `app/wellness-games/layout.js`**, not by
+  `globals.css`. That keeps game styles off the other 11 pages. Add game styles
+  there, not to `globals.css`.
+- **The reduced-motion block at the bottom of `games.css`** must stay last, the
+  same rule as `globals.css`. Every looping animation is switched off there.
+- **`CalmCatch.js` keeps the basket position in a ref**, not state, so the
+  animation loop does not re-render on every frame. Moving it to state will
+  make the game stutter.
 
 ## Colour rule
 
@@ -210,8 +271,11 @@ names, credentials, testimonials, statistics, or named insurance providers.
 Placeholders in use:
 
 - **Logo** — placeholder mark, see above.
-- **Privacy Policy / Terms of Use** — footer links point to the contact section
-  until real policy copy is provided.
+- **Privacy Policy / Terms of Service** — real pages now live at
+  `/privacy-policy` and `/terms-of-service`. They describe only what this
+  website itself does (a contact form, no tracking, no accounts). They are
+  **not** a HIPAA Notice of Privacy Practices and do not cover the clinical
+  practice — that has to come from the organization's own counsel.
 - **Alternative to Explosion Program** — described only as a specialized
   school-based program, with a "contact us to learn more" call to action, since
   detailed program information was not supplied.
