@@ -11,7 +11,7 @@ export default function Page() {
     <GameShell
       title="Calm Catch"
       blurb="Move the basket and gather the good things as they drift down. One minute, no pressure."
-      tone="sun"
+      tone="coral"
       instructions="Use the left and right arrow keys, drag inside the game area, or use the on-screen buttons on a phone. Catching a rain cloud costs you nothing."
       wide
     >

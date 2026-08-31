@@ -26,29 +26,9 @@ export const Sun = (p) => (
   </S>
 );
 
-export const Rainbow = (p) => (
-  <S {...p}>
-    <g fill="none" strokeLinecap="round" strokeWidth="5">
-      <path d="M6 36a18 18 0 0 1 36 0" stroke="#EE6A62" />
-      <path d="M13 36a11 11 0 0 1 22 0" stroke="#F5CE63" />
-      <path d="M20 36a4 4 0 0 1 8 0" stroke="#3BA3E8" />
-    </g>
-  </S>
-);
-
 export const Heart = (p) => (
   <S {...p}>
     <path d="M24 39s-14-8.6-14-17.2A7.8 7.8 0 0 1 24 17a7.8 7.8 0 0 1 14 4.8C38 30.4 24 39 24 39Z" fill="#EE6A62" />
-  </S>
-);
-
-export const Butterfly = (p) => (
-  <S {...p}>
-    <path d="M23 24 10 13c-4 3-4 10 0 14s10 2 13-3Z" fill="#8468E0" />
-    <path d="M25 24 38 13c4 3 4 10 0 14s-10 2-13-3Z" fill="#3BA3E8" />
-    <path d="M23 24 12 33c3 4 9 4 11 0Z" fill="#A78BFA" />
-    <path d="M25 24l11 9c-3 4-9 4-11 0Z" fill="#7DD3FC" />
-    <rect x="22.6" y="12" width="2.8" height="24" rx="1.4" fill="#16242D" />
   </S>
 );
 
@@ -62,12 +42,6 @@ export const Leaf = (p) => (
 export const Star = (p) => (
   <S {...p}>
     <path d="m24 7 5.4 11.2 12.3 1.7-8.9 8.6 2.2 12.2L24 35l-11 5.7 2.2-12.2-8.9-8.6 12.3-1.7L24 7Z" fill="#F5CE63" />
-  </S>
-);
-
-export const Cloud = (p) => (
-  <S {...p}>
-    <path d="M14 34a8 8 0 0 1 .6-16 11 11 0 0 1 20.6 3.2A7 7 0 0 1 34 34H14Z" fill="#7DD3FC" />
   </S>
 );
 
@@ -89,13 +63,56 @@ export const RainCloud = (p) => (
   </S>
 );
 
-export const MEMORY_SYMBOLS = [
-  { key: "flower",    label: "Flower",    Icon: Flower },
-  { key: "sun",       label: "Sun",       Icon: Sun },
-  { key: "rainbow",   label: "Rainbow",   Icon: Rainbow },
-  { key: "heart",     label: "Heart",     Icon: Heart },
-  { key: "butterfly", label: "Butterfly", Icon: Butterfly },
-  { key: "leaf",      label: "Leaf",      Icon: Leaf },
-  { key: "star",      label: "Star",      Icon: Star },
-  { key: "cloud",     label: "Cloud",     Icon: Cloud },
-];
+export const Balloon = (p) => (
+  <S {...p}>
+    <path d="M24 6c7.2 0 12.5 5.6 12.5 13 0 7.9-7.4 14.4-12.5 14.4S11.5 26.9 11.5 19c0-7.4 5.3-13 12.5-13Z" fill="#5FBFA8" />
+    <path d="M21.5 11.5c-2.6 1.3-4.2 3.8-4.4 6.8" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" opacity=".7" />
+    <path d="M22 33.4h4l-2 3.2Z" fill="#3E9C88" />
+    <path d="M24 36.6c0 4-3.6 4-3.6 7.4" stroke="#8A9AA6" strokeWidth="1.8" strokeLinecap="round" />
+  </S>
+);
+
+export const Notes = (p) => (
+  <S {...p}>
+    <g fill="#4C9BE0">
+      <circle cx="15" cy="33" r="6" />
+      <circle cx="33" cy="29" r="6" />
+      <path d="M19 33V13l18-4v20h-4V13.8l-10 2.3V33Z" />
+    </g>
+    <circle cx="39" cy="12" r="2.6" fill="#F5CE63" />
+  </S>
+);
+
+export const Stones = (p) => (
+  <S {...p}>
+    <g stroke="#DCC49A" strokeWidth="2.2" strokeLinecap="round" fill="none">
+      <path d="M5 34c6-5 12-5 18 0s12 5 18 0" />
+      <path d="M5 40c6-5 12-5 18 0s12 5 18 0" />
+    </g>
+    <ellipse cx="20" cy="24" rx="11" ry="7" fill="#8FA3AE" />
+    <ellipse cx="20" cy="22" rx="11" ry="7" fill="#A7BAC4" />
+    <ellipse cx="31" cy="14" rx="7" ry="5" fill="#8FA3AE" />
+    <ellipse cx="31" cy="12.6" rx="7" ry="5" fill="#BCCBD3" />
+  </S>
+);
+
+export const Mandala = (p) => (
+  <S {...p}>
+    <g fill="#9B7FE8">
+      <circle cx="24" cy="24" r="5" />
+      <g>
+        <ellipse cx="24" cy="10" rx="3.4" ry="6" />
+        <ellipse cx="24" cy="38" rx="3.4" ry="6" />
+        <ellipse cx="10" cy="24" rx="6" ry="3.4" />
+        <ellipse cx="38" cy="24" rx="6" ry="3.4" />
+      </g>
+    </g>
+    <g fill="#F0A0B4">
+      <circle cx="14.1" cy="14.1" r="3.6" />
+      <circle cx="33.9" cy="14.1" r="3.6" />
+      <circle cx="14.1" cy="33.9" r="3.6" />
+      <circle cx="33.9" cy="33.9" r="3.6" />
+    </g>
+  </S>
+);
+

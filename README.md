@@ -17,15 +17,17 @@ outpatient mental health facility serving families throughout Indiana.
 | `/faq` | Frequently Asked Questions |
 | `/contact` | Contact + inquiry form |
 | `/wellness-games` | Hub linking the five games |
-| `/wellness-games/breathe-and-grow` | Paced-breathing game |
-| `/wellness-games/memory-match` | Untimed memory pairs |
-| `/wellness-games/pop-the-worries` | Tap-to-release bubbles |
-| `/wellness-games/color-your-mood` | Colouring pages |
+| `/wellness-games/balloon-breath` | Hold-to-inflate breathing |
+| `/wellness-games/sound-garden` | Tap-to-plant note grid |
+| `/wellness-games/zen-sand-garden` | Rake sand, set stones |
+| `/wellness-games/mandala-maker` | Mirrored symmetry drawing |
 | `/wellness-games/calm-catch` | 60-second gentle catching game |
 | `/privacy-policy` | Privacy Policy |
 | `/terms-of-service` | Terms of Service |
 
-`/mini-games` permanently redirects to `/wellness-games` (see `next.config.js`).
+`/mini-games` redirects to `/wellness-games`, and the four original game slugs
+(`breathe-and-grow`, `memory-match`, `pop-the-worries`, `color-your-mood`)
+redirect to the games that replaced them. See `next.config.js`.
 
 Every page has its own `<title>` and meta description. A custom 404 lives at
 `app/not-found.js`.
@@ -63,6 +65,7 @@ app/
     games.css       every game style, scoped to this route group
     page.js         hub + wellness disclaimer
     <slug>/page.js  one thin wrapper per game
+_replaced-games/                             the four retired games — safe to delete
 components/
   site.js           Name, email, address — SINGLE SOURCE OF TRUTH
   Icons.js          Inline SVG icon set
@@ -80,8 +83,8 @@ components/
     GameShell.js    Shared page frame: hero, instructions, disclaimer, back link
     GameDone.js     Shared completion card + replay button
     GameIcons.js    Inline SVG art used by the games
-    BreatheAndGrow.js  MemoryMatch.js  PopTheWorries.js
-    ColorYourMood.js   CalmCatch.js
+    BalloonBreath.js   SoundGarden.js  ZenSandGarden.js
+    MandalaMaker.js    CalmCatch.js
 
 Section components take a `hideHead` prop. Interior pages pass `hideHead`
 because `PageHero` already supplies the page's single `<h1>`; the home page
@@ -97,33 +100,44 @@ treatment, and the hub and every game page carry that disclaimer.
 database, no external API, no login, no analytics, no personal information
 collected, nothing about anyone's mental health stored, no gambling mechanics,
 no purchases, no ads, no game engine, no extra dependencies. Every game is
-plain React state plus CSS. Nothing leaves the browser and nothing is saved
-between visits.
+plain React state plus CSS, and Sound Garden's audio is generated with the Web
+Audio API rather than any audio file. Nothing leaves the browser and nothing is
+saved between visits.
 
 | Game | How it works |
 |---|---|
-| Breathe & Grow | Four-second in / hold / out phases; a flower gains petals with each of five breaths |
-| Memory Match | Eight pairs, Fisher–Yates shuffled; no timer, no score; mismatches flip back after 850ms |
-| Pop the Worries | Ten drifting bubbles; tap to release; a 340ms pop plays before the count updates |
-| Color Your Mood | Five line drawings, eight colours; click or keyboard to fill; downloads as PNG via canvas |
+| Balloon Breath | Hold to inflate over 4s, release to exhale; the balloon floats off and the breath counts. Five breaths |
+| Sound Garden | 5×8 grid on a C pentatonic scale; a playhead sweeps every 380ms and sounds the lit cells |
+| Zen Sand Garden | Canvas. Drag rakes four grooved furrows; a tap sets a stone with ripple rings |
+| Mandala Maker | Canvas. Each segment is redrawn per slice, rotated and mirrored, at 6/8/12 slices |
 | Calm Catch | 60 seconds, `requestAnimationFrame` loop; basket follows pointer, touch, or arrow keys |
+
+### The design rule these follow
+
+The first four games were replaced because nothing the visitor did changed
+anything: Breathe & Grow was watched rather than played, Memory Match had no
+connection to the site, Pop the Worries was one tap per bubble with no
+consequence. **Every replacement reacts to the hand, continuously.** If a new
+game is added, hold it to that test before anything else.
 
 ### Things that will break if you change them carelessly
 
-- **Bubble positions in `PopTheWorries.js`** are fractions of the *free* space
-  (container minus the bubble's own size), not percentages of the container.
-  A plain percentage ignores the bubble's width and pushes the right-hand
-  bubbles off the edge on a phone. The grid is also responsive — five columns
-  wide, three columns under 620px — because five columns leave ~60px per bubble
-  on a 375px screen, too small to read a word or tap reliably.
 - **`games.css` is imported by `app/wellness-games/layout.js`**, not by
   `globals.css`. That keeps game styles off the other 11 pages. Add game styles
   there, not to `globals.css`.
 - **The reduced-motion block at the bottom of `games.css`** must stay last, the
-  same rule as `globals.css`. Every looping animation is switched off there.
+  same rule as `globals.css`.
+- **Balloon Breath keeps `fill` and `phase` in refs as well as state.** The rAF
+  loop and the release handler read them; drop the refs and releasing the
+  pointer reads a stale fill and mis-counts the breath.
+- **Sound Garden creates its `AudioContext` on the first tap, never on mount.**
+  Browsers block audio not started by a user gesture, and iOS additionally needs
+  the `resume()` call that `audio()` makes. Nothing plays until Play is pressed.
+- **Both canvases scale by `devicePixelRatio`** in `fit()` and re-fit only when
+  the window width really changes — an iOS address bar hiding must not wipe the
+  drawing.
 - **`CalmCatch.js` keeps the basket position in a ref**, not state, so the
-  animation loop does not re-render on every frame. Moving it to state will
-  make the game stutter.
+  animation loop does not re-render on every frame.
 
 ## Colour rule
 

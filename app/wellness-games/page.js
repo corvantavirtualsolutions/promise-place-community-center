@@ -3,20 +3,20 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import CTABand from "@/components/CTABand";
 import { GAMES } from "@/components/games/gamesData";
-import { Flower, Star, Cloud, Butterfly, Heart } from "@/components/games/GameIcons";
+import { Balloon, Notes, Stones, Mandala, Heart } from "@/components/games/GameIcons";
 import { Info, ArrowRight } from "@/components/Icons";
 
 export const metadata = {
   title: "Wellness Games",
   description:
-    "Five simple wellness activities from Promise Place Community Center — breathing, memory, colouring and more. Free, no sign-up, playable in your browser.",
+    "Five calming activities from Promise Place Community Center — breathing, music, sand, drawing and a gentle catching game. Free, no sign-up, playable in your browser.",
 };
 
 const ART = {
-  "breathe-and-grow": Flower,
-  "memory-match": Star,
-  "pop-the-worries": Cloud,
-  "color-your-mood": Butterfly,
+  "balloon-breath": Balloon,
+  "sound-garden": Notes,
+  "zen-sand-garden": Stones,
+  "mandala-maker": Mandala,
   "calm-catch": Heart,
 };
 
