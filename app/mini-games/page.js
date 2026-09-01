@@ -3,13 +3,13 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import CTABand from "@/components/CTABand";
 import { GAMES } from "@/components/games/gamesData";
-import { Balloon, Notes, Stones, Mandala, Heart } from "@/components/games/GameIcons";
+import { Balloon, Notes, Stones, Mandala, Heart, Bubbles, Ripple, Face, Words } from "@/components/games/GameIcons";
 import { Info, ArrowRight, Sparkle } from "@/components/Icons";
 
 export const metadata = {
   title: "Mini Games",
   description:
-    "Five calming mini activities from Promise Place Community Center — a breathing exercise, music, sand, drawing and one gentle game. Free, no sign-up, playable in your browser.",
+    "Nine calming mini activities from Promise Place Community Center — breathing, music, sand, drawing, fidgets, feelings and one gentle game. Free, no sign-up, playable in your browser.",
 };
 
 const ART = {
@@ -17,6 +17,10 @@ const ART = {
   "sound-garden": Notes,
   "zen-sand-garden": Stones,
   "mandala-maker": Mandala,
+  "pop-it": Bubbles,
+  "ripple-pond": Ripple,
+  "how-am-i-feeling": Face,
+  "kind-words": Words,
   "calm-catch": Heart,
 };
 
@@ -26,7 +30,7 @@ export default function MiniGamesPage() {
       <PageHero
         eyebrow="Mini Games"
         title="Mini Games"
-        lede="A few small things to do when you need a pause. Only one of them is really a game — the rest are for breathing, making music, or making something of your own."
+        lede="A few small things to do when you need a pause. Only one of them is really a game — the rest are for breathing, fidgeting, making something, or putting a name to how you feel."
         tone="grape"
       />
 

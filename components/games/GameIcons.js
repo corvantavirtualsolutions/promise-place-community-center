@@ -63,6 +63,51 @@ export const RainCloud = (p) => (
   </S>
 );
 
+export const Bubbles = (p) => (
+  <S {...p}>
+    <g fill="#F2A9A3">
+      <circle cx="14" cy="14" r="6.4" /><circle cx="34" cy="14" r="6.4" />
+      <circle cx="14" cy="34" r="6.4" />
+    </g>
+    <circle cx="34" cy="34" r="6.4" fill="#EE6A62" />
+    <circle cx="34" cy="33" r="4.2" fill="#C9524B" />
+  </S>
+);
+
+export const Ripple = (p) => (
+  <S {...p}>
+    <g fill="none" stroke="#4C9BE0" strokeLinecap="round">
+      <circle cx="24" cy="26" r="5" strokeWidth="3" />
+      <path d="M11 26a13 13 0 0 1 26 0" strokeWidth="2.6" opacity=".75" />
+      <path d="M5 26a19 19 0 0 1 38 0" strokeWidth="2.2" opacity=".45" />
+    </g>
+    <ellipse cx="24" cy="39" rx="15" ry="3.4" fill="#BCDFFA" />
+  </S>
+);
+
+export const Face = (p) => (
+  <S {...p}>
+    <circle cx="24" cy="24" r="18" fill="#F5CE63" />
+    <g fill="#7A5A12">
+      <circle cx="18" cy="21" r="2.6" /><circle cx="30" cy="21" r="2.6" />
+    </g>
+    <path d="M16 30c4 4 12 4 16 0" stroke="#7A5A12" strokeWidth="2.8"
+          strokeLinecap="round" fill="none" />
+    <g stroke="#7A5A12" strokeWidth="2.4" strokeLinecap="round">
+      <path d="M14.5 15.5c1.6-1.3 4-1.3 5.6 0M27.9 15.5c1.6-1.3 4-1.3 5.6 0" />
+    </g>
+  </S>
+);
+
+export const Words = (p) => (
+  <S {...p}>
+    <rect x="4" y="12" width="19" height="11" rx="3" fill="#9B7FE8" />
+    <rect x="26" y="12" width="18" height="11" rx="3" fill="#C3B2F2" />
+    <rect x="4" y="27" width="14" height="11" rx="3" fill="#C3B2F2" />
+    <rect x="21" y="27" width="23" height="11" rx="3" fill="#9B7FE8" />
+  </S>
+);
+
 export const Balloon = (p) => (
   <S {...p}>
     <path d="M24 6c7.2 0 12.5 5.6 12.5 13 0 7.9-7.4 14.4-12.5 14.4S11.5 26.9 11.5 19c0-7.4 5.3-13 12.5-13Z" fill="#5FBFA8" />

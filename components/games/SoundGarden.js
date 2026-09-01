@@ -25,6 +25,11 @@ const STEP_MS = 380;
 
 const TINTS = ["#A78BE8", "#7FB6EA", "#5FBFA8", "#F5CE63", "#F0A0B4"];
 
+/* 0.05s of silence, 8kHz mono. Inlined so there is no audio file to fetch.
+   See unlockPhoneAudio() below for why a silent clip is needed at all. */
+const SILENT_WAV =
+  "data:audio/wav;base64,UklGRrQBAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YZABAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA";
+
 const emptyGrid = () => ROWS.map(() => Array(STEPS).fill(false));
 
 /* A few starting patterns, so the grid is never blank and staring at you. */
@@ -49,9 +54,46 @@ export default function SoundGarden() {
 
   const ac = useRef(null);
   const master = useRef(null);
+  const silent = useRef(null);
   const gridRef = useRef(grid);
   const timer = useRef(null);
   gridRef.current = grid;
+
+  /* Why the grid was silent on phones.
+
+     iOS classes Web Audio as "ambient" sound, so the handset's side switch
+     silences it — while <audio> and <video> elements play regardless. Everything
+     on screen worked, the playhead swept, and nothing errored; there was just no
+     sound, which is exactly what that switch does.
+
+     Two layers, because one alone doesn't cover every handset:
+       1. navigator.audioSession.type = "playback" tells iOS this is deliberate
+          playback rather than background ambience. Safari 16.4 and later.
+       2. Older iOS: playing a silent <audio> clip during the same tap flips the
+          audio session, after which Web Audio is no longer treated as ambient.
+
+     Both are wrapped in try/catch and both are no-ops elsewhere — no other
+     browser needs any of this. */
+  const unlockPhoneAudio = useCallback(() => {
+    try {
+      if (typeof navigator !== "undefined" && navigator.audioSession) {
+        navigator.audioSession.type = "playback";
+      }
+    } catch { /* not supported here; layer 2 covers it */ }
+
+    try {
+      if (!silent.current) {
+        const el = new Audio(SILENT_WAV);
+        el.loop = true;
+        el.volume = 0;
+        el.setAttribute("playsinline", "");
+        silent.current = el;
+      }
+      // must happen inside the user gesture, so no await
+      const p = silent.current.play();
+      if (p && p.catch) p.catch(() => {});
+    } catch { /* nothing to recover; the grid still works, just quietly */ }
+  }, []);
 
   /* Created on the first tap, never before: browsers block audio that isn't
      started by a user gesture, and creating it earlier would leave a suspended
@@ -73,7 +115,9 @@ export default function SoundGarden() {
   const playNote = useCallback((freq) => {
     const context = audio();
     if (!context || muted) return;
-    const t = context.currentTime;
+    // a hair ahead of "now": an envelope scheduled exactly at currentTime is
+    // sometimes dropped on mobile, which loses the first note of the loop
+    const t = context.currentTime + 0.015;
     const osc = context.createOscillator();
     const gain = context.createGain();
     const filter = context.createBiquadFilter();
@@ -112,6 +156,8 @@ export default function SoundGarden() {
   useEffect(() => () => {
     clearInterval(timer.current);
     if (ac.current && ac.current.state !== "closed") ac.current.close();
+    // stop holding the audio session once the visitor leaves the page
+    if (silent.current) { try { silent.current.pause(); } catch {} silent.current = null; }
   }, []);
 
   useEffect(() => {
@@ -121,7 +167,7 @@ export default function SoundGarden() {
   const toggle = (r, c) => {
     const on = !grid[r][c];
     setGrid((g) => g.map((row, ri) => (ri === r ? row.map((v, ci) => (ci === c ? !v : v)) : row)));
-    if (on && !playing) playNote(ROWS[r].freq);   // instant feedback when stopped
+    if (on && !playing) { unlockPhoneAudio(); playNote(ROWS[r].freq); }  // instant feedback when stopped
   };
 
   const shuffle = () => {
@@ -158,7 +204,11 @@ export default function SoundGarden() {
       </div>
 
       <div className="sg__controls">
-        <button className="btn btn-primary" type="button" onClick={() => { audio(); setPlaying((p) => !p); }}>
+        <button
+          className="btn btn-primary"
+          type="button"
+          onClick={() => { unlockPhoneAudio(); audio(); setPlaying((p) => !p); }}
+        >
           {playing ? "Pause" : "Play"}
         </button>
         <button className="btn btn-secondary" type="button" onClick={shuffle}>Surprise me</button>

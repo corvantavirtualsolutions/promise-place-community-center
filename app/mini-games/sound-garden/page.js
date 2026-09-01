@@ -13,7 +13,7 @@ export default function Page() {
       title="Sound Garden"
       blurb="Tap squares to plant notes. They loop back as a tune that cannot sound wrong."
       tone="sky"
-      instructions="Tap any squares you like, then press Play. Every row is a note from the same scale, so whatever you choose will sound right together. Sound can be turned off at any time."
+      instructions="Tap any squares you like, then press Play. Every row is a note from the same scale, so whatever you choose will sound right together. Sound can be turned off at any time — and if you hear nothing on a phone, check the side switch isn't set to silent."
       wide
     >
       <SoundGarden />
