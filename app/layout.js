@@ -69,8 +69,13 @@ export default function RootLayout({ children }) {
         </noscript>
         <a className="skip-link" href="#main">Skip to main content</a>
         <ScrollProgress />
-        <Header />
-        <AnnounceBar />
+        {/* Header and strip share one sticky wrapper so they stay together as
+            a single block — no fragile top offset that breaks when the header
+            changes height between breakpoints. */}
+        <div className="topbar">
+          <Header />
+          <AnnounceBar />
+        </div>
         <main id="main">
           <PageTransition>{children}</PageTransition>
         </main>

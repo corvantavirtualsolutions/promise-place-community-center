@@ -74,7 +74,9 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 92px;
+  --announce-h: 48px;
+  /* clears the header AND the strip, which no longer scrolls away */
+  scroll-padding-top: calc(92px + var(--announce-h));
   overflow-x: clip;
   -webkit-text-size-adjust: 100%;
 }
@@ -333,8 +335,13 @@ a:hover { color: var(--teal-800); }
    6. HEADER & NAVIGATION
    -------------------------------------------------------------------------- */
 
+/* The sticky element is now .topbar (header + announcement strip together),
+   so the header itself only needs to sit above the strip for the mobile menu's
+   shadow to land correctly. */
+.topbar { position: sticky; top: 0; z-index: 100; }
+
 .header {
-  position: sticky; top: 0; z-index: 100;
+  position: relative; z-index: 1;
   background: rgba(255,255,255,.9);
   backdrop-filter: saturate(180%) blur(14px);
   border-bottom: 1px solid transparent;
@@ -409,7 +416,8 @@ a:hover { color: var(--teal-800); }
   display: none; background: #fff;
   border-top: 1px solid var(--line);
   padding: 12px var(--gutter) 28px;
-  max-height: calc(100vh - 78px); overflow-y: auto;
+  /* 80px is the header's real measured height (78px min plus its border) */
+  max-height: calc(100vh - 80px - var(--announce-h)); overflow-y: auto;
 }
 .mobile-nav.is-open { display: block; animation: menuIn .3s var(--ease-out) both; }
 .mobile-nav ul { list-style: none; }
@@ -1129,6 +1137,7 @@ a:hover { color: var(--teal-800); }
 @media (max-width: 620px) {
   /* the second clause is the first thing to go; the strip must not grow into a
      three-line block that pushes every page down on a small phone */
+  :root { --announce-h: 45px; }
   .announce__more { display: none; }
   .announce__inner { padding: 11px 0; font-size: .82rem; }
 }

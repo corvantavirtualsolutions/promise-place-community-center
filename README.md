@@ -152,19 +152,29 @@ game is added, hold it to that test before anything else.
 
 ## Announcement strip
 
-`components/AnnounceBar.js`, rendered in `app/layout.js` between `<Header />`
-and `<main>`, so it appears on every page and scrolls away under the sticky
-header instead of taking permanent vertical space.
+`components/AnnounceBar.js`. It and `<Header />` sit inside a `.topbar` wrapper
+in `app/layout.js`, and **the wrapper is the sticky element** — so the header and
+the strip stay pinned together on every page as one block: 79px of header plus
+48px of strip (45px under 620px).
 
 It reads "More services and opportunities are coming soon — get in touch to hear
-more" and links to `/contact`. Two deliberate decisions:
+more" and links to `/contact`. Four decisions worth keeping:
 
 - **The whole strip is the link**, not a separate "Get in touch" anchor. An
   inline anchor there was a 23px-tall tap target and took a third line of its
-  own at 375px; the strip is now 45–48px tall everywhere and the entire bar is
+  own at 375px; the strip is 45–48px tall everywhere and the entire bar is
   the target.
 - **`.announce__more` is hidden under 620px**, dropping the second clause so the
   message stays on one line on a phone.
+- **`--announce-h` (48px, 45px under 620px) must track the strip's real height.**
+  Two things read it: `scroll-padding-top`, so in-page anchors don't land under
+  the strip, and `.mobile-nav`'s `max-height`, so the open menu plus the strip
+  still fit the viewport. Change the strip's padding or font size and this token
+  has to change with it.
+- **Don't put `position: sticky` back on `.header`.** The wrapper is sticky; the
+  header is `position: relative` only so the mobile menu's shadow lands over the
+  strip. Sticking the two separately needs a hardcoded `top` offset that breaks
+  whenever the header changes height between breakpoints.
 
 Keep the copy vague. It must not name a service, promise a date, or imply an
 offer the organization has not actually made.
