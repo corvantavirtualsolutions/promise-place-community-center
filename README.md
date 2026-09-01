@@ -150,6 +150,25 @@ game is added, hold it to that test before anything else.
 - **`CalmCatch.js` keeps the basket position in a ref**, not state, so the
   animation loop does not re-render on every frame.
 
+## Announcement strip
+
+`components/AnnounceBar.js`, rendered in `app/layout.js` between `<Header />`
+and `<main>`, so it appears on every page and scrolls away under the sticky
+header instead of taking permanent vertical space.
+
+It reads "More services and opportunities are coming soon — get in touch to hear
+more" and links to `/contact`. Two deliberate decisions:
+
+- **The whole strip is the link**, not a separate "Get in touch" anchor. An
+  inline anchor there was a 23px-tall tap target and took a third line of its
+  own at 375px; the strip is now 45–48px tall everywhere and the entire bar is
+  the target.
+- **`.announce__more` is hidden under 620px**, dropping the second clause so the
+  message stays on one line on a phone.
+
+Keep the copy vague. It must not name a service, promise a date, or imply an
+offer the organization has not actually made.
+
 ## Colour rule
 
 Saturated colour lives in **small** areas only — chips, card top rules, buttons,

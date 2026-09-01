@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import ScrollProgress from "@/components/ScrollProgress";
 import PageTransition from "@/components/PageTransition";
 import BackToTop from "@/components/BackToTop";
+import AnnounceBar from "@/components/AnnounceBar";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
@@ -69,6 +70,7 @@ export default function RootLayout({ children }) {
         <a className="skip-link" href="#main">Skip to main content</a>
         <ScrollProgress />
         <Header />
+        <AnnounceBar />
         <main id="main">
           <PageTransition>{children}</PageTransition>
         </main>
