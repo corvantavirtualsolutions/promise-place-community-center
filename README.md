@@ -369,32 +369,59 @@ structured data all read from it.
 
 ## Logo
 
-The mark is **two figures whose bodies together form a heart** — people,
-together, cared for. It ties to the name (a *place* where you're welcome) and to
-the site's promise that getting support doesn't have to be hard.
+The mark is **a roof with three people under it** — shelter, and a community
+center in the most literal sense. Replaced the earlier two-figures-and-a-heart
+mark on 2026-09-02.
 
-- Left figure: teal `#3ECFB6 → #0C7267`
-- Right figure: sky `#6CC5F5 → #1B82C9`
+Why this one: it holds its shape everywhere a logo actually has to survive. The
+roof and the three dots stay separate and legible at 24px in the header, in a
+single colour, and knocked out on the footer's dark teal. The old mark's two
+heads merged into one blob below about 24px.
+
+- Roof: teal gradient `#3ECFB6 → #0C7267`
+- People: coral `#EE6A62`, yellow `#F5CE63`, blue `#1B82C9`
 - Type: Plus Jakarta Sans ExtraBold (name), Bold (COMMUNITY CENTER)
+
+Three figures, not two: children, adults and families are all named on the site,
+and three reads as a group where two reads as a couple.
+
+### Things to keep
+- **The roof is a stroke, not a filled shape**, with round caps and joins. Its
+  weight then stays identical at every size, and there is no overlap to be
+  knocked out by a fill rule — the trap that put a hole in the old mark.
+- **On the dark footer the roof goes white but the people keep their colours.**
+  Three white dots read as decoration rather than as people.
 
 ### On the site
 `components/LogoMark.js` renders the mark inline as SVG. It takes `size` and
-`tone` (`"color"` | `"white"` | `"ink"`) and generates unique gradient ids per
-instance, so header and footer can both use it safely. The wordmark beside it is
-real HTML text in the site font — crisp, selectable, and readable to screen
-readers.
+`tone` (`"color"` | `"white"` | `"ink"`) and generates a unique gradient id per
+instance, so header, footer and the admin bar can all use it safely. The
+wordmark beside it is real HTML text in the site font — crisp, selectable and
+readable to screen readers.
 
 `app/icon.svg` is the browser favicon (Next.js picks it up automatically).
 
 ### Files for the client
-`public/brand/` holds every version as SVG: horizontal and stacked lockups, the
-mark alone, white versions for dark backgrounds, one-colour versions for print,
-and the app icon. All text is converted to outlines, so no font is needed to
-open them. `brand-assets.zip` (git-ignored) additionally contains PNG exports at
-every common size, a brand sheet, and a usage README.
+`public/brand/` holds the lockups the client can actually use, as both SVG and
+PNG, with a plain-English `README.txt` explaining which file goes where:
+
+| File | For |
+|---|---|
+| `promise-place-logo-horizontal.*` | Default. Letterhead, signatures, documents |
+| `promise-place-logo-stacked.*` | Tall or square spaces. Flyers, posters, signage |
+| `*-white.*` | Dark or coloured backgrounds only |
+| `*-black.*` | One colour — fax, photocopy, embroidery |
+| `promise-place-mark-only.*` | Roof alone, where the name is already nearby |
+| `promise-place-social-avatar.png` | Square 1024px profile picture |
+
+**All wordmark text is converted to vector outlines.** A `<text>` element only
+renders right where Plus Jakarta Sans is installed — paste that into Canva or a
+printer's workflow and it silently falls back to something else. Outlines look
+identical everywhere and need no font file. `fontwork/build_lockup.py` in the
+session notes documents how they were generated if they ever need rebuilding.
 
 Minimum sizes: lockup 120px wide, mark alone 20px. Keep clear space around the
-logo of at least the height of the mark's head.
+logo of at least the height of the roof.
 
 > This is a **new** mark. The original brief mentioned the organisation has an
 > existing logo they wanted brightened — none was ever supplied. If that logo
