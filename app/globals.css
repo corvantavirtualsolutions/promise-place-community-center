@@ -745,6 +745,26 @@ a:hover { color: var(--teal-800); }
 .form__success svg { width: 22px; height: 22px; color: var(--teal-700); flex: none; margin-top: 2px; }
 .form__success p { margin: 0; font-size: .95rem; color: var(--teal-800); }
 
+/* Same shape as the success box, in the warning tone. Shown when the API call
+   fails, alongside a mailto: link so the visitor is never left with a dead end. */
+.form__error {
+  background: var(--coral-50); border: 1px solid var(--coral-200);
+  border-radius: var(--r); padding: 20px; display: flex; gap: 13px;
+  align-items: flex-start; margin-bottom: 20px;
+}
+.form__error svg { width: 22px; height: 22px; color: var(--coral-700); flex: none; margin-top: 2px; }
+.form__error p { margin: 0; font-size: .95rem; color: var(--coral-700); }
+.form__error a { color: var(--coral-700); font-weight: 700; text-decoration: underline; }
+
+/* Honeypot. Not display:none — some bots skip hidden inputs, and this needs to
+   look like a real field to them while staying unreachable for people. */
+.hp {
+  position: absolute; left: -9999px; top: auto;
+  width: 1px; height: 1px; overflow: hidden;
+}
+
+.btn[disabled] { opacity: .65; cursor: progress; pointer-events: none; }
+
 /* Teaser cards (home) */
 .teaser-card {
   display: flex; flex-direction: column; text-decoration: none;
@@ -1099,6 +1119,131 @@ a:hover { color: var(--teal-800); }
 .page-hero:has(+ .wave) { border-bottom: 0; }
 .page-hero + .wave { background: var(--wash-cream); }
 /* (the school section's bottom wave was removed — it split two teals) */
+
+/* --------------------------------------------------------------------------
+   STAFF DASHBOARD (/admin)
+   Private, signed-in pages. Plain and dense on purpose — this is a work tool,
+   not a marketing page.
+   -------------------------------------------------------------------------- */
+
+.adminwrap { min-height: 60vh; }
+
+/* Hide the visitor-facing announcement strip on the dashboard. Done from the
+   page's own wrapper because the root layout renders the strip for every route
+   and cannot tell which one it is. */
+body:has(.adminwrap) .announce { display: none; }
+
+.adminlogin { display: grid; place-items: center; padding: clamp(48px, 9vw, 110px) var(--gutter); }
+.adminlogin__card {
+  width: 100%; max-width: 420px;
+  background: #fff; border: 1px solid var(--line);
+  border-radius: var(--r-lg); box-shadow: var(--sh);
+  padding: clamp(26px, 4vw, 38px);
+  text-align: center;
+}
+.adminlogin__card .chip { margin: 0 auto 16px; }
+.adminlogin__card h1 { font-size: clamp(1.35rem, 3vw, 1.7rem); margin-bottom: 8px; }
+.adminlogin__card > p { font-size: .93rem; color: var(--ink-3); margin-bottom: 24px; }
+.adminlogin__card form { text-align: left; }
+
+.admin__head {
+  display: flex; flex-wrap: wrap; gap: 18px;
+  align-items: flex-start; justify-content: space-between;
+  margin-bottom: 28px;
+}
+.admin__head h1 { font-size: clamp(1.5rem, 3.4vw, 2rem); margin: 10px 0 4px; }
+.admin__head p { margin: 0; font-size: .9rem; color: var(--ink-3); }
+
+.admin__bar {
+  display: flex; flex-wrap: wrap; gap: 12px;
+  align-items: center; justify-content: space-between;
+  margin-bottom: 20px;
+}
+.admin__filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.admin__filters button {
+  border: 1.5px solid var(--line); background: #fff;
+  border-radius: var(--r-full); padding: 9px 15px; min-height: 42px;
+  font-family: var(--font-heading), sans-serif;
+  font-weight: 650; font-size: .86rem; color: var(--ink-2);
+  cursor: pointer;
+  transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+}
+.admin__filters button b {
+  display: inline-block; margin-left: 6px;
+  background: var(--teal-50); color: var(--teal-800);
+  border-radius: var(--r-full); padding: 1px 8px; font-size: .8rem;
+}
+.admin__filters button:hover { border-color: var(--teal-300); }
+.admin__filters button[aria-pressed="true"] { background: var(--teal-700); color: #fff; border-color: var(--teal-700); }
+.admin__filters button[aria-pressed="true"] b { background: rgba(255,255,255,.2); color: #fff; }
+
+.admin__search {
+  flex: 1 1 240px; max-width: 340px; min-height: 44px;
+  border: 1.5px solid var(--line); border-radius: var(--r);
+  padding: 10px 14px; font: inherit; font-size: .92rem;
+}
+.admin__search:focus-visible { outline: 3px solid var(--teal-600); outline-offset: 1px; }
+
+.admin__empty {
+  background: var(--wash-mint); border: 1px solid var(--teal-100);
+  border-radius: var(--r); padding: 26px; text-align: center;
+  color: var(--ink-2); font-size: .95rem;
+}
+
+.admin__list { list-style: none; display: grid; gap: 12px; }
+
+.arow {
+  background: #fff; border: 1px solid var(--line);
+  border-left: 4px solid var(--ink-3);
+  border-radius: var(--r);
+}
+/* status is carried by colour AND by the dropdown's text, never colour alone */
+.arow--new { border-left-color: var(--teal-500, var(--teal-600)); }
+.arow--in_progress { border-left-color: var(--sun-500); }
+.arow--closed { border-left-color: var(--line); opacity: .72; }
+
+.arow__head { display: flex; gap: 12px; align-items: center; padding: 6px 14px 6px 6px; }
+.arow__toggle {
+  flex: 1; display: flex; flex-direction: column; gap: 3px;
+  border: 0; background: none; cursor: pointer;
+  padding: 12px; text-align: left; border-radius: var(--r-sm);
+}
+.arow__toggle:hover { background: var(--wash-mint); }
+.arow__toggle:focus-visible { outline: 3px solid var(--teal-600); outline-offset: -3px; }
+.arow__name { font-family: var(--font-heading), sans-serif; font-weight: 750; color: var(--ink); }
+.arow__meta { font-size: .84rem; color: var(--ink-3); }
+
+.arow__status {
+  min-height: 42px; border: 1.5px solid var(--line); border-radius: var(--r-sm);
+  padding: 8px 10px; font: inherit; font-size: .86rem; background: #fff; cursor: pointer;
+}
+
+.arow__body { padding: 4px 18px 20px; border-top: 1px solid var(--line-soft); }
+.arow__body dl {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px 20px; margin: 16px 0 18px;
+}
+.arow__body dt { font-size: .76rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.arow__body dd { margin: 3px 0 0; font-size: .93rem; color: var(--ink); }
+.arow__body h3 { font-size: .76rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; }
+.arow__message {
+  white-space: pre-wrap;           /* keep the visitor's own line breaks */
+  background: var(--wash-cream); border: 1px solid var(--line);
+  border-radius: var(--r-sm); padding: 14px;
+  font-size: .95rem; margin-bottom: 18px;
+}
+.arow__notes { display: block; }
+.arow__notes span { display: block; font-size: .76rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; }
+.arow__notes textarea {
+  width: 100%; border: 1.5px solid var(--line); border-radius: var(--r-sm);
+  padding: 11px 13px; font: inherit; font-size: .92rem; resize: vertical;
+}
+
+@media (max-width: 620px) {
+  .admin__search { max-width: none; }
+  .arow__head { flex-wrap: wrap; }
+  .arow__status { width: 100%; }
+}
 
 /* ---------- Announcement strip ---------- */
 

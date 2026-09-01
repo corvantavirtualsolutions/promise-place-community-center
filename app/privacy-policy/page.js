@@ -38,25 +38,38 @@ export default function PrivacyPolicyPage() {
 
             <h2>The short version</h2>
             <p>
-              This website does not create an account for you, does not track you,
-              and does not store anything you type into it. There is no database
-              behind it. The only way we receive your information is if you choose
-              to email us.
+              This website does not create an account for you and does not track you.
+              The one thing it does store is what you send us through the contact
+              form, which we keep so that we can reply to you and so that no inquiry
+              gets lost.
             </p>
 
             <h2>What the contact form actually does</h2>
             <p>
-              The form on our contact page does not send anything to a server. When
-              you press <em>Send Inquiry</em>, it opens your own email program with the
-              details you entered already filled in. Nothing is transmitted until you
-              press send in your own email program, and at that point the message
-              travels through your email provider to{" "}
-              <a href={`mailto:${SITE.email}`}>{SITE.email}</a> like any ordinary email.
+              When you press <em>Send Inquiry</em>, what you typed is sent to our
+              website&rsquo;s server over an encrypted connection and saved in our
+              inquiry database. Our team reads it from a private, password-protected
+              staff page. No copy is emailed anywhere.
             </p>
             <p>
-              This means we never see anything you type unless you deliberately send it.
-              It also means the form offers no special security &mdash; it is ordinary
-              email, which is not encrypted end to end.
+              We store your name, your email address, your phone number if you gave
+              one, the options you selected, your message, and the date and time. We
+              also record which web browser you used and a scrambled, one-way code
+              derived from your internet address, which we use only to stop automated
+              spam. That code cannot be turned back into your address.
+            </p>
+            <p>
+              Our inquiry database is hosted by Supabase. Access is limited to our
+              team. We keep inquiries for as long as we need them to respond to you
+              and to keep a record of the request, and you can ask us to delete
+              yours at any time by emailing{" "}
+              <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+            </p>
+            <p>
+              If our server cannot be reached, the form falls back to opening your
+              own email program with the details filled in, so your message is not
+              lost. In that case nothing is sent until you press send yourself, and
+              it travels as ordinary email, which is not encrypted end to end.
             </p>
 
             <div className="prose__note">
@@ -70,10 +83,11 @@ export default function PrivacyPolicyPage() {
 
             <h2>Information we receive by email</h2>
             <p>
-              If you email us, we receive whatever you chose to write: typically your
-              name, your email address, a phone number if you provided one, and a
-              description of the support you are looking for. We use it only to reply
-              to you and to help you understand what services may fit.
+              If you email us directly instead of using the form, we receive whatever
+              you chose to write: typically your name, your email address, a phone
+              number if you provided one, and a description of the support you are
+              looking for. We use it only to reply to you and to help you understand
+              what services may fit.
             </p>
 
             <h2>Cookies and tracking</h2>
@@ -84,7 +98,8 @@ export default function PrivacyPolicyPage() {
             </p>
             <p>
               If analytics are added later, this policy should be updated to say what
-              is collected and why.
+              is collected and why. The inquiry database described above is not
+              tracking: it holds only what you deliberately typed into the form.
             </p>
 
             <h2>Our hosting provider</h2>

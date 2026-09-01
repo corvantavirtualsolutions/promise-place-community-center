@@ -31,33 +31,76 @@ const TOPICS = [
   "Not sure yet",
 ];
 
-export default function Contact({ hideHead = false }) {
-  const [sent, setSent] = useState(false);
+/* Builds the mailto: the form used before there was a backend. Still used as
+   the escape hatch when the API call fails, so nobody who reached out is left
+   with a dead end. */
+function mailtoFor(get) {
+  const subject = `Website inquiry from ${get("firstName")} ${get("lastName")}`.trim();
+  const body = [
+    `Name: ${get("firstName")} ${get("lastName")}`,
+    `Email: ${get("email")}`,
+    `Phone: ${get("phone") || "Not provided"}`,
+    `Seeking services for: ${get("seekingFor")}`,
+    `Topic: ${get("topic")}`,
+    `Preferred contact method: ${get("preferred")}`,
+    "",
+    "Message:",
+    get("message"),
+  ].join("\n");
+  return `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
 
-  /* No backend is connected yet, so the form opens the visitor's email app with
-     their inquiry prefilled. To switch to a real endpoint later, replace the body
-     of handleSubmit with a fetch() to your form handler. */
-  function handleSubmit(e) {
+export default function Contact({ hideHead = false }) {
+  // idle | sending | sent | error
+  const [status, setStatus] = useState("idle");
+  const [error, setError] = useState("");
+  const [fallback, setFallback] = useState("");
+
+  async function handleSubmit(e) {
     e.preventDefault();
+    if (status === "sending") return;
+
     const f = new FormData(e.currentTarget);
     const get = (k) => (f.get(k) || "").toString().trim();
+    const form = e.currentTarget;
 
-    const subject = `Website inquiry from ${get("firstName")} ${get("lastName")}`.trim();
-    const body = [
-      `Name: ${get("firstName")} ${get("lastName")}`,
-      `Email: ${get("email")}`,
-      `Phone: ${get("phone") || "Not provided"}`,
-      `Seeking services for: ${get("seekingFor")}`,
-      `Topic: ${get("topic")}`,
-      `Preferred contact method: ${get("preferred")}`,
-      "",
-      "Message:",
-      get("message"),
-    ].join("\n");
+    setStatus("sending");
+    setError("");
 
-    window.location.href =
-      `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    const payload = {
+      firstName: get("firstName"),
+      lastName: get("lastName"),
+      email: get("email"),
+      phone: get("phone"),
+      seekingFor: get("seekingFor"),
+      topic: get("topic"),
+      preferred: get("preferred"),
+      message: get("message"),
+      company: get("company"),   // honeypot — see the hidden field below
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        setFallback(mailtoFor(get));
+        setError(data.error || "Something went wrong sending your message.");
+        setStatus("error");
+        return;
+      }
+
+      form.reset();
+      setStatus("sent");
+    } catch {
+      setFallback(mailtoFor(get));
+      setError("We couldn't reach the server. Your connection may be offline.");
+      setStatus("error");
+    }
   }
 
   return (
@@ -125,16 +168,35 @@ export default function Contact({ hideHead = false }) {
           </div>
 
           <form className="form" onSubmit={handleSubmit} noValidate={false}>
-            {sent && (
-              <div className="form__success" role="status">
-                <CheckCircle />
-                <p>
-                  Thanks &mdash; your email app should have opened with your inquiry
-                  ready to send. If it didn&rsquo;t, you can email us directly at{" "}
-                  <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
-                </p>
-              </div>
-            )}
+            <div aria-live="polite">
+              {status === "sent" && (
+                <div className="form__success" role="status">
+                  <CheckCircle />
+                  <p>
+                    Thank you &mdash; we&rsquo;ve received your message and someone
+                    from our team will follow up. If it&rsquo;s urgent, you can also
+                    email us at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+                  </p>
+                </div>
+              )}
+
+              {status === "error" && (
+                <div className="form__error" role="alert">
+                  <Alert />
+                  <p>
+                    {error}{" "}
+                    {fallback ? (
+                      <>
+                        You can <a href={fallback}>send it by email instead</a> &mdash;
+                        your message is already filled in.
+                      </>
+                    ) : (
+                      <>Please email us at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.</>
+                    )}
+                  </p>
+                </div>
+              )}
+            </div>
 
             <div className="form__row">
               <div className="field">
@@ -202,8 +264,16 @@ export default function Contact({ hideHead = false }) {
               </p>
             </div>
 
-            <button className="btn btn-primary btn-block" type="submit">
-              Send Inquiry <ArrowRight />
+            {/* Honeypot. Off-screen, unlabelled to people, skipped by tab order
+                and hidden from screen readers — only an automated form filler
+                will ever put anything in it. */}
+            <div className="hp" aria-hidden="true">
+              <label htmlFor="company">Company</label>
+              <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+            </div>
+
+            <button className="btn btn-primary btn-block" type="submit" disabled={status === "sending"}>
+              {status === "sending" ? "Sending…" : <>Send Inquiry <ArrowRight /></>}
             </button>
           </form>
         </div>

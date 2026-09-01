@@ -179,6 +179,95 @@ more" and links to `/contact`. Four decisions worth keeping:
 Keep the copy vague. It must not name a service, promise a date, or imply an
 offer the organization has not actually made.
 
+## Contact form backend and staff dashboard
+
+The form posts JSON to `app/api/contact/route.js`, which saves the inquiry to
+Supabase. Staff read it at **`/admin`**. Both sides use plain `fetch` against
+Supabase's REST and Auth APIs — no `@supabase/supabase-js`, no new dependencies.
+
+```
+visitor ──POST /api/contact──▶ route.js ──▶ Supabase REST (insert)
+staff   ──GET  /admin ───────▶ page.js  ──▶ Supabase Auth (verify session)
+                                        └─▶ Supabase REST (read + update)
+```
+
+### There is no email notification
+By design. **Nobody learns about a new inquiry unless someone opens `/admin`.**
+Somebody at the clinic needs to check it daily. If that turns out not to happen,
+the fix is a notification service, not a bigger banner.
+
+Because there is no email backup, the client-side `mailto:` fallback is the only
+safety net when the database is unreachable — the form offers the visitor their
+own message back as a pre-filled email. Don't remove it.
+
+### Two Supabase keys, used for different things
+- **Service role key** → `/rest/v1/*`. Bypasses row-level security, which is how
+  the site reads and writes a table that is closed to everyone else.
+- **Anon key** → `/auth/v1/*`. Sign-in and session verification only.
+
+Neither is `NEXT_PUBLIC_*`; neither reaches the browser. The table has RLS
+enabled with **no policies at all**, so the anon key can do nothing with it even
+if it leaked.
+
+### Who can reach /admin
+Only the address in `ADMIN_EMAIL`. That is enforced in three places, and all
+three have to fail before anyone else gets in:
+
+1. Before sign-in is even attempted, so a wrong address can't be used to probe
+   Supabase for which accounts exist.
+2. Against the account Supabase returns after a successful password check.
+3. On **every page load and every API call**, via `requireAdmin()` — because a
+   Supabase project can gain another user later, and that must never be enough.
+
+Sign-in failures all return one generic message. Telling someone whether the
+email or the password was wrong tells an attacker which half they got right.
+
+The session is a Supabase access token in an **httpOnly** cookie, so page
+JavaScript cannot read it. `/admin` and `/api/` are disallowed in
+`app/robots.js`, and the page sets `robots: { index: false }`.
+
+### The dashboard
+Filter by status, search across name/email/message, expand a row for the full
+inquiry, set status (New / In progress / Closed), and leave staff notes. Status
+and notes save optimistically and roll back if the request fails. The
+announcement strip is hidden here — see the comment in `app/admin/layout.js`.
+
+### Setup
+1. Supabase → SQL Editor → run `supabase/schema.sql`.
+2. Supabase → Authentication → Users → add **one** user, the `ADMIN_EMAIL`, with
+   "Auto Confirm User" ticked. Then Providers → Email → turn **off** "Enable
+   sign ups" so no one else can ever register.
+3. Copy `SUPABASE_URL`, the **service_role** key and the **anon** key into
+   Vercel's environment variables, along with `ADMIN_EMAIL` and a random
+   `IP_HASH_SALT`. See `.env.example`.
+
+### Behaviour worth preserving
+- **Honeypot** (`#company`, off-screen, `tabIndex={-1}`, `aria-hidden`) returns
+  `200` on a hit, not an error — a bot that gets an error just retries.
+- **Rate limit** is 3 per hashed IP per 10 minutes, counted *in the database*:
+  each serverless invocation may be a cold instance, so an in-memory counter
+  would reset constantly and catch nothing.
+- **The raw IP is never stored**, only a salted SHA-256.
+- **`/admin` is `force-dynamic` with `revalidate = 0`.** A cached copy of this
+  page would be a data leak.
+
+### ⚠️ HIPAA — read before this goes live
+The `message` column stores free text written by the public, and people asking a
+mental health provider for help **will** describe symptoms, medication and
+crises in it. That is protected health information.
+
+**Supabase only signs a Business Associate Agreement on its Team plan and above.**
+On the free or Pro tier there is no BAA, and storing PHI there is a compliance
+exposure for the clinic — not for the website.
+
+Options, for the client and their counsel:
+1. Upgrade Supabase to a plan with a BAA.
+2. Stop storing the message body — drop `message` from the `row` object in
+   `app/api/contact/route.js` and keep only the structured fields.
+3. Accept the risk in writing.
+
+Raised 2026-09-01; the decision was to store everything for now.
+
 ## Colour rule
 
 Saturated colour lives in **small** areas only — chips, card top rules, buttons,
@@ -286,10 +375,10 @@ change, update the palette at the top of `app/globals.css` — every component
 reads from those variables.
 
 ### Wiring the contact form to a real inbox
-The form currently opens the visitor's email client with the inquiry prefilled
-(no backend required). To send server-side instead, replace the body of
-`handleSubmit` in `components/Contact.js` with a `fetch()` to your form handler
-(Formspree, Resend, a Next.js route handler, etc.).
+Out of date — the form now posts to `/api/contact` and saves to Supabase, and
+staff read submissions at `/admin`. See **Contact form backend and staff
+dashboard** above. The `mailto:` path still exists, but only as the fallback
+when the API call fails.
 
 ### Editing services or FAQs
 Both are plain arrays at the top of `components/Services.js` and
