@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, MapPin, Alert, Lock, CheckCircle, ArrowRight } from "./Icons";
-import { ContactArt } from "./Illustrations";
+import { Mail, MapPin, Alert, Lock, ArrowRight } from "./Icons";
+import { ContactArt, ThankYouArt } from "./Illustrations";
+import { noteOfTheDay } from "./quotes";
 
 import { SITE } from "./site";
 
@@ -55,6 +56,10 @@ export default function Contact({ hideHead = false }) {
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
   const [fallback, setFallback] = useState("");
+  /* Chosen at submit time rather than on render: this is a client component,
+     but computing a date-derived value during the first render would still risk
+     a server/client mismatch. By the time this runs, a person has clicked. */
+  const [note, setNote] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -95,6 +100,7 @@ export default function Contact({ hideHead = false }) {
       }
 
       form.reset();
+      setNote(noteOfTheDay());
       setStatus("sent");
     } catch {
       setFallback(mailtoFor(get));
@@ -167,19 +173,29 @@ export default function Contact({ hideHead = false }) {
             </div>
           </div>
 
+          {status === "sent" ? (
+            <div className="thanks" role="status">
+              <div className="thanks__art"><ThankYouArt /></div>
+              <h3>Thank you for reaching out.</h3>
+              <p>
+                We&rsquo;ve received your message and someone from our team will get
+                back to you as soon as we can. If it&rsquo;s urgent, you can also
+                email us at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+              </p>
+
+              <blockquote className="thanks__note">{note}</blockquote>
+
+              <button
+                className="btn btn-secondary"
+                type="button"
+                onClick={() => setStatus("idle")}
+              >
+                Send another message
+              </button>
+            </div>
+          ) : (
           <form className="form" onSubmit={handleSubmit} noValidate={false}>
             <div aria-live="polite">
-              {status === "sent" && (
-                <div className="form__success" role="status">
-                  <CheckCircle />
-                  <p>
-                    Thank you &mdash; we&rsquo;ve received your message and someone
-                    from our team will follow up. If it&rsquo;s urgent, you can also
-                    email us at <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
-                  </p>
-                </div>
-              )}
-
               {status === "error" && (
                 <div className="form__error" role="alert">
                   <Alert />
@@ -276,6 +292,7 @@ export default function Contact({ hideHead = false }) {
               {status === "sending" ? "Sending…" : <>Send Inquiry <ArrowRight /></>}
             </button>
           </form>
+          )}
         </div>
       </div>
     </section>

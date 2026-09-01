@@ -19,6 +19,11 @@ create table if not exists public.contact_submissions (
                     check (status in ('new', 'in_progress', 'closed')),
   staff_notes       text,
 
+  -- Archiving is separate from `status` on purpose: status is the workflow
+  -- (new → in progress → closed), archiving just hides an inquiry from the
+  -- default view. NULL = active. Nothing is ever hard-deleted.
+  archived_at       timestamptz,
+
   -- abuse control only. The raw IP is never stored: this is a salted SHA-256,
   -- which cannot be reversed back to an address.
   ip_hash           text,
@@ -32,6 +37,9 @@ create index if not exists contact_submissions_created_at_idx
 -- the rate limiter looks up recent rows by hash
 create index if not exists contact_submissions_ip_hash_idx
   on public.contact_submissions (ip_hash, created_at desc);
+
+create index if not exists contact_submissions_archived_idx
+  on public.contact_submissions (archived_at);
 
 -- RLS on with NO policies is deliberate: it means the anon and authenticated
 -- keys can do nothing at all with this table. The website writes to it with the

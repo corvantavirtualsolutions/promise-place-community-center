@@ -18,6 +18,8 @@ async function loadSubmissions() {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!base || !key) return [];
 
+  /* Archived rows are fetched too — the dashboard has an Archived view, and
+     filtering happens client-side so switching tabs costs no round trip. */
   const res = await fetch(
     `${base}/rest/v1/contact_submissions?select=*&order=created_at.desc&limit=500`,
     { headers: { apikey: key, Authorization: `Bearer ${key}` }, cache: "no-store" },
@@ -34,23 +36,5 @@ export default async function AdminPage() {
   if (!user) return <AdminLogin />;
 
   const rows = await loadSubmissions();
-
-  return (
-    <section className="section section--white">
-      <div className="container">
-        <div className="admin__head">
-          <div>
-            <span className="eyebrow">Staff Only</span>
-            <h1>Website inquiries</h1>
-            <p>Signed in as {user.email}</p>
-          </div>
-          <form action="/api/admin/logout" method="post">
-            <button className="btn btn-secondary" type="submit">Sign out</button>
-          </form>
-        </div>
-
-        <AdminTable rows={rows} />
-      </div>
-    </section>
-  );
+  return <AdminTable rows={rows} email={user.email} />;
 }

@@ -1,9 +1,8 @@
-/* The dashboard shares the site's header and footer so staff can get back to
-   the public pages, but the announcement strip is hidden — it is a marketing
-   message aimed at visitors, and it is sticky, so on a work tool it would take
-   up screen for no reason. That hiding is done in globals.css with
-   `body:has(.adminwrap)`, because the root layout has no way to know which
-   route is rendering. */
+/* The dashboard is a private work tool, so it drops the whole public shell —
+   header, announcement strip, footer, back-to-top. Those are hidden in
+   globals.css via `body:has(.adminwrap)`, because the root layout renders them
+   for every route and has no way to know which one is being served. The
+   dashboard supplies its own sticky bar instead. */
 export default function AdminLayout({ children }) {
   return <div className="adminwrap">{children}</div>;
 }

@@ -34,6 +34,13 @@ export async function PATCH(req) {
   if (body.staffNotes !== undefined) {
     patch.staff_notes = String(body.staffNotes).slice(0, 4000) || null;
   }
+  /* "Delete" in the dashboard archives instead of deleting. An inquiry from
+     someone asking for help should not be destroyable by a mis-click, and a
+     clinic may need the record later. archived_at is the only thing that
+     changes, so status and notes survive a round trip to the archive. */
+  if (body.archived !== undefined) {
+    patch.archived_at = body.archived ? new Date().toISOString() : null;
+  }
   if (!Object.keys(patch).length) {
     return Response.json({ error: "Nothing to update." }, { status: 400 });
   }

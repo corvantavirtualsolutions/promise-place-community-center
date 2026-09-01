@@ -227,13 +227,46 @@ JavaScript cannot read it. `/admin` and `/api/` are disallowed in
 `app/robots.js`, and the page sets `robots: { index: false }`.
 
 ### The dashboard
-Filter by status, search across name/email/message, expand a row for the full
-inquiry, set status (New / In progress / Closed), and leave staff notes. Status
-and notes save optimistically and roll back if the request fails. The
-announcement strip is hidden here — see the comment in `app/admin/layout.js`.
+Filter by status or Archived, search across name/email/message, expand a row for
+the full inquiry, set status (New / In progress / Closed), leave staff notes, and
+archive. Status, notes and archiving save optimistically and roll back if the
+request fails.
+
+- **The whole public shell is hidden here** — header, announcement strip, footer,
+  back-to-top, scroll progress — via `body:has(.adminwrap)` in `globals.css`,
+  because the root layout renders them for every route and cannot tell which one
+  is being served. The dashboard supplies its own bar instead.
+- **`.abar` is sticky**: title, signed-in address, sign-out, filters and search
+  all stay put while the list scrolls. It is one element on purpose — two stacked
+  stickies would need a hardcoded top offset that breaks between breakpoints.
+- **"Delete" archives, it never deletes.** It sets `archived_at`; `status` and
+  notes survive the round trip, and Unarchive puts the row straight back. An
+  inquiry from someone asking for help should not be destroyable by a mis-click.
+  There is no hard-delete anywhere in the UI — removing a row for good is a
+  deliberate action in the Supabase dashboard.
+- **`min-width: 0` on `.arow__body dl > div` is load-bearing.** Grid children
+  size to min-content by default, so a long address like
+  `corvantavirtualsolutions@gmail.com` overflowed its track and ran into the
+  phone column. Paired with `overflow-wrap: anywhere` on `dd`.
+
+### After the form is sent
+The form is **replaced** by a thank-you panel (`.thanks`), not topped with a
+success banner: leaving a blank form under a success message reads as "did that
+work?" and invites a duplicate submission. The panel has a waving-person
+illustration, a "Send another message" button that restores the form, and a note
+that changes daily.
+
+Those notes are in `components/quotes.js`, rotated by day of the year. They are
+**written for this site and attributed to nobody**. Quotes get misattributed
+constantly, and putting invented words in a real person's mouth on a mental
+health provider's website is not worth the decoration. They also avoid "just
+think positive" framing — someone who has only just asked a clinic for help
+should not be told to cheer up. Add to the array freely; keep both rules.
 
 ### Setup
-1. Supabase → SQL Editor → run `supabase/schema.sql`.
+1. Supabase → SQL Editor → run `supabase/schema.sql`. If the table already
+   exists from an earlier copy, run `supabase/migration-01-archive.sql` instead
+   to add the archive column.
 2. Supabase → Authentication → Users → add **one** user, the `ADMIN_EMAIL`, with
    "Auto Confirm User" ticked. Then Providers → Email → turn **off** "Enable
    sign ups" so no one else can ever register.

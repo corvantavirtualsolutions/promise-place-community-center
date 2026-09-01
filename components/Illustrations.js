@@ -229,3 +229,51 @@ export function NotFoundArt({ title }) {
     </Svg>
   );
 }
+
+/* Shown after someone sends the contact form. A person waving from inside a
+   heart — warm rather than transactional, which matters more here than on an
+   ordinary "form submitted" screen. */
+export function ThankYouArt({ title = "An illustration of a person waving inside a heart" }) {
+  return (
+    <svg viewBox="0 0 220 200" role="img" aria-label={title}>
+      <defs>
+        <linearGradient id="tyHeart" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#6FD5C2" />
+          <stop offset="100%" stopColor="#8CC8F5" />
+        </linearGradient>
+      </defs>
+
+      <circle cx="34" cy="40" r="7" fill="#FAE3A3" />
+      <circle cx="192" cy="52" r="5" fill="#FFC7C2" />
+      <circle cx="182" cy="150" r="8" fill="#D6CDFB" />
+      <circle cx="28" cy="140" r="5" fill="#BCDFFA" />
+
+      {/* heart */}
+      <path
+        d="M110 178C110 178 30 138 30 88 30 65 48 47 71 47c16 0 29 10 39 27 10-17 23-27 39-27 23 0 41 18 41 41 0 50-80 90-80 90Z"
+        fill="url(#tyHeart)"
+      />
+      <path
+        d="M110 178C110 178 30 138 30 88 30 65 48 47 71 47c16 0 29 10 39 27 10-17 23-27 39-27 23 0 41 18 41 41 0 50-80 90-80 90Z"
+        fill="#fff" opacity=".14"
+      />
+
+      {/* person */}
+      <circle cx="110" cy="97" r="20" fill="#FFE0C7" />
+      <path d="M96 88c0-9 6-15 14-15s14 6 14 15c0 2-28 2-28 0Z" fill="#4A3A32" />
+      <circle cx="103" cy="98" r="2.4" fill="#2E2A28" />
+      <circle cx="117" cy="98" r="2.4" fill="#2E2A28" />
+      <path d="M104 106c3 3 9 3 12 0" stroke="#2E2A28" strokeWidth="2.4"
+            strokeLinecap="round" fill="none" />
+      <path d="M110 117c14 0 24 9 24 21v8H86v-8c0-12 10-21 24-21Z" fill="#fff" />
+
+      {/* waving arm */}
+      <path d="M132 128c8-4 14-12 15-21" stroke="#fff" strokeWidth="9"
+            strokeLinecap="round" fill="none" />
+      <circle cx="149" cy="103" r="8" fill="#FFE0C7" />
+      <g stroke="#F5CE63" strokeWidth="2.6" strokeLinecap="round">
+        <path d="M160 96l6-4M162 104h7M158 88l4-6" />
+      </g>
+    </svg>
+  );
+}
