@@ -3,13 +3,13 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import CTABand from "@/components/CTABand";
 import { GAMES } from "@/components/games/gamesData";
-import { Balloon, Notes, Stones, Mandala, Heart, Bubbles, Ripple, Face, Words } from "@/components/games/GameIcons";
+import { Balloon, Notes, Stones, Mandala, Heart, Bubbles, Ripple, Face, Words, Cairn, Palette, Constellation } from "@/components/games/GameIcons";
 import { Info, ArrowRight, Sparkle } from "@/components/Icons";
 
 export const metadata = {
   title: "Mini Games",
   description:
-    "Nine calming mini activities from Promise Place Community Center — breathing, music, sand, drawing, fidgets, feelings and one gentle game. Free, no sign-up, playable in your browser.",
+    "Twelve calming mini activities from Promise Place Community Center — breathing, music, sand, drawing, colour, stars, fidgets, feelings and one gentle game. Free, no sign-up, playable in your browser.",
 };
 
 const ART = {
@@ -22,6 +22,9 @@ const ART = {
   "how-am-i-feeling": Face,
   "kind-words": Words,
   "calm-catch": Heart,
+  "balance-stones": Cairn,
+  "colour-mixer": Palette,
+  "constellation-connect": Constellation,
 };
 
 export default function MiniGamesPage() {

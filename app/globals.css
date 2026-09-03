@@ -438,6 +438,29 @@ a:hover { color: var(--teal-800); }
 .mobile-nav__secondary a { font-size: .98rem; font-weight: 600; min-height: 46px; }
 .mobile-nav .btn { margin-top: 22px; }
 
+/* `.mobile-nav a` is one specificity point heavier than `.btn-primary`, so it
+   was repainting the Get Started button: body ink on dark teal, and the link
+   rules' space-between shoving the arrow to the far edge with a bottom border
+   under it. Buttons opt back out of the link styling. */
+.mobile-nav a.btn {
+  justify-content: center;
+  gap: 10px;
+  padding: 16px 28px;
+  border-bottom: 0;
+}
+.mobile-nav a.btn-primary,
+.mobile-nav a.btn-primary:hover,
+.mobile-nav a.btn-primary.is-active {
+  color: #fff;
+  padding-left: 28px;
+}
+
+/* The strip is fixed under the header, so opening the menu used to leave it
+   stranded two thirds of the way down the screen, looking like a menu item.
+   It comes back the moment the menu closes. */
+.topbar:has(.mobile-nav.is-open) .announce { display: none; }
+.mobile-nav.is-open { max-height: calc(100dvh - 80px); }
+
 @keyframes menuIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
 
 /* Scroll progress + back to top */
@@ -957,6 +980,10 @@ a:hover { color: var(--teal-800); }
   .footer ul { justify-items: center; }
   .footer .logo { justify-content: center; }
   .footer__bottom { justify-content: center; text-align: center; }
+  /* 26px of text is not a tap target. Padding, not font size, closes the gap. */
+  .footer__legal { gap: 8px 20px; }
+  .footer__legal a, .footer__bottom a { display: inline-flex; align-items: center; min-height: 44px; }
+  .footer ul a { min-height: 44px; display: inline-flex; align-items: center; }
   .hero__actions .btn, .btn-row .btn, .cta-band__actions .btn { width: 100%; }
   .hero__points { justify-content: flex-start; }
   .hero__stat { display: none; }

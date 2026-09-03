@@ -376,7 +376,9 @@
 
 .kw__tile {
   border: 0; cursor: pointer;
-  min-height: 44px; padding: 10px 15px;
+  /* min-width matters as much as min-height here: the bank holds words like
+     "I" and "is", which would otherwise render as 36px slivers. */
+  min-height: 44px; min-width: 44px; padding: 10px 15px;
   border-radius: var(--r-sm);
   background: #fff;
   font-family: var(--font-heading), sans-serif;
@@ -449,11 +451,11 @@
   .sg__controls .btn { width: 100%; }
   /* bigger, not smaller, on touch: 44px is the minimum comfortable tap target */
   .swatch { width: 44px; height: 44px; }
-  .sg__row { grid-template-columns: 18px repeat(8, 1fr); gap: 5px; }
+  .sg__row { grid-template-columns: 15px repeat(8, 1fr); gap: 4px; }
   /* eight columns cannot each be 44px wide on a phone, so the cells give up
      the square shape and take the height instead — a mis-tap only ever hits a
      neighbouring cell, which is harmless and undone by tapping again */
-  .sg__cell { aspect-ratio: auto; height: 46px; min-height: 0; }
+  .sg__cell { aspect-ratio: auto; height: 52px; min-height: 0; }
   .catch__basket { width: 72px; }
 }
 
@@ -470,4 +472,154 @@
      not calmer — so only the hover lift goes */
   .popit__b:hover, .kw__tile:hover, .feel__opts button:hover { transform: none; }
   .catch__toast { animation: none; }
+}
+
+/* ---------- 10. Balance Stones ---------- */
+
+.cairn {
+  width: 100%;
+  height: clamp(340px, 58vw, 460px);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--wash-mint);
+  touch-action: none;      /* the whole surface is an aiming area */
+}
+.cairn__canvas { display: block; width: 100%; height: 100%; cursor: crosshair; }
+.cairn__msg {
+  min-height: 26px;        /* reserved, so the panel does not jump when a stone slides */
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: .95rem;
+  color: var(--ink-3);
+}
+
+/* ---------- 11. Colour Mixer ---------- */
+
+.mix__bowl {
+  display: grid; place-items: center;
+  width: 100%;
+  height: clamp(180px, 34vw, 250px);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--line);
+  transition: background-color .45s var(--ease);
+}
+.mix__label { text-align: center; font-family: var(--font-heading), sans-serif; }
+.mix__label strong { display: block; font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; letter-spacing: -.01em; }
+.mix__label span { display: block; margin-top: 4px; font-size: .86rem; font-variant-numeric: tabular-nums; opacity: .72; }
+.mix__label.is-dark { color: var(--ink); }
+.mix__label.is-light { color: #fff; }
+.mix__empty { margin: 0; color: var(--ink-3); font-size: .95rem; }
+
+.mix__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+.mix__paint {
+  min-height: 62px;
+  border: 1px solid rgba(22,36,45,.14);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  display: grid; align-items: end;
+  padding: 8px;
+  transition: transform .15s var(--ease-out), box-shadow .15s var(--ease-out);
+}
+.mix__paint span {
+  /* The label sits on top of whatever colour the paint is, so it carries its
+     own contrast rather than trusting the swatch underneath it. */
+  display: inline-block;
+  background: rgba(255,255,255,.88);
+  color: var(--ink);
+  border-radius: var(--r-full);
+  padding: 3px 10px;
+  font-family: var(--font-heading), sans-serif;
+  font-size: .78rem; font-weight: 750;
+}
+.mix__paint:hover { transform: translateY(-2px); box-shadow: var(--sh-sm); }
+.mix__paint:active { transform: translateY(1px); }
+.mix__paint:focus-visible { outline: 3px solid var(--teal-600); outline-offset: 2px; }
+
+.mix__kept { margin-top: 26px; border-top: 1px solid var(--line-soft); padding-top: 20px; }
+.mix__kepttitle {
+  display: block; margin-bottom: 10px;
+  font-family: var(--font-heading), sans-serif;
+  font-size: .72rem; font-weight: 800; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+.mix__strip { display: flex; flex-wrap: wrap; gap: 8px; }
+.mix__chip {
+  min-height: 44px; min-width: 74px;
+  border: 1px solid rgba(22,36,45,.14);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  display: grid; place-items: center;
+  padding: 6px 8px;
+}
+.mix__chip span {
+  background: rgba(255,255,255,.88); color: var(--ink);
+  border-radius: var(--r-full); padding: 2px 8px;
+  font-family: var(--font-heading), sans-serif;
+  font-size: .74rem; font-weight: 750;
+}
+.mix__chip:focus-visible { outline: 3px solid var(--teal-600); outline-offset: 2px; }
+
+/* ---------- 12. Constellation Connect ---------- */
+
+.sky {
+  position: relative;
+  width: 100%;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid #223257;
+  background: #111C36;
+}
+.sky__svg { display: block; width: 100%; height: auto; }
+.sky__hit { fill: transparent; cursor: pointer; }
+.sky__hit:focus-visible { outline: none; fill: rgba(191,215,255,.28); }
+.sky__name {
+  position: absolute; inset: auto 0 0 0;
+  margin: 0; text-align: center;
+  /* Stars sit wherever the sky put them, including behind this line. The scrim
+     guarantees the name is readable without moving a single star. */
+  padding: 30px 14px 12px;
+  background: linear-gradient(to top, rgba(17,28,54,.88), rgba(17,28,54,0));
+  font-family: var(--font-heading), sans-serif;
+  font-size: clamp(1rem, 2.6vw, 1.25rem); font-weight: 750;
+  color: #E8F0FF; letter-spacing: .04em;
+  text-shadow: 0 2px 12px rgba(0,0,0,.55);
+  pointer-events: none;
+}
+
+.sky__namebox { margin-top: 18px; display: grid; gap: 6px; justify-items: center; }
+.sky__namebox label {
+  font-family: var(--font-heading), sans-serif;
+  font-size: .8rem; font-weight: 750; color: var(--ink-3);
+}
+.sky__namebox input {
+  width: min(320px, 100%);
+  min-height: 48px;
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-full);
+  background: var(--wash-lilac);
+  font: inherit; font-size: 1rem; color: var(--ink);
+  text-align: center;
+}
+.sky__namebox input:focus-visible { outline: 3px solid var(--teal-600); outline-offset: 2px; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: .45; }
+}
+
+@media (max-width: 620px) {
+  .mix__row { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .mix__paint { min-height: 56px; padding: 6px; }
+  .mix__paint span { font-size: .68rem; padding: 2px 7px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mix__bowl { transition: none; }
 }

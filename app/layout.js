@@ -1,6 +1,7 @@
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import Header from "@/components/Header";
 import ScrollProgress from "@/components/ScrollProgress";
+import ScrollToTop from "@/components/ScrollToTop";
 import PageTransition from "@/components/PageTransition";
 import BackToTop from "@/components/BackToTop";
 import AnnounceBar from "@/components/AnnounceBar";
@@ -68,6 +69,7 @@ export default function RootLayout({ children }) {
           <style>{`.reveal { opacity: 1 !important; transform: none !important; }`}</style>
         </noscript>
         <a className="skip-link" href="#main">Skip to main content</a>
+        <ScrollToTop />
         <ScrollProgress />
         {/* Header and strip share one sticky wrapper so they stay together as
             a single block — no fragile top offset that breaks when the header

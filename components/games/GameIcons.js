@@ -161,3 +161,37 @@ export const Mandala = (p) => (
   </S>
 );
 
+
+export const Cairn = (p) => (
+  <S {...p}>
+    <rect x="8" y="38" width="32" height="5" rx="2.5" fill="#9BAFA8" />
+    <rect x="12" y="28" width="24" height="9" rx="4.5" fill="#8FA3AD" />
+    <rect x="15" y="19" width="18" height="8" rx="4" fill="#A9AFA2" />
+    <rect x="18" y="11" width="12" height="7" rx="3.5" fill="#B3A79B" />
+  </S>
+);
+
+export const Palette = (p) => (
+  <S {...p}>
+    <path d="M10 26a14 14 0 0 1 28 0c0 7-6 12-14 12S10 33 10 26Z" fill="#F4F1EA" stroke="#D8D2C6" strokeWidth="2" />
+    <circle cx="18" cy="23" r="4" fill="#EE6A62" />
+    <circle cx="28" cy="21" r="4" fill="#3BA3E8" />
+    <circle cx="24" cy="30" r="4" fill="#F5CE63" />
+    <circle cx="33" cy="28" r="3.2" fill="#5FBFA8" />
+  </S>
+);
+
+export const Constellation = (p) => (
+  <S {...p}>
+    <g stroke="#8FB8FF" strokeWidth="2" strokeLinecap="round">
+      <path d="M11 32 20 16M20 16l12 6M32 22l6-11M32 22l3 15" />
+    </g>
+    <g fill="#F5CE63">
+      <circle cx="11" cy="32" r="3.4" />
+      <circle cx="20" cy="16" r="4" />
+      <circle cx="32" cy="22" r="3.4" />
+      <circle cx="38" cy="11" r="2.8" />
+      <circle cx="35" cy="37" r="3" />
+    </g>
+  </S>
+);
