@@ -191,14 +191,40 @@ staff   ──GET  /admin ───────▶ page.js  ──▶ Supabase A
                                         └─▶ Supabase REST (read + update)
 ```
 
-### There is no email notification
-By design. **Nobody learns about a new inquiry unless someone opens `/admin`.**
-Somebody at the clinic needs to check it daily. If that turns out not to happen,
-the fix is a notification service, not a bigger banner.
+### Emails (Mailgun)
+After a successful save, two messages go out through Mailgun — `lib/mailgun.js`
+sends, `lib/contactEmails.js` holds the copy:
 
-Because there is no email backup, the client-side `mailto:` fallback is the only
-safety net when the database is unreachable — the form offers the visitor their
-own message back as a pre-filled email. Don't remove it.
+1. **An auto-reply to the visitor.** Confirms receipt, repeats the 911 line,
+   and **never quotes back what they wrote.** Their message may describe
+   symptoms or a crisis, and plain email is not a safe place to put that; it
+   also means a mistyped address leaks nothing to a stranger.
+2. **A notification to `CONTACT_TO_EMAIL`** with the full inquiry, `Reply-To`
+   set to the visitor so hitting reply answers them directly.
+
+Rules that must survive any refactor:
+
+- **Email failure must never fail the request.** The inquiry is already saved by
+  the time we send. Telling someone their message failed when it did not is
+  worse than a missed email. Every send is caught and logged; the visitor still
+  gets a 200.
+- **If Mailgun is unconfigured, nothing is attempted** and the form behaves
+  exactly as it did before. That is the tested no-op path, not an accident.
+- **Auto-replies carry `Auto-Submitted: auto-replied`** plus
+  `X-Auto-Response-Suppress`, and are skipped for `no-reply@`-style addresses
+  and for the clinic's own address. Without that, two autoresponders can talk to
+  each other indefinitely.
+- **`MAILGUN_BASE_URL` carries the region.** A key issued in the EU will not
+  authenticate against `api.mailgun.net`, and the failure looks like a bad key.
+
+The client-side `mailto:` fallback still matters: it is the safety net when the
+**database** is unreachable, which is a different failure from email. Keep it.
+
+### DNS — the one that can break their inbox
+`MAILGUN_DOMAIN` is a **subdomain**: `mg.promiseplacecc.com`. Mailgun asks for MX
+records, and putting those on the root `promiseplacecc.com` would take over
+inbound mail and stop `admin@promiseplacecc.com` receiving anything. The
+subdomain sends; the root's MX records are never touched.
 
 ### Two Supabase keys, used for different things
 - **Service role key** → `/rest/v1/*`. Bypasses row-level security, which is how

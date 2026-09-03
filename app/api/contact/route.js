@@ -1,4 +1,6 @@
 import { createHash } from "node:crypto";
+import { mailgunConfig, canAutoReplyTo, sendMail } from "@/lib/mailgun";
+import { autoReply, staffNotification } from "@/lib/contactEmails";
 
 /* Contact form endpoint.
 
@@ -6,10 +8,14 @@ import { createHash } from "node:crypto";
    bypasses row-level security — never reaches the browser. The client posts
    JSON; this route validates it, saves it, and emails the clinic.
 
-   There is no email notification: inquiries are read in the admin dashboard at
-   /admin. That makes the mailto: fallback on the client the ONLY safety net if
-   the database is unreachable, so the 502 below matters — the form uses it to
-   offer the visitor their message back as a pre-filled email. */
+   After a successful save two emails go out through Mailgun: a confirmation to
+   the visitor, and a copy to the clinic. Both are BEST EFFORT and deliberately
+   cannot fail the request — the inquiry is already in the database by then, and
+   telling someone their message failed when it did not would be worse than a
+   missed email. If Mailgun is not configured, nothing is attempted.
+
+   The mailto: fallback on the client still matters: it is the only safety net
+   when the database itself is unreachable, which is what the 502 below drives. */
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -146,7 +152,45 @@ export async function POST(req) {
     );
   }
 
+  await sendEmails(row);
   return Response.json({ ok: true }, { status: 200 });
+}
+
+/* Fire-and-report. Every failure is logged and swallowed: the visitor has
+   already been told their message went through, because it did. */
+async function sendEmails(row) {
+  if (!mailgunConfig()) return;
+
+  const jobs = [];
+
+  if (canAutoReplyTo(row.email)) {
+    const msg = autoReply({ firstName: row.first_name });
+    jobs.push(
+      sendMail({
+        to: row.email,
+        subject: msg.subject,
+        text: msg.text,
+        html: msg.html,
+        replyTo: process.env.CONTACT_TO_EMAIL,
+        auto: true,          // marks it machine-generated, so no reply loops
+      }).catch((e) => console.error("[contact] auto-reply failed:", e)),
+    );
+  }
+
+  const to = process.env.CONTACT_TO_EMAIL;
+  if (to) {
+    const msg = staffNotification(row);
+    jobs.push(
+      sendMail({
+        to,
+        subject: msg.subject,
+        text: msg.text,
+        replyTo: row.email,  // hitting reply answers the person, not the robot
+      }).catch((e) => console.error("[contact] staff notification failed:", e)),
+    );
+  }
+
+  await Promise.allSettled(jobs);
 }
 
 export function GET() {
