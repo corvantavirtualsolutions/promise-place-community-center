@@ -43,7 +43,7 @@ export default function ServicesTeaser() {
           <span className="eyebrow">Our Services</span>
           <h2>Many kinds of support, one welcoming place.</h2>
           <p>
-            Thirteen services across four areas of care &mdash; for children, adults,
+            Fourteen services across five areas of care &mdash; for children, adults,
             families, and schools.
           </p>
         </Reveal>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Reveal from "./Reveal";
-import { Chat, Video, Leaf, Flame, Clipboard, Compass, Sparkle, Blocks, Shield, School, Sun, ArrowRight } from "./Icons";
+import { Chat, Video, Leaf, Flame, Clipboard, Compass, Sparkle, Blocks, Shield, School, Sun, Users, ArrowRight } from "./Icons";
 
 const GROUPS = [
   {
@@ -37,6 +37,16 @@ const GROUPS = [
       { icon: Sun,    title: "Alternative to Explosion Program", body: "A specialized program offered to schools. Contact us to learn more." },
     ],
   },
+  {
+    /* The fifth area of care. One service rather than three or four, so it
+       renders as a single full-width card instead of a lonely quarter-width one
+       in a four-column row. Add items here and the layout goes back to a grid
+       on its own. */
+    title: "Intensive Outpatient Program", tone: "coral", icon: Users,
+    items: [
+      { icon: Users, title: "Intensive Outpatient Program (IOP)", body: "A structured program for people who need more support than weekly sessions, while continuing to live at home. Contact us to learn more about the program and whether it may be a fit." },
+    ],
+  },
 ];
 
 const DOT = {
@@ -44,6 +54,7 @@ const DOT = {
   sky:   { background: "var(--sky-100)",   color: "var(--sky-700)" },
   sun:   { background: "var(--sun-100)",   color: "var(--sun-700)" },
   grape: { background: "var(--grape-100)", color: "var(--grape-700)" },
+  coral: { background: "var(--coral-100)", color: "var(--coral-700)" },
 };
 
 export default function Services({ hideHead = false }) {
@@ -74,12 +85,12 @@ export default function Services({ hideHead = false }) {
                 <h3>{group.title}</h3>
               </Reveal>
 
-              <div className={`grid ${group.items.length === 3 ? "grid-3" : "grid-4"}`}>
+              <div className={`grid ${group.items.length === 1 ? "" : group.items.length === 3 ? "grid-3" : "grid-4"}`}>
                 {group.items.map((item, i) => {
                   const Icon = item.icon;
                   return (
                     <Reveal key={item.title} dir="up" delay={i * 110}>
-                      <article className={`svc-card svc-card--${group.tone}`}>
+                      <article className={`svc-card svc-card--${group.tone}${group.items.length === 1 ? " svc-card--wide" : ""}`}>
                         <span className={`chip chip--${group.tone}`} style={{ width: 46, height: 46, borderRadius: 14, marginBottom: 15 }}>
                           <Icon style={{ width: 22, height: 22 }} />
                         </span>

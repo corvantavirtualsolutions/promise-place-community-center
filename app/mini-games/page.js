@@ -2,9 +2,8 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import CTABand from "@/components/CTABand";
-import { GAMES } from "@/components/games/gamesData";
-import { Balloon, Notes, Stones, Mandala, Heart, Bubbles, Ripple, Face, Words, Cairn, Palette, Constellation } from "@/components/games/GameIcons";
-import { Info, ArrowRight, Sparkle } from "@/components/Icons";
+import GamesBrowser from "@/components/games/GamesBrowser";
+import { Info, Sparkle } from "@/components/Icons";
 
 export const metadata = {
   title: "Mini Games",
@@ -12,20 +11,6 @@ export const metadata = {
     "Twelve calming mini activities from Promise Place Community Center — breathing, music, sand, drawing, colour, stars, fidgets, feelings and one gentle game. Free, no sign-up, playable in your browser.",
 };
 
-const ART = {
-  "balloon-breath": Balloon,
-  "sound-garden": Notes,
-  "zen-sand-garden": Stones,
-  "mandala-maker": Mandala,
-  "pop-it": Bubbles,
-  "ripple-pond": Ripple,
-  "how-am-i-feeling": Face,
-  "kind-words": Words,
-  "calm-catch": Heart,
-  "balance-stones": Cairn,
-  "colour-mixer": Palette,
-  "constellation-connect": Constellation,
-};
 
 export default function MiniGamesPage() {
   return (
@@ -39,24 +24,7 @@ export default function MiniGamesPage() {
 
       <section className="section section--white">
         <div className="container">
-          <div className="grid grid-3">
-            {GAMES.map((g, i) => {
-              const Art = ART[g.slug];
-              return (
-                <Reveal key={g.slug} dir="up" delay={i * 90}>
-                  <article className={`gcard gcard--${g.tone}`}>
-                    <div className="gcard__art"><Art /></div>
-                    <span className="gcard__kind">{g.kind}</span>
-                    <h3>{g.name}</h3>
-                    <p>{g.blurb}</p>
-                    <Link className="btn btn-primary" href={`/mini-games/${g.slug}`}>
-                      {g.cta} <ArrowRight />
-                    </Link>
-                  </article>
-                </Reveal>
-              );
-            })}
-          </div>
+          <GamesBrowser />
 
           <Reveal dir="fade">
             <div className="more-games">

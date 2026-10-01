@@ -5,7 +5,7 @@ import CTABand from "@/components/CTABand";
 export const metadata = {
   title: "Our Services",
   description:
-    "Therapy, telehealth, assessments, case management, life skills, behavior support, grief counseling, anger management, domestic violence services and school-based mental health support in Indiana.",
+    "Therapy, telehealth, assessments, an Intensive Outpatient Program, case management, life skills, behavior support, grief counseling, anger management, domestic violence services and school-based mental health support in Indiana.",
 };
 
 export default function ServicesPage() {

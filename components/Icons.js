@@ -135,3 +135,11 @@ export const Gamepad = (p) => (
     <path d="M7 11v2.5M5.75 12.25h2.5M15.6 11.4h.01M17.8 13.2h.01" />
   </svg>
 );
+
+export const Search = (p) => (
+  <svg {...base} {...p}><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
+);
+
+export const Close = (p) => (
+  <svg {...base} {...p}><path d="M18 6 6 18M6 6l12 12" /></svg>
+);
