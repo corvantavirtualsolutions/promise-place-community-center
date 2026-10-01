@@ -38,13 +38,12 @@ const GROUPS = [
     ],
   },
   {
-    /* The fifth area of care. One service rather than three or four, so it
-       renders as a single full-width card instead of a lonely quarter-width one
-       in a four-column row. Add items here and the layout goes back to a grid
-       on its own. */
+    /* The fifth area of care, and currently one service. Groups of three or
+       fewer use the three-column grid, so this tile is the same size as the
+       cards in the row above rather than stretching across the container. */
     title: "Intensive Outpatient Program", tone: "coral", icon: Users,
     items: [
-      { icon: Users, title: "Intensive Outpatient Program (IOP)", body: "A structured program for people who need more support than weekly sessions, while continuing to live at home. Contact us to learn more about the program and whether it may be a fit." },
+      { icon: Users, title: "Intensive Outpatient Program (IOP)", body: "A structured program offering more support than weekly sessions, while you continue living at home. Contact us to learn more." },
     ],
   },
 ];
@@ -85,12 +84,12 @@ export default function Services({ hideHead = false }) {
                 <h3>{group.title}</h3>
               </Reveal>
 
-              <div className={`grid ${group.items.length === 1 ? "" : group.items.length === 3 ? "grid-3" : "grid-4"}`}>
+              <div className={`grid ${group.items.length <= 3 ? "grid-3" : "grid-4"}`}>
                 {group.items.map((item, i) => {
                   const Icon = item.icon;
                   return (
                     <Reveal key={item.title} dir="up" delay={i * 110}>
-                      <article className={`svc-card svc-card--${group.tone}${group.items.length === 1 ? " svc-card--wide" : ""}`}>
+                      <article className={`svc-card svc-card--${group.tone}`}>
                         <span className={`chip chip--${group.tone}`} style={{ width: 46, height: 46, borderRadius: 14, marginBottom: 15 }}>
                           <Icon style={{ width: 22, height: 22 }} />
                         </span>

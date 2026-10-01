@@ -601,10 +601,6 @@ a:hover { color: var(--teal-800); }
 .svc-card--sun   { border-top-color: var(--sun-300);   color: var(--sun-500); }
 .svc-card--grape { border-top-color: var(--grape-300); color: var(--grape-500); }
 .svc-card--coral { border-top-color: var(--coral-300); color: var(--coral-500); }
-/* A group holding one service fills the row on its own. Capping the measure
-   stops the sentence running the full width of the container, which at 1140px
-   is roughly twice as long as anything comfortable to read. */
-.svc-card--wide h4, .svc-card--wide p { max-width: 62ch; }
 .svc-card:hover { transform: translateY(-7px); box-shadow: var(--sh-lg); }
 .svc-card:hover .chip { transform: translateY(-3px) rotate(-8deg) scale(1.08); }
 
