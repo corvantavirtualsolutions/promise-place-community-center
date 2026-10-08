@@ -5,7 +5,7 @@ import CTABand from "@/components/CTABand";
 export const metadata = {
   title: "Who We Serve",
   description:
-    "Promise Place Community Center works with children, adults, families, and schools across Indiana, providing mental health and behavioral support at every age and stage.",
+    "Promise Place Community Center works with children, adults, families, and schools across Indiana, providing mental health and behavioral support at every age and stage, plus a shared housing option.",
 };
 
 export default function WhoWeServePage() {
@@ -14,7 +14,7 @@ export default function WhoWeServePage() {
       <PageHero
         eyebrow="Who We Serve"
         title="Support for every member of the family."
-        lede="Mental health looks different at every age. Promise Place works with children, adults, families, and schools across Indiana."
+        lede="Mental health looks different at every age. Promise Place works with children, adults, families, and schools across Indiana, and offers a shared housing option."
         tone="sun"
       />
       <WhoWeServe hideHead />

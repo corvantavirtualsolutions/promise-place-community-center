@@ -1,5 +1,5 @@
 import Reveal from "./Reveal";
-import { ChildArt, AdultArt, FamilyArt, SchoolCardArt } from "./Illustrations";
+import { ChildArt, AdultArt, FamilyArt, SchoolCardArt, HousingArt } from "./Illustrations";
 
 const GROUPS = [
   { art: ChildArt,      tone: "teal",  title: "Children",
@@ -10,6 +10,8 @@ const GROUPS = [
     body: "Services designed to support family well-being and address challenges together." },
   { art: SchoolCardArt, tone: "grape", title: "Schools",
     body: "School-based mental health and behavioral support." },
+  { art: HousingArt,    tone: "sky",   title: "Shared Housing",
+    body: "A shared housing option for individuals who need a supportive place to live. Contact us to learn more." },
 ];
 
 export default function WhoWeServe({ hideHead = false }) {
@@ -22,12 +24,13 @@ export default function WhoWeServe({ hideHead = false }) {
             <h2>Support for every member of the family.</h2>
             <p>
               Mental health looks different at every age. Promise Place works with
-              children, adults, families, and schools across Indiana.
+              children, adults, families, and schools across Indiana, and offers a
+              shared housing option.
             </p>
           </Reveal>
         )}
 
-        <div className="grid grid-4">
+        <div className="grid serve-grid">
           {GROUPS.map((g, i) => {
             const Art = g.art;
             return (

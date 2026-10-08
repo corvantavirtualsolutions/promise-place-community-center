@@ -619,6 +619,14 @@ a:hover { color: var(--teal-800); }
 .serve-card .chip { margin-inline: auto; }
 .serve-card__art { width: 100%; max-width: 150px; margin: 0 auto 14px; }
 
+/* Five cards, so grid-4 is no longer the right shape — it would leave the
+   fifth stranded on a row of its own. Five across on a wide screen, then the
+   same steps the rest of the site uses. */
+.serve-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+@media (max-width: 1140px) { .serve-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 820px)  { .serve-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px)  { .serve-grid { grid-template-columns: 1fr; } }
+
 /* School */
 .school {
   position: relative; overflow: hidden; color: var(--teal-100);

@@ -6,7 +6,7 @@ import { ChevronDown } from "./Icons";
 const ITEMS = [
   {
     q: "What services does Promise Place Community Center provide?",
-    a: "We provide therapy and counseling, assessments, family and child support services, and specialized community services. That includes therapy, telehealth therapy, grief and loss counseling, anger management, mental health assessments, substance abuse assessments, parenting assessments, case management, life skills, behavior management, behavior plans for children, domestic violence services, school-based mental health services, and our Intensive Outpatient Program (IOP).",
+    a: "We provide therapy and counseling, assessments, family and child support services, and specialized community services. That includes therapy, telehealth therapy, grief and loss counseling, anger management, mental health assessments, substance abuse assessments, parenting assessments, case management, life skills, behavior management, behavior plans for children, domestic violence services, school-based mental health services, our Intensive Outpatient Program (IOP), and a shared housing option.",
   },
   {
     q: "Do you provide services for children?",

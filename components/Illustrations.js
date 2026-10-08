@@ -136,6 +136,27 @@ export function SchoolCardArt() {
   );
 }
 
+/* Two lit windows under one roof — the whole idea of shared housing in a
+   picture, and legible at the 150px the serve cards cap the art to. Drawn to
+   match SchoolCardArt so the five cards read as one set. */
+export function HousingArt() {
+  return (
+    <Svg viewBox="0 0 160 120">
+      <circle cx="80" cy="60" r="52" fill={P.skyL} opacity=".5" />
+      <path d="M38 56l42-28 42 28z" fill={P.sky} />
+      <rect x="48" y="56" width="64" height="46" rx="6" fill="#fff" />
+      <rect x="56" y="66" width="17" height="15" rx="3" fill={P.sun} />
+      <rect x="87" y="66" width="17" height="15" rx="3" fill={P.sun} />
+      <rect x="72" y="87" width="16" height="15" rx="3" fill={P.tealD} />
+      <rect x="98" y="36" width="9" height="14" rx="2.5" fill={P.tealD} />
+      <g className="art-sway">
+        <path d="M102.5 33c3.5-3.5 0-7 3.5-10.5" stroke={P.tealL} strokeWidth="3"
+              strokeLinecap="round" fill="none" />
+      </g>
+    </Svg>
+  );
+}
+
 /* ------------------------------------------------------- School (large) */
 export function SchoolArt({ title }) {
   return (
