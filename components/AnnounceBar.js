@@ -19,7 +19,7 @@ export default function AnnounceBar() {
     <aside className="announce" aria-label="Announcement">
       <Link className="container announce__inner" href="/contact">
         <Sparkle />
-        <span>Promise Place Foundation &mdash; Hope Coming Soon</span>
+        <span>Promise Place Foundation of Hope Coming Soon</span>
         <ArrowRight />
       </Link>
     </aside>
