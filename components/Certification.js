@@ -11,8 +11,9 @@ import { Trophy, Stars } from "@/components/Icons";
      five. A five-star row is the universal shape of a customer rating, and next
      to a certification it would read as a review score. These read as an award.
 
-   Its background bridges the hero's cream into the About section's mint, so the
-   band reads as the join between two sections rather than a third stripe. */
+   It is a full-width strip rather than a pill: white between the hero's cream
+   and the About section's mint, with a hairline above and below, so it has real
+   edges and reads as a band across the page. */
 export default function Certification() {
   return (
     <section className="certify" aria-label="Certification">
