@@ -4,22 +4,22 @@ import { Sparkle, ArrowRight } from "@/components/Icons";
 /* Slim announcement strip that sits under the header on every page.
 
    It borrows the shape of a retail promo bar, but this is a mental health
-   provider, not a shop — so it announces that more is coming and offers a
-   conversation, rather than pushing an offer. Deliberately vague: no dates, no
-   named services, nothing that would be a promise the organization has not made.
+   provider, not a shop — so it names what is coming and offers a conversation,
+   rather than pushing an offer. No date attached: "coming soon" is a promise
+   the organization can keep, and a month is one it might not.
 
    The whole strip is the link rather than a separate "Get in touch" anchor.
    That made it one large tap target instead of a 23px-tall inline link, and it
-   stopped the call to action taking a third line of its own on a 375px screen. */
+   stopped the call to action taking a third line of its own on a 375px screen.
+
+   The text is short enough now to need no mobile truncation, so the
+   announce__more span that used to hide the second clause is gone. */
 export default function AnnounceBar() {
   return (
     <aside className="announce" aria-label="Announcement">
       <Link className="container announce__inner" href="/contact">
         <Sparkle />
-        <span>
-          More services and opportunities are coming soon
-          <span className="announce__more"> &mdash; get in touch to hear more</span>
-        </span>
+        <span>Promise Place Foundation &mdash; Hope Coming Soon</span>
         <ArrowRight />
       </Link>
     </aside>

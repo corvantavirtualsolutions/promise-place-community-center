@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import About from "@/components/About";
+import Certification from "@/components/Certification";
 import ServicesTeaser from "@/components/ServicesTeaser";
 import WhoWeServe from "@/components/WhoWeServe";
 import SchoolPromo from "@/components/SchoolPromo";
@@ -36,6 +37,7 @@ export default function Page() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Hero />
+      <Certification />
       <About moreLink />
       <ServicesTeaser />
       <WhoWeServe />

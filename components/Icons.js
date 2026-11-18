@@ -143,3 +143,25 @@ export const Search = (p) => (
 export const Close = (p) => (
   <svg {...base} {...p}><path d="M18 6 6 18M6 6l12 12" /></svg>
 );
+
+export const Trophy = (p) => (
+  <svg {...base} {...p}>
+    <path d="M7 4h10v5a5 5 0 0 1-10 0z" />
+    <path d="M7 6H4.8A1.8 1.8 0 0 0 3 7.8 3.2 3.2 0 0 0 6.2 11H7" />
+    <path d="M17 6h2.2A1.8 1.8 0 0 1 21 7.8 3.2 3.2 0 0 1 17.8 11H17" />
+    <path d="M12 14v3" />
+    <path d="M8.6 20.4h6.8l-.8-2.2a1.2 1.2 0 0 0-1.1-.8h-3a1.2 1.2 0 0 0-1.1.8z" />
+  </svg>
+);
+
+/* Three stars of different sizes, scattered — deliberately NOT a row of five.
+   Five stars in a line is the universal shape of a customer rating, and putting
+   one beside a certification would read as a review score the organization has
+   not earned and does not claim. Scattered, they read as an award seal. */
+export const Stars = (p) => (
+  <svg {...base} fill="currentColor" stroke="none" {...p}>
+    <path d="M12 3.2l1.5 3.6 3.6 1.5-3.6 1.5L12 13.4l-1.5-3.6L6.9 8.3l3.6-1.5z" />
+    <path d="M18.6 14l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z" />
+    <path d="M5.4 15.2l.6 1.5 1.5.6-1.5.6-.6 1.5-.6-1.5-1.5-.6 1.5-.6z" />
+  </svg>
+);
